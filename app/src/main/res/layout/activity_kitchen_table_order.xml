@@ -1,15 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<RelativeLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".KitchenTableOrder">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/borderColor"
+        android:elevation="4dp"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
     <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="8dp"
         android:id="@+id/tableOrderRecycler"
+        android:layout_below="@+id/toolbar"
         android:scrollbars="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
     </android.support.v7.widget.RecyclerView>
+    <Button
+        android:layout_below="@+id/tableOrderRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Complete All"
+        android:background="@color/borderColor"
+        android:textColor="@color/white"
+        android:padding="12dp"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="6dp"
+        android:layout_marginTop="16dp"
+        />
+
 </RelativeLayout>
+</android.support.v4.widget.NestedScrollView>

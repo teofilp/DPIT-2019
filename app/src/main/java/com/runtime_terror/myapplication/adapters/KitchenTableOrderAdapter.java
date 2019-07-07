@@ -27,6 +27,8 @@ public class KitchenTableOrderAdapter extends RecyclerView.Adapter<KitchenTableO
         TextView reqs;
         TextView qty;
         CheckBox prepared;
+
+
         public MyViewHolder(View v) {
             super(v);
             image = v.findViewById(R.id.food_image);
@@ -34,7 +36,6 @@ public class KitchenTableOrderAdapter extends RecyclerView.Adapter<KitchenTableO
             reqs = v.findViewById(R.id.food_reqs);
             qty = v.findViewById(R.id.food_qty);
             prepared = v.findViewById(R.id.food_preparation_completed);
-
         }
 
         public void setImage(String image) {
@@ -56,6 +57,7 @@ public class KitchenTableOrderAdapter extends RecyclerView.Adapter<KitchenTableO
         public void setPrepared(Boolean prepared) {
             this.prepared.setChecked(prepared);
         }
+
     }
 
     public KitchenTableOrderAdapter(List<Food> dataset) {

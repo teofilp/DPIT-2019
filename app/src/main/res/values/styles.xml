@@ -6,6 +6,14 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
     </style>
+    <style name="myToolbar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="toolbarStyle">@style/ToolbarStyle</item>
+    </style>
+    <style name="ToolbarStyle" parent="Widget.AppCompat.Toolbar">
+        <item name="android:titleTextColor">@color/white</item>
+    </style>
+
 
 </resources>
