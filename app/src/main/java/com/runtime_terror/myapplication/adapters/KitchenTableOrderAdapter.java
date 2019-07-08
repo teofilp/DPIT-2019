@@ -50,7 +50,7 @@ public class KitchenTableOrderAdapter extends RecyclerView.Adapter<KitchenTableO
             this.reqs.setText(reqs);
         }
 
-        public void setQty(String qty) {
+        public void setQty(int qty) {
             this.qty.setText("Qty: " + qty);
         }
 

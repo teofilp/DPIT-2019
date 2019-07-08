@@ -4,12 +4,14 @@ public class Food {
     String image;
     String title;
     String reqs;
-    String qty;
-    Boolean prepared;
+    int qty;
+    double price;
+    boolean prepared;
 
-    public Food(String image, String title, String reqs, String qty, Boolean prepared){
+    public Food(String image, String title, double price, String reqs, int qty, boolean prepared){
         this.image = image;
         this.title = title;
+        this.price = price;
         this.reqs = reqs;
         this.qty = qty;
         this.prepared = prepared;
@@ -39,19 +41,27 @@ public class Food {
         this.reqs = reqs;
     }
 
-    public String getQty() {
+    public int getQty() {
         return qty;
     }
 
-    public void setQty(String qty) {
+    public void setQty(int qty) {
         this.qty = qty;
     }
 
-    public Boolean getPrepared() {
+    public boolean getPrepared() {
         return prepared;
     }
 
-    public void setPrepared(Boolean prepared) {
+    public void setPrepared(boolean prepared) {
         this.prepared = prepared;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }
