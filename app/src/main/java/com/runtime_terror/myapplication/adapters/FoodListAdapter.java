@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.runtime_terror.myapplication.Food;
@@ -17,7 +16,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class KitchenTableOrderAdapter extends RecyclerView.Adapter<KitchenTableOrderAdapter.MyViewHolder> {
+public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyViewHolder> {
 
     List<Food> dataset;
     public String purpose = "N/A";
@@ -85,21 +84,21 @@ public class KitchenTableOrderAdapter extends RecyclerView.Adapter<KitchenTableO
 
     }
 
-    public KitchenTableOrderAdapter(List<Food> dataset, String purpose) {
+    public FoodListAdapter(List<Food> dataset, String purpose) {
         this.dataset = dataset;
         this.purpose = purpose;
     }
 
     @NonNull
     @Override
-    public KitchenTableOrderAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+    public FoodListAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.kitchen_food_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.food_item, parent, false);
         return new MyViewHolder(view, purpose);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull KitchenTableOrderAdapter.MyViewHolder myViewHolder, int position) {
+    public void onBindViewHolder(@NonNull FoodListAdapter.MyViewHolder myViewHolder, int position) {
         myViewHolder.setImage(dataset.get(position).getImage());
         myViewHolder.setTitle(dataset.get(position).getTitle());
         myViewHolder.setReqs(dataset.get(position).getReqs());

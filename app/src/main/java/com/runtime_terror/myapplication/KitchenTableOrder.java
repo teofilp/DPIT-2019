@@ -6,11 +6,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
-import com.runtime_terror.myapplication.adapters.KitchenTableOrderAdapter;
+import com.runtime_terror.myapplication.adapters.FoodListAdapter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class KitchenTableOrder extends AppCompatActivity {
     RecyclerView tableOrderRecycler;
@@ -40,7 +38,7 @@ public class KitchenTableOrder extends AppCompatActivity {
         list.add(new Food("someImage", "Some title1", 35,"Some reqs1", 3, true));
         list.add(new Food("someImage", "Some title1", 35,"Some reqs1", 3, true));
 
-        adapter = new KitchenTableOrderAdapter(list, "kitchen");
+        adapter = new FoodListAdapter(list, "kitchen");
         tableOrderRecycler.setAdapter(adapter);
     }
 
