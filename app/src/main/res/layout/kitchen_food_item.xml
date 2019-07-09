@@ -21,31 +21,55 @@
         <!--app:civ_border_width="3dp"-->
         <!--app:civ_border_color="@color/borderColor"-->
 
-
-    <TextView
-        android:id="@+id/food_title"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/food_image"
+        android:id="@+id/title_price_wrapper"
         android:layout_marginTop="12dp"
         android:layout_marginLeft="12dp"
-        android:textStyle="bold"
+        android:layout_toLeftOf="@id/qty_options_wrapper"
+        android:layout_toRightOf="@id/food_image">
+        <TextView
+            android:id="@+id/food_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/food_image"
+            android:textColor="#000"
+            android:textStyle="bold"
+            />
+        <View
+            android:id="@+id/dash"
+            android:layout_width="16dp"
+            android:layout_height="2dp"
+            android:layout_gravity="center_vertical"
+            android:background="#000"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:textStyle="bold"
+            />
+    </LinearLayout>
 
-        />
 
     <TextView
         android:id="@+id/food_reqs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/food_title"
+        android:layout_below="@+id/title_price_wrapper"
         android:layout_toEndOf="@+id/food_image"
+        android:layout_toLeftOf="@+id/qty_options_wrapper"
         android:layout_marginTop="12dp"
         android:layout_marginLeft="12dp"
         android:layout_marginBottom="8dp"
+        android:textColor="#000"
         />
     
     <LinearLayout
-
+        android:id="@+id/qty_options_wrapper"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:orientation="horizontal"
@@ -56,16 +80,29 @@
         <TextView
             android:id="@+id/food_qty"
             android:text="Qty: #3"
+            android:textStyle="bold"
+            android:textColor="#000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginRight="4dp"/>
         <CheckBox
             android:id="@+id/food_preparation_completed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:checked="false"
             android:buttonTint="@color/borderColor"
             />
+        <ImageButton
+            android:id="@+id/options"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginLeft="8dp"
+            android:background="#0000"
+            android:layout_gravity="center_vertical"
+            android:tint="@color/borderColor"
+            android:src="@drawable/ic_options_icon"/>
     </LinearLayout>
 
 </RelativeLayout>

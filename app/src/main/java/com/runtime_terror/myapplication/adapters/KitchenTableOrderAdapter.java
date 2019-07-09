@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,23 +20,43 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class KitchenTableOrderAdapter extends RecyclerView.Adapter<KitchenTableOrderAdapter.MyViewHolder> {
 
     List<Food> dataset;
+    public String purpose = "N/A";
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         CircleImageView image;
         TextView title;
+        View dash;
+        TextView price;
         TextView reqs;
         TextView qty;
         CheckBox prepared;
+        ImageButton options;
 
-
-        public MyViewHolder(View v) {
+        public MyViewHolder(View v, String purpose) {
             super(v);
             image = v.findViewById(R.id.food_image);
             title = v.findViewById(R.id.food_title);
+            dash = v.findViewById(R.id.dash);
+            price = v.findViewById(R.id.price);
             reqs = v.findViewById(R.id.food_reqs);
             qty = v.findViewById(R.id.food_qty);
             prepared = v.findViewById(R.id.food_preparation_completed);
+            options = v.findViewById(R.id.options);
+
+            this.setVisibilities(purpose);
+        }
+
+
+        private void setVisibilities(String purpose){
+            if (purpose.equals("kitchen")){
+                dash.setVisibility(View.GONE);
+                price.setVisibility(View.GONE);
+                options.setVisibility(View.GONE);
+
+            } else if (purpose.equals("client")) {
+                prepared.setVisibility(View.GONE);
+            }
         }
 
         public void setImage(String image) {
@@ -50,8 +71,12 @@ public class KitchenTableOrderAdapter extends RecyclerView.Adapter<KitchenTableO
             this.reqs.setText(reqs);
         }
 
+        public void setPrice(double price) {
+            this.price.setText("$" + price);
+        }
+
         public void setQty(int qty) {
-            this.qty.setText("Qty: " + qty);
+            this.qty.setText("QTY: " + qty);
         }
 
         public void setPrepared(Boolean prepared) {
@@ -60,8 +85,9 @@ public class KitchenTableOrderAdapter extends RecyclerView.Adapter<KitchenTableO
 
     }
 
-    public KitchenTableOrderAdapter(List<Food> dataset) {
+    public KitchenTableOrderAdapter(List<Food> dataset, String purpose) {
         this.dataset = dataset;
+        this.purpose = purpose;
     }
 
     @NonNull
@@ -69,7 +95,7 @@ public class KitchenTableOrderAdapter extends RecyclerView.Adapter<KitchenTableO
     public KitchenTableOrderAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.kitchen_food_item, parent, false);
-        return new MyViewHolder(view);
+        return new MyViewHolder(view, purpose);
     }
 
     @Override
@@ -78,6 +104,7 @@ public class KitchenTableOrderAdapter extends RecyclerView.Adapter<KitchenTableO
         myViewHolder.setTitle(dataset.get(position).getTitle());
         myViewHolder.setReqs(dataset.get(position).getReqs());
         myViewHolder.setQty(dataset.get(position).getQty());
+        myViewHolder.setPrice(dataset.get(position).getPrice());
         myViewHolder.setPrepared(dataset.get(position).getPrepared());
     }
 
@@ -85,4 +112,5 @@ public class KitchenTableOrderAdapter extends RecyclerView.Adapter<KitchenTableO
     public int getItemCount() {
         return dataset.size();
     }
+
 }

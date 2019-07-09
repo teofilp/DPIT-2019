@@ -40,7 +40,7 @@ public class KitchenTableOrder extends AppCompatActivity {
         list.add(new Food("someImage", "Some title1", 35,"Some reqs1", 3, true));
         list.add(new Food("someImage", "Some title1", 35,"Some reqs1", 3, true));
 
-        adapter = new KitchenTableOrderAdapter(list);
+        adapter = new KitchenTableOrderAdapter(list, "kitchen");
         tableOrderRecycler.setAdapter(adapter);
     }
 
