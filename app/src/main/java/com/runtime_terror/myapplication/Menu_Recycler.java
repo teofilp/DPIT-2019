@@ -28,5 +28,6 @@ public class Menu_Recycler extends AppCompatActivity {
         // specify an adapter (see also next example)
         mAdapter = new MyAdapter(myDataset);
         recyclerView.setAdapter(mAdapter);
+
     }
 }
