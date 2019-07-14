@@ -5,4 +5,9 @@
     <color name="colorAccent">#FF4081</color>
     <color name="borderColor">#FF3832</color>
     <color name="white">#FFF</color>
+    <color name="lightGreen">#BF1ACC2C</color>
+    <color name="darkGreen">#BF008C07</color>
+    <color name="yellow">#BFDDD600</color>
+    <color name="orange">#BFF08700</color>
+    <color name="red">#BFE21200</color>
 </resources>

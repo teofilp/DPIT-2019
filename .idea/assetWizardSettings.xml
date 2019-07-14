@@ -14,8 +14,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_options_icon" />
-                            <entry key="sourceFile" value="$USER_HOME$/Downloads/options_icon.svg" />
+                            <entry key="outputName" value="ic_table" />
+                            <entry key="sourceFile" value="C:\Users\Tudor Filp\Downloads\chair.svg" />
                           </map>
                         </option>
                       </PersistentState>
