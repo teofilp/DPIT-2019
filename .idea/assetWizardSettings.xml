@@ -14,8 +14,9 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_table" />
-                            <entry key="sourceFile" value="C:\Users\Tudor Filp\Downloads\chair.svg" />
+                            <entry key="color" value="ffffff" />
+                            <entry key="outputName" value="ic_cocktail" />
+                            <entry key="sourceFile" value="C:\Users\Tudor Filp\Downloads\cocktail.svg" />
                           </map>
                         </option>
                       </PersistentState>

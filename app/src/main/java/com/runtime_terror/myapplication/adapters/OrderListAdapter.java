@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -41,6 +42,8 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyVi
         holder.setTableNumber(ordersList.get(position).getOrderTable());
         holder.setElapsedTime(ordersList.get(position).getOrderDate());
         holder.setCardColor(ordersList.get(position).getOrderList());
+
+        holder.animate(position);
 
         holder.container.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +98,13 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyVi
                 color = context.getResources().getColor(R.color.red);
 
             container.setBackgroundColor(color);
+        }
+
+        public void animate(int position) {
+            if(position % 2 == 0){
+                container.setAnimation(AnimationUtils.loadAnimation(context, R.anim.slide_right));
+            } else
+                container.setAnimation(AnimationUtils.loadAnimation(context, R.anim.slide_left));
         }
     }
 }

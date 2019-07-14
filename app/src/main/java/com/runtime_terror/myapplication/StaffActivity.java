@@ -30,6 +30,9 @@ public class StaffActivity extends AppCompatActivity {
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_hamburger);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_cocktail);
     }
 
     private void setupToolbar() {

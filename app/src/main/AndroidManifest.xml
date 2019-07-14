@@ -23,7 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".KitchenTableOrder" />
+        <activity android:name=".KitchenTableOrder"
+            android:parentActivityName=".StaffActivity"/>
     </application>
 
 </manifest>
