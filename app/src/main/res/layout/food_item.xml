@@ -2,14 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/food_card_bg"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="6dp"
+    android:layout_marginRight="6dp"
+    android:layout_margin="6dp"
+    android:id="@+id/container"
+    android:clickable="true">
 
-    android:layout_height="wrap_content">
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_alignParentBottom="true"
-        android:background="#DDD"/>
-<!--android:background="@drawable/rounded_rect"-->
+<!--android:background="@drawable/food_card_bg"-->
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/food_image"
         android:layout_width="80dp"
