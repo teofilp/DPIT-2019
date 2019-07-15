@@ -1,10 +1,13 @@
 package com.runtime_terror.myapplication.adapters;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -20,8 +23,10 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
 
     List<Food> dataset;
     public String purpose = "N/A";
+    public Context mContext;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+
+    public class MyViewHolder extends RecyclerView.ViewHolder{
         // each data item is just a string in this case
         CircleImageView image;
         TextView title;
@@ -32,7 +37,8 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
         CheckBox prepared;
         ImageButton options;
 
-        public MyViewHolder(View v, String purpose) {
+
+        public MyViewHolder(View v, String purpose){
             super(v);
             image = v.findViewById(R.id.food_image);
             title = v.findViewById(R.id.food_title);
@@ -42,8 +48,8 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
             qty = v.findViewById(R.id.food_qty);
             prepared = v.findViewById(R.id.food_preparation_completed);
             options = v.findViewById(R.id.options);
-
             this.setVisibilities(purpose);
+
         }
 
 
@@ -84,6 +90,12 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
 
     }
 
+    public FoodListAdapter(List<Food> dataset, String purpose, Context context){
+        this.dataset = dataset;
+        this.purpose = purpose;
+        this.mContext = context;
+    }
+
     public FoodListAdapter(List<Food> dataset, String purpose) {
         this.dataset = dataset;
         this.purpose = purpose;
@@ -105,11 +117,44 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
         myViewHolder.setQty(dataset.get(position).getQty());
         myViewHolder.setPrice(dataset.get(position).getPrice());
         myViewHolder.setPrepared(dataset.get(position).getPrepared());
+
+        myViewHolder.options.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //Dialog Setup
+
+                final Dialog dialog = new Dialog(mContext);
+                dialog.setContentView(R.layout.edit_item_dialog);
+                dialog.setTitle("Edit item:");
+                dialog.setCancelable(true);
+
+                //Setup Cancel and Save buttons
+
+                Button saveButton = dialog.findViewById(R.id.saveEditButton);
+                saveButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
+                Button cancelButton = dialog.findViewById(R.id.cancelEditButton);
+                cancelButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+            }
+        });
+
     }
 
     @Override
     public int getItemCount() {
         return dataset.size();
     }
-
 }

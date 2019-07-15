@@ -19,16 +19,16 @@ public class KitchenTableOrder extends AppCompatActivity {
         setContentView(R.layout.activity_kitchen_table_order);
 
         setupToolbar();
-        setupRecylcerAdapter();
+        setupRecyclerAdapter();
     }
 
-    private void setupRecylcerAdapter() {
+    private void setupRecyclerAdapter() {
 
         tableOrderRecycler = findViewById(R.id.tableOrderRecycler);
         tableOrderRecycler.setLayoutManager(new LinearLayoutManager(this));
         tableOrderRecycler.setNestedScrollingEnabled(false);
 
-        ArrayList<Food> list = new ArrayList<Food>();
+        ArrayList<Food> list = new ArrayList<>();
         list.add(new Food("someImage", "Some title1", 35,"Some reqs1", 3, true));
         list.add(new Food("someImage", "Some title1", 35,"Some reqs1", 3, true));
         list.add(new Food("someImage", "Some title1", 35,"Some reqs1", 3, true));

@@ -1,9 +1,11 @@
 package com.runtime_terror.myapplication;
 
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 
 import com.runtime_terror.myapplication.adapters.FoodListAdapter;
 
@@ -15,14 +17,17 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
     private RecyclerView mainList;
     private RecyclerView.Adapter adapter;
+    public static final String TAG = "OrderDetailsActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_details);
         bindMainList();
-        setupAdapterAndData();
+        List<Food> foodList = getFoodData();
+        setupAdapterAndData(foodList);
         setupToolbar();
+
     }
 
     private void bindMainList(){
@@ -30,18 +35,32 @@ public class OrderDetailsActivity extends AppCompatActivity {
         mainList.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    private void setupAdapterAndData(){
+    private List<Food> getFoodData(){
         List<Food> foodList = new ArrayList<>();
         foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false));
         foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false));
         foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false));
         foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false));
-        adapter = new FoodListAdapter(foodList, "client");
+        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false));
+        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false));
+        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false));
+        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false));
+        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false));
+        return foodList;
+    }
+
+    private void setupAdapterAndData(List<Food> foodList){
+
+        adapter = new FoodListAdapter(foodList, "client", this);
         mainList.setAdapter(adapter);
     }
 
     private void setupToolbar(){
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         setTitle("Checkout");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
 }
