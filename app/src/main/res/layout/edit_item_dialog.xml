@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginLeft="12dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
@@ -20,7 +20,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="EDIT ITEM:"
+            android:text="@string/editDialogTitle"
             style="@style/custom_text_view"
             android:textStyle="bold"
             android:layout_marginBottom="4dp"/>
@@ -35,7 +35,7 @@
                 android:id="@+id/qtyLabel"
                 android:layout_height="wrap_content"
                 style="@style/custom_text_view"
-                android:text="Choose Quantity:"
+                android:text="@string/clientQtyChooseLabel"
                 android:layout_alignParentLeft="true"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="16dp"
@@ -61,7 +61,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Special Requirements:"
+            android:text="@string/specialReqsLabel"
             android:layout_marginLeft="0dp"
             android:textColor="@android:color/black"
             android:textSize="@dimen/text_size_medium"/>
@@ -69,7 +69,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="ex: without cheese"
+            android:hint="@string/specialReqsHint"
             android:textSize="@dimen/text_size_medium"
             android:layout_marginBottom="16dp"/>
 
@@ -88,7 +88,7 @@
                 android:layout_gravity="center_vertical"
                 android:textColor="@android:color/black"
                 android:layout_marginLeft="0dp"
-                android:text="Delete item:"
+                android:text="@string/deleteItemLabel"
                 android:layout_weight="0.9"
                 android:textSize="18sp"/>
 
@@ -116,7 +116,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimary"
-                android:text="Cancel"
+                android:text="@string/cancelButton"
                 android:background="@android:color/transparent"
                 android:layout_toLeftOf="@id/saveEditButton"
                 android:paddingRight="0dp"/>
@@ -130,7 +130,7 @@
                 android:layout_marginTop="0dp"
                 android:background="@android:color/transparent"
                 android:paddingRight="0dp"
-                android:text="Save"
+                android:text="@string/saveButton"
                 android:textColor="@color/colorPrimary" />
 
         </RelativeLayout>

@@ -127,7 +127,6 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
 
                 final Dialog dialog = new Dialog(mContext);
                 dialog.setContentView(R.layout.edit_item_dialog);
-                dialog.setTitle("Edit item:");
                 dialog.setCancelable(false);
 
                 //Setup number picker

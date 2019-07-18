@@ -1,11 +1,17 @@
 package com.runtime_terror.myapplication;
 
 
+import android.app.Dialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.runtime_terror.myapplication.adapters.FoodListAdapter;
 
@@ -58,9 +64,48 @@ public class OrderDetailsActivity extends AppCompatActivity {
     private void setupToolbar(){
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle("Checkout");
+        setTitle(R.string.shoppingCartTitle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_order_details_client, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.helpButton) {
+            final Dialog dialog = new Dialog(this);
+            dialog.setContentView(R.layout.help_dialog);
+            dialog.setCancelable(false);
+
+            //Setup Cancel and Call Waiter buttons
+
+            Button callWaiterButton = dialog.findViewById(R.id.callWaiterButton);
+            callWaiterButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
+
+            Button cancelHelpButton = dialog.findViewById(R.id.cancelHelp);
+            cancelHelpButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
+
+            dialog.show();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }

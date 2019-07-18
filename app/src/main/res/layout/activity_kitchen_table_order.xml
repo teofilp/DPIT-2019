@@ -27,7 +27,7 @@
         android:layout_below="@+id/tableOrderRecycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Complete All"
+        android:text="@string/kitchenCompleteAll"
         android:background="@color/borderColor"
         android:textColor="@color/white"
         android:padding="12dp"
