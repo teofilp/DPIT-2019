@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import com.runtime_terror.myapplication.Food;
@@ -127,7 +128,14 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
                 final Dialog dialog = new Dialog(mContext);
                 dialog.setContentView(R.layout.edit_item_dialog);
                 dialog.setTitle("Edit item:");
-                dialog.setCancelable(true);
+                dialog.setCancelable(false);
+
+                //Setup number picker
+
+                NumberPicker quantityPicker = dialog.findViewById(R.id.quantityPicker);
+                quantityPicker.setMinValue(1);
+                quantityPicker.setMaxValue(100);
+                quantityPicker.setWrapSelectorWheel(false);
 
                 //Setup Cancel and Save buttons
 

@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
 
     </style>
+
     <style name="myToolbar" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="toolbarStyle">@style/ToolbarStyle</item>
     </style>
@@ -15,5 +16,9 @@
         <item name="android:titleTextColor">@color/white</item>
     </style>
 
+    <style name="custom_text_view">
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
 
 </resources>
