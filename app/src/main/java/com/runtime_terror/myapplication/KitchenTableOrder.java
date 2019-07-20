@@ -30,16 +30,18 @@ public class KitchenTableOrder extends AppCompatActivity {
         tableOrderRecycler.setNestedScrollingEnabled(false);
 
         ArrayList<Food> list = new ArrayList<Food>();
-        list.add(new Food("someImage", "Some title1", 35,"Some reqs1", 3, true));
-        list.add(new Food("someImage", "Some title1", 35,"Some reqs1", 3, true));
-        list.add(new Food("someImage", "Some title1", 35,"Some reqs1", 3, true));
-        list.add(new Food("someImage", "Some title1", 35,"Some reqs1", 3, true));
-        list.add(new Food("someImage", "Some title1", 35, "Some reqs1", 3, true));
-        list.add(new Food("someImage", "Some title1", 35,"Some reqs1", 3, true));
-        list.add(new Food("someImage", "Some title1", 35,"Some reqs1", 3, true));
-        list.add(new Food("someImage", "Some title1", 35,"Some reqs1", 3, true));
+        list.add(new Food("someImage", "Chicken Cheeseburger", 18,"Some reqs1", 1, false));
+        list.add(new Food("someImage", "Peanut Jelly Burger", 20,"Some reqs1", 2, true));
+        list.add(new Food("someImage", "Veggie Burger", 10,"Some reqs1", 3, true));
+        list.add(new Food("someImage", "Chicken Cheeseburger", 18,"Some reqs1", 1, true));
+        list.add(new Food("someImage", "Peanut Jelly Burger", 20,"Some reqs1", 3, false));
+        list.add(new Food("someImage", "Veggie Burger", 10,"Some reqs1", 2, true));
+        list.add(new Food("someImage", "Chicken Cheeseburger", 18,"Some reqs1", 2, true));
+        list.add(new Food("someImage", "Peanut Jelly Burger", 20,"Some reqs1", 1, true));
+        list.add(new Food("someImage", "Veggie Burger", 10,"Some reqs1", 3, false));
 
-        adapter = new FoodListAdapter(list, "kitchen");
+
+        adapter = new FoodListAdapter(getApplicationContext(), list, "kitchen");
         tableOrderRecycler.setAdapter(adapter);
     }
 

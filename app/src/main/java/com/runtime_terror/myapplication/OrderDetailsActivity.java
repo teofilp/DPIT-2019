@@ -37,7 +37,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
         foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false));
         foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false));
         foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false));
-        adapter = new FoodListAdapter(foodList, "client");
+        adapter = new FoodListAdapter(getApplicationContext(), foodList, "client");
         mainList.setAdapter(adapter);
     }
 
