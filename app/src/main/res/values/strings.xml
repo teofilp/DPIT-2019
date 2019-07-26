@@ -3,7 +3,7 @@
     <string name="kitchenCompleteAll">Complete all</string>
     <string name="orderTotalPrice">Total: </string>
     <string name="orderButton">ORDER</string>
-    <string name="payButton">PAY</string>
+    <string name="payButton">BILL</string>
     <string name="editDialogTitle">EDIT ITEM:</string>
     <string name="clientQtyChooseLabel">Choose Quantity:</string>
     <string name="specialReqsLabel">Special Requirements:</string>

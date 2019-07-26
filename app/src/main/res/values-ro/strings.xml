@@ -3,7 +3,7 @@
     <string name="kitchenCompleteAll">Completează tot</string>
     <string name="orderTotalPrice">Total: </string>
     <string name="orderButton">COMANDĂ</string>
-    <string name="payButton">PLĂTEȘTE</string>
+    <string name="payButton">NOTA DE PLATĂ</string>
     <string name="editDialogTitle">MODIFICARE ARTICOL:</string>
     <string name="clientQtyChooseLabel">Alegeți Cantitate:</string>
     <string name="specialReqsLabel">Cerințe Speciale:</string>
