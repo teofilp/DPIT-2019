@@ -4,17 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.runtime_terror.myapplication.KitchenTableOrder;
 import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.models.Food;
+import com.runtime_terror.myapplication.models.FoodOrder;
 import com.runtime_terror.myapplication.models.Order;
 
 import java.util.Date;
@@ -22,10 +24,10 @@ import java.util.List;
 
 public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyViewHolder> {
 
-    private List<Order> ordersList;
+    private List<? extends Order> ordersList;
     private Context context;
 
-    public OrderListAdapter(Context context, List<Order> ordersList) {
+    public OrderListAdapter(Context context, List<? extends Order> ordersList) {
         this.ordersList = ordersList;
         this.context = context;
     }
@@ -38,19 +40,29 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyVi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.setTableNumber(ordersList.get(position).getOrderTable());
-        holder.setElapsedTime(ordersList.get(position).getOrderDate());
-        holder.setCardColor(ordersList.get(position).getOrderList());
+    public void onBindViewHolder(final @NonNull MyViewHolder holder, final int position) {
+        holder.setTableNumber(ordersList.get(position).getTableNumber());
+        holder.setElapsedTime(ordersList.get(position).getRequestDate());
+        holder.setCardColor(ordersList.get(position).getColor());
 
-        holder.animate(position);
+        if(ordersList.get(position).isClickable())
+            holder.container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    context.startActivity(new Intent(context.getApplicationContext(), KitchenTableOrder.class));
+                }
+            });
 
-        holder.container.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                context.startActivity(new Intent(context.getApplicationContext(), KitchenTableOrder.class));
-            }
-        });
+        if(ordersList.get(position).isClosable())
+            holder.closeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ordersList.remove(holder.getAdapterPosition());
+                    notifyItemRemoved(holder.getAdapterPosition());
+                }
+            });
+        else holder.closeButton.setVisibility(View.GONE);
+
     }
 
     @Override
@@ -62,6 +74,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyVi
         RelativeLayout container;
         TextView tableNumber;
         TextView elapsedTime;
+        ImageButton closeButton;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -69,6 +82,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyVi
             container = (RelativeLayout) itemView;
             tableNumber = itemView.findViewById(R.id.table_number);
             elapsedTime = itemView.findViewById(R.id.elapsed_time);
+            closeButton = itemView.findViewById(R.id.close_button);
 
         }
 
@@ -83,28 +97,10 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyVi
             elapsedTime.setText(time);
         }
 
-        public void setCardColor(List<Food> orderList) {
-
-            int color;
-            if(orderList.size() <= 2)
-                color = context.getResources().getColor(R.color.lightGreen);
-            else if (orderList.size() <= 4)
-                color = context.getResources().getColor(R.color.darkGreen);
-            else if(orderList.size() <= 6)
-                color = context.getResources().getColor(R.color.yellow);
-            else if(orderList.size() <= 10)
-                color = context.getResources().getColor(R.color.orange);
-            else
-                color = context.getResources().getColor(R.color.red);
-
+        public void setCardColor(int cardColor) {
+            int color = context.getResources().getColor(cardColor);
             container.setBackgroundColor(color);
         }
 
-        public void animate(int position) {
-            if(position % 2 == 0){
-                container.setAnimation(AnimationUtils.loadAnimation(context, R.anim.slide_right));
-            } else
-                container.setAnimation(AnimationUtils.loadAnimation(context, R.anim.slide_left));
-        }
     }
 }

@@ -1,35 +1,29 @@
 package com.runtime_terror.myapplication.models;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-public class Order {
-    private List<Food> orderList;
-    private Date orderDate;
-    int tableNumber;
+public abstract class Order {
+    private int tableNumber;
+    private Date requestDate;
 
-    public Order(int tableNumber) {
-        orderDate = new Date();
-        orderList = new ArrayList<>();
+    public Order(int tableNumber){
+        this.tableNumber = tableNumber;
+        requestDate = new Date();
+    }
+
+    public int getTableNumber() {
+        return tableNumber;
+    }
+
+    public void setTableNumber(int tableNumber) {
         this.tableNumber = tableNumber;
     }
 
-    public void addFood(Food item) {
-        orderList.add(item);
+    public Date getRequestDate() {
+        return requestDate;
     }
 
-    public int getOrderTable() {
-        return this.tableNumber;
-    }
-
-    public Date getOrderDate(){
-        return orderDate;
-    }
-
-    public List<Food> getOrderList() {
-        return this.orderList;
-    }
-
-
+    public abstract int getColor();
+    public abstract boolean isClosable();
+    public abstract boolean isClickable();
 }

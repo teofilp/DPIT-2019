@@ -25,14 +25,25 @@ public class StaffActivity extends AppCompatActivity {
 
         StaffPagerAdapter adapter = new StaffPagerAdapter(getSupportFragmentManager());
 
-        adapter.addFragment(new OrderContainerFragment(), "Kitchen");
-        adapter.addFragment(new OrderContainerFragment(), "Bar");
+        OrderContainerFragment kitchen = new OrderContainerFragment();
+        kitchen.setPurpose("food");
+
+        OrderContainerFragment bar = new OrderContainerFragment();
+        bar.setPurpose("food");
+
+        OrderContainerFragment waiter = new OrderContainerFragment();
+        waiter.setPurpose("requests");
+
+        adapter.addFragment(kitchen, "Kitchen");
+        adapter.addFragment(bar, "Bar");
+        adapter.addFragment(waiter, "Waiter");
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_hamburger);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_cocktail);
+        tabLayout.getTabAt(2).setIcon(R.drawable.ic_q_mark);
     }
 
     private void setupToolbar() {
