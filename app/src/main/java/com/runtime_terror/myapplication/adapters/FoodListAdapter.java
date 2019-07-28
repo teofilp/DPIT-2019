@@ -25,7 +25,6 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
     List<Food> dataset;
     public String purpose = "N/A";
     Context context;
-    int lastPosition = -1;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -111,11 +110,6 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
 
     @Override
     public void onBindViewHolder(@NonNull final FoodListAdapter.MyViewHolder myViewHolder, final int position) {
-
-        if(lastPosition < position){
-            lastPosition = position;
-            myViewHolder.applyTranslateAnimation();
-        }
 
         myViewHolder.setImage(dataset.get(position).getImage());
         myViewHolder.setTitle(dataset.get(position).getTitle());
