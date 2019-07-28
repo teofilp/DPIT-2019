@@ -13,7 +13,7 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.runtime_terror.myapplication.Food;
+import com.runtime_terror.myapplication.models.Food;
 import com.runtime_terror.myapplication.R;
 
 import java.util.List;

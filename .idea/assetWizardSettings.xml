@@ -158,9 +158,16 @@
                         </option>
                         <option name="values">
                           <map>
+<<<<<<< HEAD
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="color" value="ffffff" />
+                            <entry key="outputName" value="ic_cocktail" />
+                            <entry key="sourceFile" value="C:\Users\Tudor Filp\Downloads\cocktail.svg" />
+=======
                             <entry key="color" value="ffffff" />
                             <entry key="outputName" value="ic_check_24dp" />
                             <entry key="sourceFile" value="C:\Users\Tudor Filp\Downloads\options_icon.svg" />
+>>>>>>> redesign_food_card
                           </map>
                         </option>
                       </PersistentState>

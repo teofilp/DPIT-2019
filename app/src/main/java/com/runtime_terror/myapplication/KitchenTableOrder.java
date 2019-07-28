@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import com.runtime_terror.myapplication.adapters.FoodListAdapter;
+import com.runtime_terror.myapplication.models.Food;
 
 import java.util.ArrayList;
 
