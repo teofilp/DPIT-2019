@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.Button;
 
 import com.runtime_terror.myapplication.adapters.FoodListAdapter;
@@ -27,10 +28,10 @@ public class KitchenTableOrder extends AppCompatActivity {
         try{
             purpose = getIntent().getStringExtra("purpose");
         } catch (Exception ex) {
-            purpose = "kitchen";
+            purpose = "delivery";
         }
 
-        if(purpose.equals("bill"))
+        if(purpose.equals("operations"))
             completeButton.setText("Done");
 
 
@@ -55,8 +56,29 @@ public class KitchenTableOrder extends AppCompatActivity {
         list.add(new Food("someImage", "Peanut Jelly Burger", 20,"Some reqs1", 1, true));
         list.add(new Food("someImage", "Veggie Burger", 10,"Some reqs1", 3, false));
 
+        if(!isOrderPrepared(list))
+            completeButton.setEnabled(false);
+
         adapter = new FoodListAdapter(getApplicationContext(), list, purpose);
+
+        ((FoodListAdapter) adapter).registerOrderCompleteListener(new OrderCompleteListener() {
+            @Override
+            public void onOrderComplete() {
+                completeButton.setEnabled(true);
+                completeButton.setText("Complete Order");
+            }
+        });
+
         tableOrderRecycler.setAdapter(adapter);
+    }
+
+    private boolean isOrderPrepared(ArrayList<Food> foodList) {
+        int preparedMeals = 0;
+        for(Food food: foodList)
+            if(food.isPrepared())
+                preparedMeals++;
+
+        return preparedMeals == foodList.size();
     }
 
     private void setupToolbar() {
@@ -65,6 +87,10 @@ public class KitchenTableOrder extends AppCompatActivity {
         setTitle("FoodOrder for Table #1");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+    }
+
+    public void completeOrder(View view){
+        // emit a complete order message and delete order from list
     }
 
 

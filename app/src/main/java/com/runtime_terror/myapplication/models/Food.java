@@ -49,7 +49,7 @@ public class Food {
         this.qty = qty;
     }
 
-    public boolean getPrepared() {
+    public boolean isPrepared() {
         return prepared;
     }
 

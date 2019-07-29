@@ -53,6 +53,6 @@ public class FoodOrder extends Order {
 
     @Override
     public String getPurpose() {
-        return "kitchen";
+        return "delivery";
     }
 }

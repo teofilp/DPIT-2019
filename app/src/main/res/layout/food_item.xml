@@ -55,7 +55,6 @@
             />
     </LinearLayout>
 
-
     <TextView
         android:id="@+id/food_reqs"
         android:layout_width="wrap_content"
@@ -93,6 +92,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:checked="false"
+            android:clickable="false"
             android:buttonTint="@color/borderColor"
             />
         <ImageButton
@@ -105,5 +105,6 @@
             android:tint="@color/borderColor"
             android:src="@drawable/ic_options_icon"/>
     </LinearLayout>
+
 
 </RelativeLayout>

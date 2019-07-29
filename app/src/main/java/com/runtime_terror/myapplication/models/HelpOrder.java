@@ -25,7 +25,7 @@ public class HelpOrder extends Order {
 
     @Override
     public String getPurpose() {
-        return "";
+        return "operations";
     }
 
 }

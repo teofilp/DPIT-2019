@@ -25,7 +25,7 @@ public class BillOrder extends Order {
 
     @Override
     public String getPurpose() {
-        return "bill";
+        return "operations";
     }
 
 

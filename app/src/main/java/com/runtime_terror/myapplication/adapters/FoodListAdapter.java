@@ -6,16 +6,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
 import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.runtime_terror.myapplication.OrderCompleteListener;
 import com.runtime_terror.myapplication.models.Food;
 import com.runtime_terror.myapplication.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -23,6 +24,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyViewHolder> {
 
     List<Food> dataset;
+    List<OrderCompleteListener> preparedMealListeners = new ArrayList<>();
     public String purpose = "N/A";
     Context context;
 
@@ -55,12 +57,12 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
 
 
         private void setVisibilities(String purpose){
-            if (purpose.equals("kitchen") || purpose.equals("bill")){
+            if (purpose.equals("delivery") || purpose.equals("operations")){
                 dash.setVisibility(View.GONE);
                 price.setVisibility(View.GONE);
                 options.setVisibility(View.GONE);
 
-                if(purpose.equals("bill"))
+                if(purpose.equals("operations"))
                     prepared.setVisibility(View.GONE);
 
             } else if (purpose.equals("client")) {
@@ -119,22 +121,42 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
         myViewHolder.setReqs(dataset.get(position).getReqs());
         myViewHolder.setQty(dataset.get(position).getQty());
         myViewHolder.setPrice(dataset.get(position).getPrice());
-        myViewHolder.setPrepared(dataset.get(position).getPrepared());
+        myViewHolder.setPrepared(dataset.get(position).isPrepared());
 
-        if(purpose.equals("kitchen"))
+
+        if(purpose.equals("delivery")) {
             myViewHolder.container.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     dataset.get(position).setPrepared(!myViewHolder.prepared.isChecked());
                     myViewHolder.prepared.setChecked(!myViewHolder.prepared.isChecked());
+
+                    if (isOrderComplete())
+                        notifyOrderComplete();
                 }
             });
-
+        }
     }
 
     @Override
     public int getItemCount() {
         return dataset.size();
+    }
+
+    public void registerOrderCompleteListener(OrderCompleteListener listener){
+        preparedMealListeners.add(listener);
+    }
+
+    private boolean isOrderComplete() {
+        for(Food food : dataset)
+            if(!food.isPrepared())
+                return false;
+        return true;
+    }
+
+    public void notifyOrderComplete(){
+        for(OrderCompleteListener listener : preparedMealListeners)
+            listener.onOrderComplete();
     }
 
 
