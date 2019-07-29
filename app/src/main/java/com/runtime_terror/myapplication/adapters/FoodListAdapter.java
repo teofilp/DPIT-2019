@@ -55,10 +55,13 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
 
 
         private void setVisibilities(String purpose){
-            if (purpose.equals("kitchen")){
+            if (purpose.equals("kitchen") || purpose.equals("bill")){
                 dash.setVisibility(View.GONE);
                 price.setVisibility(View.GONE);
                 options.setVisibility(View.GONE);
+
+                if(purpose.equals("bill"))
+                    prepared.setVisibility(View.GONE);
 
             } else if (purpose.equals("client")) {
                 prepared.setVisibility(View.GONE);
@@ -118,13 +121,14 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
         myViewHolder.setPrice(dataset.get(position).getPrice());
         myViewHolder.setPrepared(dataset.get(position).getPrepared());
 
-        myViewHolder.container.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dataset.get(position).setPrepared(!myViewHolder.prepared.isChecked());
-                myViewHolder.prepared.setChecked(!myViewHolder.prepared.isChecked());
-            }
-        });
+        if(purpose.equals("kitchen"))
+            myViewHolder.container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dataset.get(position).setPrepared(!myViewHolder.prepared.isChecked());
+                    myViewHolder.prepared.setChecked(!myViewHolder.prepared.isChecked());
+                }
+            });
 
     }
 

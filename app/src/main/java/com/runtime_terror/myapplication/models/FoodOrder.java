@@ -24,7 +24,6 @@ public class FoodOrder extends Order {
         return this.orderList;
     }
 
-
     @Override
     public int getColor() {
         int color;
@@ -50,5 +49,10 @@ public class FoodOrder extends Order {
     @Override
     public boolean isClickable() {
         return true;
+    }
+
+    @Override
+    public String getPurpose() {
+        return "kitchen";
     }
 }

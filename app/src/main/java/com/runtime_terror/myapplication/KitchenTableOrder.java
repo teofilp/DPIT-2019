@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.widget.Button;
 
 import com.runtime_terror.myapplication.adapters.FoodListAdapter;
 import com.runtime_terror.myapplication.models.Food;
@@ -14,10 +15,24 @@ import java.util.ArrayList;
 public class KitchenTableOrder extends AppCompatActivity {
     RecyclerView tableOrderRecycler;
     RecyclerView.Adapter adapter;
+    String purpose;
+    Button completeButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kitchen_table_order);
+
+        completeButton = findViewById(R.id.complete_all);
+
+        try{
+            purpose = getIntent().getStringExtra("purpose");
+        } catch (Exception ex) {
+            purpose = "kitchen";
+        }
+
+        if(purpose.equals("bill"))
+            completeButton.setText("Done");
+
 
         setupToolbar();
         setupRecylcerAdapter();
@@ -40,8 +55,7 @@ public class KitchenTableOrder extends AppCompatActivity {
         list.add(new Food("someImage", "Peanut Jelly Burger", 20,"Some reqs1", 1, true));
         list.add(new Food("someImage", "Veggie Burger", 10,"Some reqs1", 3, false));
 
-
-        adapter = new FoodListAdapter(getApplicationContext(), list, "kitchen");
+        adapter = new FoodListAdapter(getApplicationContext(), list, purpose);
         tableOrderRecycler.setAdapter(adapter);
     }
 

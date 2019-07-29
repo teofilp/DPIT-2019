@@ -15,10 +15,6 @@ public abstract class Order {
         return tableNumber;
     }
 
-    public void setTableNumber(int tableNumber) {
-        this.tableNumber = tableNumber;
-    }
-
     public Date getRequestDate() {
         return requestDate;
     }
@@ -26,4 +22,5 @@ public abstract class Order {
     public abstract int getColor();
     public abstract boolean isClosable();
     public abstract boolean isClickable();
+    public abstract String getPurpose();
 }

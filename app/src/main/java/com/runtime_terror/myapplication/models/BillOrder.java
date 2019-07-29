@@ -23,5 +23,10 @@ public class BillOrder extends Order {
         return true;
     }
 
+    @Override
+    public String getPurpose() {
+        return "bill";
+    }
+
 
 }

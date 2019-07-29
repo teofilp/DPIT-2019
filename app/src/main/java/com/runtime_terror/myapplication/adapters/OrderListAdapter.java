@@ -49,7 +49,9 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyVi
             holder.container.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    context.startActivity(new Intent(context.getApplicationContext(), KitchenTableOrder.class));
+                    Intent intent = new Intent(context.getApplicationContext(), KitchenTableOrder.class);
+                    intent.putExtra("purpose", ordersList.get(position).getPurpose());
+                    context.startActivity(intent);
                 }
             });
 

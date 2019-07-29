@@ -22,4 +22,10 @@ public class HelpOrder extends Order {
     public boolean isClickable(){
         return false;
     }
+
+    @Override
+    public String getPurpose() {
+        return "";
+    }
+
 }
