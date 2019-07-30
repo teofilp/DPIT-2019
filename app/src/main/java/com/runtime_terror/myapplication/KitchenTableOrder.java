@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -60,11 +61,17 @@ public class KitchenTableOrder extends AppCompatActivity {
 
         adapter = new FoodListAdapter(list, purpose, getApplicationContext());
 
-        ((FoodListAdapter) adapter).registerOrderCompleteListener(new OrderCompleteListener() {
+        ((FoodListAdapter) adapter).registerOrderCompleteListener(new OrderUpdatesListener() {
             @Override
-            public void onOrderComplete() {
-                completeButton.setEnabled(true);
-                completeButton.setText("Complete Order");
+            public void onOrderUpdate(boolean isComplete) {
+                Log.d("isComplete", Boolean.toString(isComplete));
+                if(isComplete) {
+                    completeButton.setEnabled(true);
+                    completeButton.setText("Complete Order");
+                } else {
+                    completeButton.setEnabled(false);
+                    completeButton.setText("Complete");
+                }
             }
         });
         tableOrderRecycler.setAdapter(adapter);

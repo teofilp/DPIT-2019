@@ -16,7 +16,7 @@ import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.runtime_terror.myapplication.OrderCompleteListener;
+import com.runtime_terror.myapplication.OrderUpdatesListener;
 import com.runtime_terror.myapplication.models.Food;
 import com.runtime_terror.myapplication.R;
 
@@ -28,7 +28,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyViewHolder> {
 
     List<Food> dataset;
-    List<OrderCompleteListener> preparedMealListeners = new ArrayList<>();
+    List<OrderUpdatesListener> preparedMealListeners = new ArrayList<>();
     public String purpose = "N/A";
     public Context mContext;
 
@@ -135,8 +135,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
                     dataset.get(position).setPrepared(!myViewHolder.prepared.isChecked());
                     myViewHolder.prepared.setChecked(!myViewHolder.prepared.isChecked());
 
-                    if (isOrderComplete())
-                        notifyOrderComplete();
+                    notifyOrderComplete(isOrderComplete());
                 }
             });
         }
@@ -200,7 +199,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
     public int getItemCount() {
         return dataset.size();
     }
-    public void registerOrderCompleteListener(OrderCompleteListener listener){
+    public void registerOrderCompleteListener(OrderUpdatesListener listener){
         preparedMealListeners.add(listener);
     }
 
@@ -211,9 +210,9 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
         return true;
     }
 
-    public void notifyOrderComplete(){
-        for(OrderCompleteListener listener : preparedMealListeners)
-            listener.onOrderComplete();
+    public void notifyOrderComplete(boolean isComplete){
+        for(OrderUpdatesListener listener : preparedMealListeners)
+            listener.onOrderUpdate(isComplete);
     }
 
 }
