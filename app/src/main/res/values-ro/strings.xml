@@ -15,6 +15,6 @@
     <string name="helpDialogContent">Dacă aveți nelămuriri în legătura cu meniul sau cu aplicația nu ezitați sa chemați un chelner folosind butonul de mai jos</string>
     <string name="callWaiterButton">CHEMAȚI UN CHELNER</string>
     <string name="shoppingCartTitle">Coș de cumpărături</string>
-
+    <string name="noReqs">Nu există cerințe speciale</string>
 
 </resources>

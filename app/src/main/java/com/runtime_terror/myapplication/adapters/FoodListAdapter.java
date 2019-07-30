@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.NumberPicker;
 import android.widget.TextView;
@@ -111,7 +112,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FoodListAdapter.MyViewHolder myViewHolder, int position) {
+    public void onBindViewHolder(@NonNull final FoodListAdapter.MyViewHolder myViewHolder, int position) {
         myViewHolder.setImage(dataset.get(position).getImage());
         myViewHolder.setTitle(dataset.get(position).getTitle());
         myViewHolder.setReqs(dataset.get(position).getReqs());
@@ -131,7 +132,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
 
                 //Setup number picker
 
-                NumberPicker quantityPicker = dialog.findViewById(R.id.quantityPicker);
+                final NumberPicker quantityPicker = dialog.findViewById(R.id.quantityPicker);
                 quantityPicker.setMinValue(1);
                 quantityPicker.setMaxValue(100);
                 quantityPicker.setWrapSelectorWheel(false);
@@ -142,6 +143,18 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
                 saveButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        int qty = quantityPicker.getValue();
+                        myViewHolder.setQty(qty);
+
+                        EditText reqsEditor = dialog.findViewById(R.id.requirementsEditor);
+                        String reqs = reqsEditor.getText().toString();
+                        if(reqs.equals("")){
+                            myViewHolder.setReqs(mContext.getString(R.string.noReqs));
+                        }
+                        else {
+                            myViewHolder.setReqs(reqs);
+                        }
+
                         dialog.dismiss();
                     }
                 });

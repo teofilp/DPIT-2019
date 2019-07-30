@@ -15,4 +15,5 @@
     <string name="helpDialogContent">If you need any information regarding the menu or help with the app please feel free to call one of our waiters using the button below</string>
     <string name="callWaiterButton">CALL WAITER</string>
     <string name="shoppingCartTitle">Cart</string>
+    <string name="noReqs">No special requirements</string>
 </resources>
