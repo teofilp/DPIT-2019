@@ -1,5 +1,6 @@
 package com.runtime_terror.myapplication.adapters;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -7,8 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -26,10 +30,9 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
     List<Food> dataset;
     List<OrderCompleteListener> preparedMealListeners = new ArrayList<>();
     public String purpose = "N/A";
-    Context context;
+    public Context mContext;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-
         RelativeLayout container;
         CircleImageView image;
         TextView title;
@@ -40,7 +43,8 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
         CheckBox prepared;
         ImageButton options;
 
-        public MyViewHolder(View v, String purpose) {
+
+        public MyViewHolder(View v, String purpose){
             super(v);
             container = (RelativeLayout) v;
             image = v.findViewById(R.id.food_image);
@@ -51,8 +55,8 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
             qty = v.findViewById(R.id.food_qty);
             prepared = v.findViewById(R.id.food_preparation_completed);
             options = v.findViewById(R.id.options);
-
             this.setVisibilities(purpose);
+
         }
 
 
@@ -95,16 +99,15 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
         }
 
         public void applyTranslateAnimation() {
-            container.setAnimation(AnimationUtils.loadAnimation(context, R.anim.slide_transition));
+            container.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.slide_transition));
         }
     }
 
-    public FoodListAdapter(Context context, List<Food> dataset, String purpose) {
-        this.context = context;
+    public FoodListAdapter(List<Food> dataset, String purpose, Context context){
         this.dataset = dataset;
         this.purpose = purpose;
+        this.mContext = context;
     }
-
     @NonNull
     @Override
     public FoodListAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
@@ -121,6 +124,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
         myViewHolder.setReqs(dataset.get(position).getReqs());
         myViewHolder.setQty(dataset.get(position).getQty());
         myViewHolder.setPrice(dataset.get(position).getPrice());
+
         myViewHolder.setPrepared(dataset.get(position).isPrepared());
 
 
@@ -136,13 +140,66 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
                 }
             });
         }
+
+        myViewHolder.setPrepared(dataset.get(position).isPrepared());
+
+        myViewHolder.options.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //Dialog Setup
+
+                final Dialog dialog = new Dialog(mContext);
+                dialog.setContentView(R.layout.edit_item_dialog);
+                dialog.setCancelable(false);
+
+                //Setup number picker
+
+                final NumberPicker quantityPicker = dialog.findViewById(R.id.quantityPicker);
+                quantityPicker.setMinValue(1);
+                quantityPicker.setMaxValue(100);
+                quantityPicker.setWrapSelectorWheel(false);
+
+                //Setup Cancel and Save buttons
+
+                Button saveButton = dialog.findViewById(R.id.saveEditButton);
+                saveButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int qty = quantityPicker.getValue();
+                        myViewHolder.setQty(qty);
+
+                        EditText reqsEditor = dialog.findViewById(R.id.requirementsEditor);
+                        String reqs = reqsEditor.getText().toString();
+                        if(reqs.equals("")){
+                            myViewHolder.setReqs(mContext.getString(R.string.noReqs));
+                        }
+                        else {
+                            myViewHolder.setReqs(reqs);
+                        }
+
+                        dialog.dismiss();
+                    }
+                });
+
+                Button cancelButton = dialog.findViewById(R.id.cancelEditButton);
+                cancelButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+            }
+        });
+
     }
 
     @Override
     public int getItemCount() {
         return dataset.size();
     }
-
     public void registerOrderCompleteListener(OrderCompleteListener listener){
         preparedMealListeners.add(listener);
     }
@@ -158,6 +215,5 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
         for(OrderCompleteListener listener : preparedMealListeners)
             listener.onOrderComplete();
     }
-
 
 }

@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">DPIT</string>
+    <string name="kitchenCompleteAll">Complete all</string>
+    <string name="orderTotalPrice">Total: </string>
+    <string name="orderButton">ORDER</string>
+    <string name="payButton">BILL</string>
+    <string name="editDialogTitle">EDIT ITEM:</string>
+    <string name="clientQtyChooseLabel">Choose Quantity:</string>
+    <string name="specialReqsLabel">Special Requirements:</string>
+    <string name="specialReqsHint">e.g. without cheese</string>
+    <string name="deleteItemLabel">Delete Item:</string>
+    <string name="cancelButton">CANCEL</string>
+    <string name="saveButton">SAVE</string>
+    <string name="helpDialogTitle">Need help?</string>
+    <string name="helpDialogContent">If you need any information regarding the menu or help with the app please feel free to call one of our waiters using the button below</string>
+    <string name="callWaiterButton">CALL WAITER</string>
+    <string name="shoppingCartTitle">Cart</string>
+    <string name="noReqs">No special requirements</string>
 </resources>

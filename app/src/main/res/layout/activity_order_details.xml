@@ -1,52 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+<android.support.v4.widget.NestedScrollView
     android:layout_height="match_parent"
-    android:layout_marginTop="5dp"
-    tools:context=".OrderDetailsActivity">
-
-    <android.support.v7.widget.RecyclerView
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/mainOrderList"
-        />
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".OrderDetailsActivity">
 
-    <TextView
-        android:id="@+id/total"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Total: 35$"
-        android:textColor="@android:color/black"
-        android:textSize="24sp"
-        android:layout_below="@+id/mainOrderList"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp"
-         />
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/total"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp">
-        <Button
-            android:id="@+id/orderButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:text="Order"
-            android:textColor="@android:color/black"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="30dp"/>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/borderColor"
+            android:elevation="4dp"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
-        <Button
-            android:id="@+id/payButton"
-            android:layout_width="wrap_content"
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:text="Pay"
-            android:textColor="@android:color/black"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="20dp"/>
-    </LinearLayout>
-</RelativeLayout>
+            android:id="@+id/mainOrderList"
+            android:scrollbars="vertical"
+            android:layout_below="@+id/toolbar"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/mainOrderList"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/orderTotalPrice"
+                android:textColor="@android:color/black"
+                android:textSize="24sp"
+                android:layout_marginTop="12dp"
+                android:layout_above="@id/buttonLayout"
+                android:layout_gravity="center_horizontal"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/buttonLayout"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="8dp"
+                android:weightSum="1">
+
+                <Button
+                    android:id="@+id/orderButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:text="@string/orderButton"
+                    android:textColor="@android:color/white"
+                    android:layout_marginRight="12dp"
+                    android:layout_weight="0.5"/>
+
+                <Button
+                    android:id="@+id/payButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:text="@string/payButton"
+                    android:textColor="@android:color/white"
+                    android:layout_weight="0.5"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</android.support.v4.widget.NestedScrollView>

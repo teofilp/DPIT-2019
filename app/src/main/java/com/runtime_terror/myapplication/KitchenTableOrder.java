@@ -36,15 +36,14 @@ public class KitchenTableOrder extends AppCompatActivity {
 
 
         setupToolbar();
-        setupRecylcerAdapter();
+        setupRecyclerAdapter();
     }
 
-    private void setupRecylcerAdapter() {
+    private void setupRecyclerAdapter() {
 
         tableOrderRecycler = findViewById(R.id.tableOrderRecycler);
         tableOrderRecycler.setLayoutManager(new LinearLayoutManager(this));
         tableOrderRecycler.setNestedScrollingEnabled(false);
-
         ArrayList<Food> list = new ArrayList<Food>();
         list.add(new Food("someImage", "Chicken Cheeseburger", 18,"Some reqs1", 1, false));
         list.add(new Food("someImage", "Peanut Jelly Burger", 20,"Some reqs1", 2, true));
@@ -59,7 +58,7 @@ public class KitchenTableOrder extends AppCompatActivity {
         if(!isOrderPrepared(list))
             completeButton.setEnabled(false);
 
-        adapter = new FoodListAdapter(getApplicationContext(), list, purpose);
+        adapter = new FoodListAdapter(list, purpose, getApplicationContext());
 
         ((FoodListAdapter) adapter).registerOrderCompleteListener(new OrderCompleteListener() {
             @Override
@@ -68,7 +67,6 @@ public class KitchenTableOrder extends AppCompatActivity {
                 completeButton.setText("Complete Order");
             }
         });
-
         tableOrderRecycler.setAdapter(adapter);
     }
 

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/food_card_bg"
     android:layout_height="wrap_content"
@@ -95,15 +97,17 @@
             android:clickable="false"
             android:buttonTint="@color/borderColor"
             />
+
         <ImageButton
             android:id="@+id/options"
             android:layout_width="32dp"
             android:layout_height="32dp"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="8dp"
             android:background="#0000"
-            android:layout_gravity="center_vertical"
-            android:tint="@color/borderColor"
-            android:src="@drawable/ic_options_icon"/>
+            android:onClick="sh"
+            android:src="@drawable/ic_options_icon"
+            android:tint="@color/borderColor" />
     </LinearLayout>
 
 

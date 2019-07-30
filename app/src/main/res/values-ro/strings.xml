@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">DPIT</string>
+    <string name="kitchenCompleteAll">Completează tot</string>
+    <string name="orderTotalPrice">Total: </string>
+    <string name="orderButton">COMANDĂ</string>
+    <string name="payButton">NOTA DE PLATĂ</string>
+    <string name="editDialogTitle">MODIFICARE ARTICOL:</string>
+    <string name="clientQtyChooseLabel">Alegeți Cantitate:</string>
+    <string name="specialReqsLabel">Cerințe Speciale:</string>
+    <string name="specialReqsHint">e.g. fără ciuperci</string>
+    <string name="deleteItemLabel">Ștergere Articol:</string>
+    <string name="cancelButton">ANULARE</string>
+    <string name="saveButton">SALVARE</string>
+    <string name="helpDialogTitle">Aveți nevoie de ajutor?</string>
+    <string name="helpDialogContent">Dacă aveți nelămuriri în legătura cu meniul sau cu aplicația nu ezitați sa chemați un chelner folosind butonul de mai jos</string>
+    <string name="callWaiterButton">CHEMAȚI UN CHELNER</string>
+    <string name="shoppingCartTitle">Coș de cumpărături</string>
+    <string name="noReqs">Nu există cerințe speciale</string>
+
+</resources>
