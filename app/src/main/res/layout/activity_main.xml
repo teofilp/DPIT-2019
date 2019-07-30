@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="18dp"
         android:text="This is going to be the main screen"
+        android:textColor="@color/darkGreen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.486"
         app:layout_constraintLeft_toLeftOf="parent"
