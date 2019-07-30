@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void launchStaffSideActivity(View view){
-        Intent intent = new Intent(this, KitchenTableOrder.class);
+        Intent intent = new Intent(this, StaffActivity.class);
         startActivity(intent);
 
     }
