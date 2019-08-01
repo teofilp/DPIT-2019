@@ -1,5 +1,6 @@
 package com.runtime_terror.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.runtime_terror.myapplication.adapters.OrderListAdapter;
 import com.runtime_terror.myapplication.models.BillOrder;
@@ -27,7 +29,26 @@ public class OrderContainerFragment extends Fragment {
     View view;
     RecyclerView orderRecycler;
     String purpose;
+    OrderListAdapter adapter;
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        int deletePosition;
+        if(resultCode == 2) {
+            try {
+                deletePosition = data.getIntExtra("deletePosition", -1);
+            }catch(Exception ex){
+                Log.e("error", ex.toString());
+                return;
+            }
+
+            if(deletePosition == -1)
+                return; // show a toast saying something went wrong
+
+            adapter.deleteOrder(deletePosition);
+        }
+    }
 
     @Nullable
     @Override
@@ -47,9 +68,10 @@ public class OrderContainerFragment extends Fragment {
     }
 
     private OrderListAdapter getRandomAdapter() {
+
         if(purpose.equals("food"))
             return getRandomFoodAdapter();
-        else if(purpose.equals("requests"))
+        else if(purpose.equals("operations"))
             return getRandomRequestAdapter();
 
         return null;
@@ -68,7 +90,8 @@ public class OrderContainerFragment extends Fragment {
                 requestOrders.add(new HelpOrder(Math.abs(tableRandom.nextInt() % 10)));
         }
 
-        return new OrderListAdapter(getContext(), requestOrders);
+        adapter = new OrderListAdapter(getContext(), requestOrders, this);
+        return adapter;
     }
 
     private OrderListAdapter getRandomFoodAdapter() {
@@ -87,8 +110,7 @@ public class OrderContainerFragment extends Fragment {
             foodOrders.add(foodOrder);
         }
 
-        final OrderListAdapter adapter = new OrderListAdapter(getContext(), foodOrders);
-
+        adapter = new OrderListAdapter(getContext(), foodOrders, this);
         return adapter;
     }
 
@@ -96,3 +118,5 @@ public class OrderContainerFragment extends Fragment {
         this.purpose = purpose;
     }
 }
+
+

@@ -1,10 +1,12 @@
 package com.runtime_terror.myapplication;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import com.runtime_terror.myapplication.adapters.StaffPagerAdapter;
 
@@ -32,7 +34,7 @@ public class StaffActivity extends AppCompatActivity {
         bar.setPurpose("food");
 
         OrderContainerFragment waiter = new OrderContainerFragment();
-        waiter.setPurpose("requests");
+        waiter.setPurpose("operations");
 
         adapter.addFragment(kitchen, "Kitchen");
         adapter.addFragment(bar, "Bar");

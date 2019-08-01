@@ -1,5 +1,6 @@
 package com.runtime_terror.myapplication;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,6 +20,7 @@ public class KitchenTableOrder extends AppCompatActivity {
     RecyclerView.Adapter adapter;
     String purpose;
     Button completeButton;
+    int position;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +30,7 @@ public class KitchenTableOrder extends AppCompatActivity {
 
         try{
             purpose = getIntent().getStringExtra("purpose");
+            position = getIntent().getIntExtra("position", -1);
         } catch (Exception ex) {
             purpose = "delivery";
         }
@@ -56,24 +59,26 @@ public class KitchenTableOrder extends AppCompatActivity {
         list.add(new Food("someImage", "Peanut Jelly Burger", 20,"Some reqs1", 1, true));
         list.add(new Food("someImage", "Veggie Burger", 10,"Some reqs1", 3, false));
 
-        if(!isOrderPrepared(list))
-            completeButton.setEnabled(false);
-
         adapter = new FoodListAdapter(list, purpose, getApplicationContext());
 
-        ((FoodListAdapter) adapter).registerOrderCompleteListener(new OrderUpdatesListener() {
-            @Override
-            public void onOrderUpdate(boolean isComplete) {
-                Log.d("isComplete", Boolean.toString(isComplete));
-                if(isComplete) {
-                    completeButton.setEnabled(true);
-                    completeButton.setText("Complete Order");
-                } else {
-                    completeButton.setEnabled(false);
-                    completeButton.setText("Complete");
+        if(!purpose.equals("operations")) {
+            if (!isOrderPrepared(list))
+                completeButton.setEnabled(false);
+
+            ((FoodListAdapter) adapter).registerOrderCompleteListener(new OrderUpdatesListener() {
+                @Override
+                public void onOrderUpdate(boolean isComplete) {
+                    Log.d("isComplete", Boolean.toString(isComplete));
+                    if (isComplete) {
+                        completeButton.setEnabled(true);
+                        completeButton.setText("Complete Order");
+                    } else {
+                        completeButton.setEnabled(false);
+                        completeButton.setText("Complete");
+                    }
                 }
-            }
-        });
+            });
+        }
         tableOrderRecycler.setAdapter(adapter);
     }
 
@@ -96,6 +101,11 @@ public class KitchenTableOrder extends AppCompatActivity {
 
     public void completeOrder(View view){
         // emit a complete order message and delete order from list
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("deletePosition", position);
+        int result_code = 2;
+        setResult(result_code, resultIntent);
+        finish();
     }
 
 
