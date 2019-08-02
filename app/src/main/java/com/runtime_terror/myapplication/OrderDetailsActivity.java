@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.runtime_terror.myapplication.adapters.FoodListAdapter;
@@ -32,6 +33,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order_details);
         bindMainList();
         List<Food> foodList = getFoodData();
+        computeOrderPrice(foodList);
         setupAdapterAndData(foodList);
         setupToolbar();
 
@@ -109,4 +111,14 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private void computeOrderPrice(List<Food> foodList){
+        double total = 0.0;
+        for(Food food : foodList){
+            total += food.getPrice();
+        }
+
+        ((TextView)findViewById(R.id.total)).setText("Total price: " + total);
+    }
 }
+
