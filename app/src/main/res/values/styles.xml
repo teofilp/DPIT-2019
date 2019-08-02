@@ -1,5 +1,4 @@
 <resources>
-
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
@@ -9,16 +8,22 @@
 
     </style>
 
-    <style name="myToolbar" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="toolbarStyle">@style/ToolbarStyle</item>
-    </style>
-    <style name="ToolbarStyle" parent="Widget.AppCompat.Toolbar">
-        <item name="android:titleTextColor">@color/white</item>
+    <style name="customToolbar">
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">@color/colorAccent</item>
+        <item name="android:elevation">4dp</item>
     </style>
 
     <style name="customTextView">
         <item name="android:textSize">@dimen/text_size_medium</item>
         <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="customBottomButton">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:background">@color/colorAccent</item>
     </style>
 
 </resources>

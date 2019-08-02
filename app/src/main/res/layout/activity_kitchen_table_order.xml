@@ -13,9 +13,7 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/borderColor"
-        android:elevation="4dp"
+        style="@style/customToolbar"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
     <android.support.v7.widget.RecyclerView
@@ -32,13 +30,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/kitchenCompleteAll"
-        android:background="@color/borderColor"
-        android:textColor="@color/white"
-        android:tint="@color/white"
-        app:backgroundTint="@color/borderColor"
-        android:padding="20dp"
+        style="@style/customBottomButton"
         android:layout_below="@id/tableOrderRecycler"
-        android:layout_margin="8dp"
         android:onClick="completeOrder"
         />
 

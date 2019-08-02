@@ -14,9 +14,7 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/borderColor"
-            android:elevation="4dp"
+            style="@style/customToolbar"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
@@ -57,9 +55,9 @@
                     android:id="@+id/orderButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary"
                     android:text="@string/orderButton"
-                    android:textColor="@android:color/white"
+                    style="@style/customBottomButton"
+                    android:padding="4dp"
                     android:layout_marginRight="3dp"
                     android:layout_marginLeft="6dp"
                     android:layout_weight="0.5"/>
@@ -68,9 +66,9 @@
                     android:id="@+id/payButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary"
                     android:text="@string/payButton"
-                    android:textColor="@android:color/white"
+                    style="@style/customBottomButton"
+                    android:padding="4dp"
                     android:layout_weight="0.5"
                     android:layout_marginRight="6dp"
                     android:layout_marginLeft="3dp"/>
