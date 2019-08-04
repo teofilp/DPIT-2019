@@ -1,14 +1,12 @@
 package com.runtime_terror.myapplication;
 
-import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.widget.Toast;
 
-import com.runtime_terror.myapplication.adapters.StaffPagerAdapter;
+import com.runtime_terror.myapplication.adapters.CustomPagerAdapter;
 
 public class StaffActivity extends AppCompatActivity {
     @Override
@@ -25,7 +23,7 @@ public class StaffActivity extends AppCompatActivity {
         ViewPager viewPager = findViewById(R.id.viewPager);
         TabLayout tabLayout = findViewById(R.id.tablayout);
 
-        StaffPagerAdapter adapter = new StaffPagerAdapter(getSupportFragmentManager());
+        CustomPagerAdapter adapter = new CustomPagerAdapter(getSupportFragmentManager());
 
         OrderContainerFragment kitchen = new OrderContainerFragment();
         kitchen.setPurpose("food");
