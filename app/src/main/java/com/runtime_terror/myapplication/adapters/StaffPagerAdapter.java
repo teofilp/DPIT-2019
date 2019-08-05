@@ -31,7 +31,7 @@ public class StaffPagerAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
 //        return fragmentTitleList.get(position);
-        return "";
+        return fragmentTitleList.get(position);
     }
 
     public void addFragment(Fragment fragment, String title){

@@ -34,9 +34,9 @@ public class StaffActivity extends AppCompatActivity {
         OrderContainerFragment waiter = new OrderContainerFragment();
         waiter.setPurpose("requests");
 
-        adapter.addFragment(kitchen, "Kitchen");
-        adapter.addFragment(bar, "Bar");
-        adapter.addFragment(waiter, "Waiter");
+        adapter.addFragment(kitchen, "");
+        adapter.addFragment(bar, "");
+        adapter.addFragment(waiter, "");
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
