@@ -87,7 +87,6 @@ public class Launcher extends AppCompatActivity {
                     setColor(1 - positionOffset);
                     moveIndicator(1 - positionOffset);
                 }
-
             }
 
             @Override
@@ -114,7 +113,6 @@ public class Launcher extends AppCompatActivity {
     }
 
     private void moveIndicator(float fractionFromCenter) {
-        Log.d("fractionFromCenter", Float.toString(indicatorTranslationX));
         indicator.setTranslationX(fractionFromCenter * indicatorTranslationX);
     }
 
