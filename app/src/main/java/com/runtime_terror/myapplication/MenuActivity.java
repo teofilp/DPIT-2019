@@ -1,10 +1,12 @@
 package com.runtime_terror.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.adapters.StaffPagerAdapter;
@@ -19,6 +21,12 @@ public class MenuActivity extends AppCompatActivity {
         setupToolbar();
         setupViewPagerAndTablayout();
     }
+    public void viewOrderDetails(View view){
+        Intent intent = new Intent(this, OrderDetailsActivity.class);
+        startActivity(intent);
+        Toolbar myToolbar = findViewById(R.id.toolbar);
+       setSupportActionBar(myToolbar);
+    }
 
     private void setupViewPagerAndTablayout() {
 
@@ -32,8 +40,7 @@ public class MenuActivity extends AppCompatActivity {
         adapter.addFragment(new CategoriesMenuFragment(), "Main Course");
         adapter.addFragment(new CategoriesMenuFragment(), "Side Dishes");
         adapter.addFragment(new CategoriesMenuFragment(), "Dessert");
-        adapter.addFragment(new CategoriesMenuFragment(), "Alcoholic Drinks");
-        adapter.addFragment(new CategoriesMenuFragment(), "Non-Alcoholic Drinks");
+        adapter.addFragment(new CategoriesMenuFragment(), "Drinks");
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
@@ -44,7 +51,7 @@ public class MenuActivity extends AppCompatActivity {
     private void setupToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle("MENU");
+        setTitle("Restaurant name");
 
     }
 }

@@ -7,7 +7,6 @@
         <item name="colorAccent">@color/colorAccent</item>
 
     </style>
-
     <style name="customToolbar">
         <item name="android:layout_height">?attr/actionBarSize</item>
         <item name="android:background">@color/colorAccent</item>

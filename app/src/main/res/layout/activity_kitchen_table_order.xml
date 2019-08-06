@@ -9,6 +9,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".KitchenTableOrder"
+    android:background="@drawable/food_card_bg"
     >
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"

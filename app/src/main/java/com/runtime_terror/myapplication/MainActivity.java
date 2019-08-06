@@ -1,5 +1,6 @@
 package com.runtime_terror.myapplication;
 
+import android.app.ActivityManager;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        startActivity(new Intent(getApplicationContext(), MenuActivity.class));
+        startActivity(new Intent(getApplicationContext(), DisplayMenuActivity.class));
         findViewById(R.id.tempStaffSide).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void launchClientSideActivity(View view){
-        Intent intent = new Intent(this, OrderDetailsActivity.class);
+        Intent intent = new Intent(this, MenuActivity.class);
         startActivity(intent);
     }
 
