@@ -152,12 +152,47 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
                 dialog.setContentView(R.layout.edit_item_dialog);
                 dialog.setCancelable(false);
 
-                //Setup number picker
+                //Setup qty picker
 
-                final NumberPicker quantityPicker = dialog.findViewById(R.id.quantityPicker);
-                quantityPicker.setMinValue(1);
-                quantityPicker.setMaxValue(100);
-                quantityPicker.setWrapSelectorWheel(false);
+                final ImageButton decreaseButtton = dialog.findViewById(R.id.qtyDecrease);
+                final ImageButton increaseButton = dialog.findViewById(R.id.qtyIncrease);
+                final TextView qtyDisplay = dialog.findViewById(R.id.qtyDisplay);
+
+                qtyDisplay.setText("1");
+
+                final int initialQty = Integer.parseInt(qtyDisplay.getText().toString());
+
+                decreaseButtton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(!qtyDisplay.getText().toString().equals("1")){
+                            int qty = Integer.parseInt(qtyDisplay.getText().toString()) - 1;
+                            qtyDisplay.setText(qty+"");
+                        }
+                    }
+                });
+
+                increaseButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                            int qty = Integer.parseInt(qtyDisplay.getText().toString()) + 1;
+                            qtyDisplay.setText(qty+"");
+                    }
+                });
+
+                //Setup delete button
+
+                ImageButton deleteButton = dialog.findViewById(R.id.deleteButton);
+                deleteButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int position = myViewHolder.getAdapterPosition();
+                        dialog.dismiss();
+                        dataset.remove(position);
+                        notifyItemRemoved(position);
+                    }
+                });
+
 
                 //Setup Cancel and Save buttons
 
@@ -165,8 +200,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
                 saveButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        int qty = quantityPicker.getValue();
-                        myViewHolder.setQty(qty);
+                        myViewHolder.setQty(Integer.parseInt(qtyDisplay.getText().toString()));
 
                         EditText reqsEditor = dialog.findViewById(R.id.requirementsEditor);
                         String reqs = reqsEditor.getText().toString();
@@ -185,6 +219,8 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
                 cancelButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        myViewHolder.setQty(initialQty);
+
                         dialog.dismiss();
                     }
                 });
