@@ -43,19 +43,42 @@
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"/>
 
-            <NumberPicker
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:solidColor="@android:color/white"
-                android:isScrollContainer="true"
-                android:layout_alignParentRight="true"
-                android:id="@+id/quantityPicker"
-                android:layout_alignTop="@id/qtyLabel"
+                android:layout_toRightOf="@id/qtyLabel"
                 android:layout_alignBottom="@id/qtyLabel"
-                android:scaleY="1.50"
-                android:scaleX="1.50"
-                android:paddingRight="0dp"/>
+                android:layout_alignTop="@id/qtyLabel"
+                android:gravity="right"
+                android:id="@+id/qtyPicker"
+                >
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/qtyDecrease"
+                    android:src="@drawable/ic_remove"
+                    android:backgroundTint="@color/white"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/qtyDisplay"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_size_medium"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/qtyIncrease"
+                    android:src="@drawable/ic_add"
+                    android:backgroundTint="@color/white"/>
+
+            </LinearLayout>
+
         </RelativeLayout>
 
         <TextView
@@ -72,7 +95,8 @@
             android:hint="@string/specialReqsHint"
             android:textSize="@dimen/text_size_medium"
             android:layout_marginBottom="16dp"
-            android:id="@+id/requirementsEditor"/>
+            android:id="@+id/requirementsEditor"
+            android:backgroundTint="@color/colorAccent"/>
 
 
         <LinearLayout
@@ -102,7 +126,8 @@
                 android:src="@drawable/ic_delete_item"
                 android:layout_weight="0.1"
                 android:paddingRight="0dp"
-                android:paddingLeft="0dp"/>
+                android:paddingLeft="0dp"
+                android:id="@+id/deleteButton"/>
 
         </LinearLayout>
 
