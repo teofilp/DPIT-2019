@@ -16,5 +16,6 @@
     <string name="callWaiterButton">CHEMAȚI UN CHELNER</string>
     <string name="shoppingCartTitle">Coș de cumpărături</string>
     <string name="noReqs">Nu există cerințe speciale</string>
+    <string name="addToCart">ADĂUGAȚI ÎN COȘ</string>
 
 </resources>
