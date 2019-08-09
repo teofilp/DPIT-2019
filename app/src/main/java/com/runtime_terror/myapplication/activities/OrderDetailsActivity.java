@@ -1,4 +1,4 @@
-package com.runtime_terror.myapplication;
+package com.runtime_terror.myapplication.activities;
 
 
 import android.app.Dialog;
@@ -14,8 +14,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.adapters.FoodListAdapter;
 import com.runtime_terror.myapplication.models.Food;
+import com.runtime_terror.myapplication.models.HelpDialog;
 
 
 import java.util.ArrayList;
@@ -84,29 +86,8 @@ public class OrderDetailsActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.helpButton) {
-            final Dialog dialog = new Dialog(this);
-            dialog.setContentView(R.layout.help_dialog);
-            dialog.setCancelable(false);
-
-            //Setup Cancel and Call Waiter buttons
-
-            Button callWaiterButton = dialog.findViewById(R.id.callWaiterButton);
-            callWaiterButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    dialog.dismiss();
-                }
-            });
-
-            Button cancelHelpButton = dialog.findViewById(R.id.cancelHelp);
-            cancelHelpButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    dialog.dismiss();
-                }
-            });
-
-            dialog.show();
+            HelpDialog dialog = new HelpDialog(this);
+            dialog.setupDialog();
         }
 
         return super.onOptionsItemSelected(item);
