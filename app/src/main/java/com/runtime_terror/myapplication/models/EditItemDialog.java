@@ -8,7 +8,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.runtime_terror.myapplication.EditItemInterface;
+import com.runtime_terror.myapplication.interfaces.EditItemInterface;
 import com.runtime_terror.myapplication.R;
 
 public class EditItemDialog extends Dialog {

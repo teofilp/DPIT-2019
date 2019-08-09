@@ -1,6 +1,5 @@
 package com.runtime_terror.myapplication.adapters;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -8,16 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.runtime_terror.myapplication.EditItemInterface;
-import com.runtime_terror.myapplication.OrderUpdatesListener;
+import com.runtime_terror.myapplication.interfaces.EditItemInterface;
+import com.runtime_terror.myapplication.interfaces.OrderUpdatesListener;
 import com.runtime_terror.myapplication.models.EditItemDialog;
 import com.runtime_terror.myapplication.models.Food;
 import com.runtime_terror.myapplication.R;
@@ -186,7 +182,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
             public void onClick(View view) {
                 //Dialog Setup
                 final EditItemDialog dialog = new EditItemDialog(mContext, myViewHolder);
-                dialog.setVisibilities("addToCart");
+                dialog.setVisibilities("editItem");
                 dialog.setupDialog();
             }
         });

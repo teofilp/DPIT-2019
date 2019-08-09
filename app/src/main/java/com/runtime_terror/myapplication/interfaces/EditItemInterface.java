@@ -1,4 +1,4 @@
-package com.runtime_terror.myapplication;
+package com.runtime_terror.myapplication.interfaces;
 
 import java.util.List;
 
