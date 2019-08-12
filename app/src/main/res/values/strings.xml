@@ -16,6 +16,5 @@
     <string name="callWaiterButton">CALL WAITER</string>
     <string name="shoppingCartTitle">Cart</string>
     <string name="noReqs">No special requirements</string>
-
-    <string name="addToCartButton" >ADD TO CART</string>
+    <string name="addToCart">ADD TO CART</string>
 </resources>

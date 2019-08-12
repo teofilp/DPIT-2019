@@ -1,4 +1,4 @@
-package com.runtime_terror.myapplication;
+package com.runtime_terror.myapplication.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.models.Food;
 import com.runtime_terror.myapplication.adapters.MenuItemListAdapter;
 

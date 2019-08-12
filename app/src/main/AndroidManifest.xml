@@ -16,11 +16,9 @@
             android:parentActivityName=".MenuActivity" />
         <activity android:name=".MenuActivity"></activity>
         <activity
-            android:name=".OrderDetailsActivity"
-            android:parentActivityName=".DisplayMenuActivity" />
-        <activity
-            android:name=".DisplayMenuActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name=".activities.OrderDetailsActivity"
+            android:parentActivityName=".activities.MenuActivity" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,8 +27,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".KitchenTableOrder"
-            android:parentActivityName=".StaffActivity"/>
+        <activity android:name=".activities.KitchenTableOrder"
+            android:parentActivityName=".activities.StaffActivity"/>
 </application>
 
 </manifest>
