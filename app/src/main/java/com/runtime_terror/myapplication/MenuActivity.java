@@ -40,7 +40,7 @@ public class MenuActivity extends AppCompatActivity {
         adapter.addFragment(new CategoriesMenuFragment(), "Main Course");
         adapter.addFragment(new CategoriesMenuFragment(), "Side Dishes");
         adapter.addFragment(new CategoriesMenuFragment(), "Dessert");
-        adapter.addFragment(new CategoriesMenuFragment(), "Drinks");
+        adapter.addFragment(new DrinksCategoriesFragment(),"Drinks");
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
