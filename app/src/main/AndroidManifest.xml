@@ -27,6 +27,7 @@
         <activity
             android:name=".KitchenTableOrder"
             android:parentActivityName=".StaffActivity" />
+        <activity android:name=".SignupActivity"/>
     </application>
 
 </manifest>
