@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.runtime_terror.myapplication.adapters.StaffPagerAdapter;
+import com.runtime_terror.myapplication.fragments.CategoriesMenuFragment;
 
 
 public class DrinksCategoriesFragment extends Fragment {

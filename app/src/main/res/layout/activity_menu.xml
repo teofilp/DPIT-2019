@@ -24,6 +24,7 @@
         android:layout_centerVertical="true"
         android:layout_alignTop="@+id/toolbar"
         android:layout_above="@+id/tab_layout"
+        android:layout_alignRight="@+id/cartButton"
         android:background="@color/colorPrimary"
         android:src="@drawable/ic_help_button" />
 
@@ -53,6 +54,7 @@
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:borderWidth="0dp"
         android:src="@drawable/ic_cart_icon_white"
         android:backgroundTint="@color/colorPrimary"
         android:layout_alignParentEnd="true"

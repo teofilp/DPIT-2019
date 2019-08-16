@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.runtime_terror.myapplication.DrinksCategoriesFragment;
 import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.adapters.StaffPagerAdapter;
 import com.runtime_terror.myapplication.fragments.CategoriesMenuFragment;
@@ -61,7 +62,7 @@ public class MenuActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         setTitle("Restaurant name");
 
-        ImageButton helpButton = findViewById(R.id.placeholderButton);
+        ImageButton helpButton = findViewById(R.id.imageButton);
         helpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
