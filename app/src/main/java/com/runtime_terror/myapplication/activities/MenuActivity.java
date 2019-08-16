@@ -1,19 +1,28 @@
 package com.runtime_terror.myapplication.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageButton;
 
 import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.adapters.StaffPagerAdapter;
 import com.runtime_terror.myapplication.fragments.CategoriesMenuFragment;
+import com.runtime_terror.myapplication.models.HelpDialog;
 
 
 public class MenuActivity extends AppCompatActivity {
+
+    private Context mContext;
+    private Intent mIntent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,12 +30,10 @@ public class MenuActivity extends AppCompatActivity {
 
         setupToolbar();
         setupViewPagerAndTablayout();
-    }
-    public void viewOrderDetails(View view){
-        Intent intent = new Intent(this, OrderDetailsActivity.class);
-        startActivity(intent);
-        Toolbar myToolbar = findViewById(R.id.toolbar);
-       setSupportActionBar(myToolbar);
+        setupCartButton();
+
+        mContext = this;
+        mIntent = new Intent(this,OrderDetailsActivity.class);
     }
 
     private void setupViewPagerAndTablayout() {
@@ -54,5 +61,25 @@ public class MenuActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         setTitle("Restaurant name");
 
+        ImageButton helpButton = findViewById(R.id.placeholderButton);
+        helpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HelpDialog helpDialog = new HelpDialog(mContext);
+                helpDialog.setupDialog();
+            }
+        });
+
+    }
+
+    private void setupCartButton(){
+
+        FloatingActionButton cartButton = findViewById(R.id.cartButton);
+        cartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(mIntent);
+            }
+        });
     }
 }

@@ -25,25 +25,7 @@
         android:layout_alignTop="@+id/toolbar"
         android:layout_above="@+id/tab_layout"
         android:background="@color/colorPrimary"
-        app:srcCompat="@drawable/ic_help_button"
-        android:layout_alignRight="@+id/cartFloatingActionButton"
-
-        android:clickable="true"
-        />
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/cartFloatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="140dp"
-        android:backgroundTint="@color/colorPrimary"
-        android:onClick="viewOrderDetails"
-        android:src="@drawable/ic_cart_icon_white"
-        app:borderWidth="0dp"
-        
-        />
+        android:src="@drawable/ic_help_button" />
 
 
 
@@ -68,6 +50,14 @@
         android:background="@drawable/food_card_bg"
         android:layout_below="@id/tab_layout"/>
 
-
-
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_cart_icon_white"
+        android:backgroundTint="@color/colorPrimary"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/cartButton"/>
 </RelativeLayout>
