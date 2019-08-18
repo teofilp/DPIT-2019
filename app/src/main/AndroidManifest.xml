@@ -10,13 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
-        <activity android:name=".activities.StaffActivity"></activity>
-        <activity android:name=".activities.MenuActivity"></activity>
+        <activity android:name=".activities.StaffActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".activities.MenuActivity"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activities.OrderDetailsActivity"
-            android:parentActivityName=".activities.MenuActivity" />
+            android:parentActivityName=".activities.MenuActivity"
+            android:screenOrientation="portrait"/>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,7 +29,8 @@
         </activity>
 
         <activity android:name=".activities.KitchenTableOrder"
-            android:parentActivityName=".activities.StaffActivity"/>
+            android:parentActivityName=".activities.StaffActivity"
+            android:screenOrientation="portrait"/>
 </application>
 
 </manifest>
