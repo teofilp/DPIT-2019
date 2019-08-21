@@ -36,4 +36,9 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
 
+    implementation 'com.google.firebase:firebase-firestore:21.0.0'// firestore
+    implementation 'com.google.firebase:firebase-storage:19.0.0'// storage
+    implementation 'com.google.firebase:firebase-auth:19.0.0'// It's for authentication, but I added it to see if it works
+
 }
+apply plugin: 'com.google.gms.google-services'
