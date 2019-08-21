@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "395802154846",
+    "firebase_url": "https://runtimeterror-c7527.firebaseio.com",
+    "project_id": "runtimeterror-c7527",
+    "storage_bucket": "runtimeterror-c7527.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:395802154846:android:bf67b2f53d56d0e2",
+        "android_client_info": {
+          "package_name": "com.runtime_terror.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "395802154846-q8i6k6t4dauum9pjuvs0codkcq4n9m7d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.runtime_terror.myapplication",
+            "certificate_hash": "e20a78cf42ff5cac49c0f5fa46a7bca19cedcf50"
+          }
+        },
+        {
+          "client_id": "395802154846-qgkq7io6o7goqd6jh4ggut196bc27jpv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkwqj52or-TWDdgRaUZsRNTImk5l6U6eM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "395802154846-qgkq7io6o7goqd6jh4ggut196bc27jpv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
