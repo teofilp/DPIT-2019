@@ -17,7 +17,7 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = 1.8// java
+        sourceCompatibility = 1.8// Java
         targetCompatibility = 1.8
     }
 }
@@ -36,8 +36,11 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
 
-    implementation 'com.google.firebase:firebase-firestore:21.0.0'// firestore
-    implementation 'com.google.firebase:firebase-storage:19.0.0'// storage
+    implementation 'com.google.firebase:firebase-firestore:21.0.0'// Firestore
+    implementation 'com.google.firebase:firebase-storage:19.0.0'// Storage
+    implementation 'com.github.bumptech.glide:glide:4.9.0'// Glide - for downloading images and other files from Storage
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    implementation 'com.firebaseui:firebase-ui-storage:5.0.0'// UI - used with Glide to make it work.
     implementation 'com.google.firebase:firebase-auth:19.0.0'// It's for authentication, but I added it to see if it works
 
 }
