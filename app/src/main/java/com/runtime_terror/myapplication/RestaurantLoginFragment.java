@@ -66,6 +66,7 @@ public class RestaurantLoginFragment extends Fragment {
     }
 
     public void login() {
+        startActivity(new Intent(getContext(), StaffActivity.class));
         Log.d(TAG, "Login");
 
         if (!validate()) {
