@@ -1,7 +1,7 @@
 package com.runtime_terror.myapplication;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class AddToCartActivity extends AppCompatActivity {
     @Override

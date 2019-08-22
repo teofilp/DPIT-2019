@@ -47,7 +47,7 @@ public class EditItemDialog extends Dialog {
         if(purpose.equals("addToCart")){
             deleteLabel.setVisibility(View.GONE);
             deleteButton.setVisibility(View.GONE);
-            saveButton.setText(R.string.addToCart);
+            saveButton.setText(R.string.addToCartButton);
         }
     }
 
