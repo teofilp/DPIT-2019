@@ -96,11 +96,12 @@ public class BarcodeFragment extends Fragment {
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
 
                 if(barcodes.size() != 0){
-                    String menuPath = barcodes.valueAt(0).displayValue;
-                    Log.d("scanned", menuPath);
+                    String barcodeData = barcodes.valueAt(0).displayValue;
+                    Log.d("scanned", barcodeData);
                     Intent intent = new Intent(getContext(), DisplayMenuActivity.class);
-                    intent.putExtra(EXTRA_MESSAGE, menuPath);
+                    intent.putExtra(EXTRA_MESSAGE, barcodeData);
                     startActivity(intent);
+                    cameraSource.stop();
                 }
             }
         });
