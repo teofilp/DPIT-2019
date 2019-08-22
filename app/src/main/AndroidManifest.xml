@@ -9,15 +9,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".Launcher"></activity>
-        <activity android:name=".StaffActivity" />
+        <activity android:name=".Launcher"
+            android:screenOrientation="portrait" ></activity>
+        <activity android:name=".StaffActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".OrderDetailsActivity"
-            android:parentActivityName=".DisplayMenuActivity" />
+            android:parentActivityName=".DisplayMenuActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".DisplayMenuActivity"
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".MainActivity">
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,8 +31,10 @@
         </activity>
         <activity
             android:name=".KitchenTableOrder"
-            android:parentActivityName=".StaffActivity" />
-        <activity android:name=".SignupActivity"/>
+            android:parentActivityName=".StaffActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".SignupActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

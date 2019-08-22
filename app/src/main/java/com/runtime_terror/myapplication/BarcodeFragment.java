@@ -1,6 +1,7 @@
 package com.runtime_terror.myapplication;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -23,6 +24,8 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
+
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class BarcodeFragment extends Fragment {
 
@@ -93,7 +96,11 @@ public class BarcodeFragment extends Fragment {
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
 
                 if(barcodes.size() != 0){
-                    Log.d("found something", barcodes.valueAt(0).displayValue);
+                    String menuPath = barcodes.valueAt(0).displayValue;
+                    Log.d("scanned", menuPath);
+                    Intent intent = new Intent(getContext(), DisplayMenuActivity.class);
+                    intent.putExtra(EXTRA_MESSAGE, menuPath);
+                    startActivity(intent);
                 }
             }
         });
