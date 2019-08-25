@@ -83,7 +83,7 @@ public class OrderContainerFragment extends Fragment {
             FoodOrder foodOrder = new FoodOrder(tableNumber);
 
             for(int j=0; j<=max; j++){
-                foodOrder.addFood(new Food("someImage", "Some title1", 35, "Some reqs1", 3, true));
+                foodOrder.addFood(new Food("someImage", "Some title1", 35, "Some reqs1", 3, true,"description"));
             }
             foodOrders.add(foodOrder);
         }

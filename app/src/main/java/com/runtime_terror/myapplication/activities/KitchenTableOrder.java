@@ -48,15 +48,15 @@ public class KitchenTableOrder extends AppCompatActivity {
         tableOrderRecycler.setLayoutManager(new LinearLayoutManager(this));
         tableOrderRecycler.setNestedScrollingEnabled(false);
         ArrayList<Food> list = new ArrayList<Food>();
-        list.add(new Food("someImage", "Chicken Cheeseburger", 18,"Some reqs1", 1, false));
-        list.add(new Food("someImage", "Peanut Jelly Burger", 20,"Some reqs1", 2, true));
-        list.add(new Food("someImage", "Veggie Burger", 10,"Some reqs1", 3, true));
-        list.add(new Food("someImage", "Chicken Cheeseburger", 18,"Some reqs1", 1, true));
-        list.add(new Food("someImage", "Peanut Jelly Burger", 20,"Some reqs1", 3, false));
-        list.add(new Food("someImage", "Veggie Burger", 10,"Some reqs1", 2, true));
-        list.add(new Food("someImage", "Chicken Cheeseburger", 18,"Some reqs1", 2, true));
-        list.add(new Food("someImage", "Peanut Jelly Burger", 20,"Some reqs1", 1, true));
-        list.add(new Food("someImage", "Veggie Burger", 10,"Some reqs1", 3, false));
+        list.add(new Food("someImage", "Chicken Cheeseburger", 18,"Some reqs1", 1, false,"description"));
+        list.add(new Food("someImage", "Peanut Jelly Burger", 20,"Some reqs1", 2, true, "description"));
+        list.add(new Food("someImage", "Veggie Burger", 10,"Some reqs1", 3, true, "description"));
+        list.add(new Food("someImage", "Chicken Cheeseburger", 18,"Some reqs1", 1, true, "description"));
+        list.add(new Food("someImage", "Peanut Jelly Burger", 20,"Some reqs1", 3, false, "description"));
+        list.add(new Food("someImage", "Veggie Burger", 10,"Some reqs1", 2, true, "description"));
+        list.add(new Food("someImage", "Chicken Cheeseburger", 18,"Some reqs1", 2, true, "description"));
+        list.add(new Food("someImage", "Peanut Jelly Burger", 20,"Some reqs1", 1, true, "description"));
+        list.add(new Food("someImage", "Veggie Burger", 10,"Some reqs1", 3, false, "description"));
 
         if(!isOrderPrepared(list))
             completeButton.setEnabled(false);

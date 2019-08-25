@@ -44,12 +44,10 @@ public class CategoriesMenuFragment extends Fragment {
     private MenuItemListAdapter getRandomAdapter() {
 
         final List<Food> orders = new ArrayList<>();
-        for( int i=0; i < 11; i++) {
+        for( int i=0; i < 15; i++) {
 
-            Random random = new Random();
-            int max = Math.abs(random.nextInt() % 11);
-            int tableNumber = Math.abs(random.nextInt() % 20);
-            Food order = new Food("someImage", "Veggie Burger", 10,"Some reqs1", 3, false);
+
+            Food order = new Food("someImage", "Some title1", 10,"Some reqs1", 3, false,"description");
 
             orders.add(order);
         }

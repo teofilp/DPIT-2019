@@ -84,9 +84,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
             this.reqs.setText(reqs);
         }
 
-        public void setPrice(double price) {
-            this.price.setText("$" + price);
-        }
+        public void setPrice(double price) { this.price.setText("$" + price); }
 
         public void setQty(int qty) {
             this.qty.setText("QTY: " + qty);

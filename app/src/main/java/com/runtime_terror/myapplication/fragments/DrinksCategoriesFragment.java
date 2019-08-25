@@ -1,4 +1,4 @@
-package com.runtime_terror.myapplication;
+package com.runtime_terror.myapplication.fragments;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.adapters.StaffPagerAdapter;
 import com.runtime_terror.myapplication.fragments.CategoriesMenuFragment;
 
@@ -29,17 +30,22 @@ public class DrinksCategoriesFragment extends Fragment {
         viewPager = view.findViewById(R.id.pager);
 
         StaffPagerAdapter adapter = new StaffPagerAdapter(getChildFragmentManager());
-        adapter.addFragment(new CategoriesMenuFragment(), "Tea");
-        adapter.addFragment(new CategoriesMenuFragment(), "Coffee");
-        adapter.addFragment(new CategoriesMenuFragment(), "Refreshments");
-        adapter.addFragment(new CategoriesMenuFragment(), "Non-Alcoholic Cocktails");
-        adapter.addFragment(new CategoriesMenuFragment(), "Alcoholic Cocktails");
-        adapter.addFragment(new CategoriesMenuFragment(), "Beer & Cider ");
-        adapter.addFragment(new CategoriesMenuFragment(), "Wine");
+        adapter.addFragment(new CategoriesMenuFragment(), "");
+        adapter.addFragment(new CategoriesMenuFragment(), "");
+        adapter.addFragment(new CategoriesMenuFragment(), "");
+        adapter.addFragment(new CategoriesMenuFragment(), "");
+        adapter.addFragment(new CategoriesMenuFragment(), "");
+        adapter.addFragment(new CategoriesMenuFragment(), "");
 
         tabLayout.setupWithViewPager(viewPager);
-
         viewPager.setAdapter(adapter);
+
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_coke_bottle);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_coffee_beans);
+        tabLayout.getTabAt(2).setIcon(R.drawable.ic_cup_of_tea);
+        tabLayout.getTabAt(3).setIcon(R.drawable.ic_beer);
+        tabLayout.getTabAt(4).setIcon(R.drawable.ic_cocktail);
+        tabLayout.getTabAt(5).setIcon(R.drawable.ic_glass_with_wine);
 
         return view;
     }

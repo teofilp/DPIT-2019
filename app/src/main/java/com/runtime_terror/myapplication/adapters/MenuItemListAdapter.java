@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 
 import com.runtime_terror.myapplication.R;
@@ -35,7 +37,12 @@ public class MenuItemListAdapter extends RecyclerView.Adapter<MenuItemListAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
+        holder.setImage(menuItemsList.get(position).getImage());
+        holder.setTitle(menuItemsList.get(position).getTitle());
+        holder.setPrice(menuItemsList.get(position).getPrice());
+        holder.setDescription(menuItemsList.get(position).getDescription());
+
         holder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,21 +62,44 @@ public class MenuItemListAdapter extends RecyclerView.Adapter<MenuItemListAdapte
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements EditItemInterface {
         RelativeLayout container;
+        ImageView image;
+        TextView title;
+        TextView price;
+        TextView description;
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
             container = (RelativeLayout) itemView;
+                image = itemView.findViewById(R.id.icon);
+                title = itemView.findViewById(R.id.title);
+                price = itemView.findViewById(R.id.price);
+                description= itemView.findViewById(R.id.description);
+
+            }
+
+        public void setImage(String image) {
+            this.image.setImageResource(R.drawable.food);
         }
 
+        public void setTitle(String title) {
+            this.title.setText(title);
+        }
+
+        public void setPrice(double price) {
+            this.price.setText("$" + price);
+        }
+
+        public void setDescription(String description) { this.description.setText(description); }
+
         @Override
-        public int getQty(){
+        public int getQty() {
             return 0;
         }
 
         @Override
         public void setQty(int quantity) {
-            return;
+
         }
 
         @Override
@@ -83,25 +113,25 @@ public class MenuItemListAdapter extends RecyclerView.Adapter<MenuItemListAdapte
         }
 
         @Override
-        public List<Object> getDataSet() {
-            return null;
+        public List getDataSet() {
+            return menuItemsList;
         }
 
         @Override
         public int getItemPosition() {
-            return 0;
+            return getAdapterPosition();
         }
 
         @Override
         public void dialogNotifyItemRemoved(int position) {
-
+            notifyItemRemoved(position);
         }
 
         @Override
         public String getTranslation(int resource) {
-            return null;
+            return context.getString(resource);
         }
 
-
-    }}
+    }
+}
 

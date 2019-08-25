@@ -44,15 +44,15 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
     private List<Food> getFoodData(){
         List<Food> foodList = new ArrayList<>();
-        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false));
-        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false));
-        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false));
-        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false));
-        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false));
-        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false));
-        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false));
-        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false));
-        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false));
+        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false,"description"));
+        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false, "description"));
+        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false,"description"));
+        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false,"description"));
+        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false,"description"));
+        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false,"description"));
+        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false,"description"));
+        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false,"description"));
+        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false,"description"));
         return foodList;
     }
 
