@@ -64,7 +64,7 @@ public class BarcodeFragment extends Fragment {
 
         cameraSource.stop();
         Log.d("Scanner", barcodeData);
-        Intent intent = new Intent(getContext(), DisplayMenuActivity.class);
+        Intent intent = new Intent(getContext(), DisplayMenuActivity.class);// TODO: Open MenuActivity instead of this one.
         intent.putExtra(EXTRA_MESSAGE, barcodeData);
         startActivity(intent);
     }
