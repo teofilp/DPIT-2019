@@ -14,7 +14,7 @@ import android.widget.ImageButton;
 
 import com.runtime_terror.myapplication.fragments.DrinksCategoriesFragment;
 import com.runtime_terror.myapplication.R;
-import com.runtime_terror.myapplication.adapters.StaffPagerAdapter;
+import com.runtime_terror.myapplication.adapters.CustomPagerAdapter;
 import com.runtime_terror.myapplication.fragments.CategoriesMenuFragment;
 import com.runtime_terror.myapplication.models.HelpDialog;
 
@@ -42,7 +42,7 @@ public class MenuActivity extends AppCompatActivity {
         ViewPager viewPager = findViewById(R.id.pager);
         TabLayout tabLayout = findViewById(R.id.tab_layout);
 
-        StaffPagerAdapter adapter = new StaffPagerAdapter(getSupportFragmentManager());
+        CustomPagerAdapter adapter = new CustomPagerAdapter(getSupportFragmentManager());
 
         adapter.addFragment(new CategoriesMenuFragment(), "Soups");
         adapter.addFragment(new CategoriesMenuFragment(), "Pizza");

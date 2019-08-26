@@ -7,8 +7,10 @@ import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 
 import com.runtime_terror.myapplication.R;
-import com.runtime_terror.myapplication.adapters.StaffPagerAdapter;
 import com.runtime_terror.myapplication.fragments.OrderContainerFragment;
+
+import com.runtime_terror.myapplication.adapters.CustomPagerAdapter;
+
 
 public class StaffActivity extends AppCompatActivity {
     @Override
@@ -25,7 +27,7 @@ public class StaffActivity extends AppCompatActivity {
         ViewPager viewPager = findViewById(R.id.viewPager);
         TabLayout tabLayout = findViewById(R.id.tablayout);
 
-        StaffPagerAdapter adapter = new StaffPagerAdapter(getSupportFragmentManager());
+        CustomPagerAdapter adapter = new CustomPagerAdapter(getSupportFragmentManager());
 
         OrderContainerFragment kitchen = new OrderContainerFragment();
         kitchen.setPurpose("food");
@@ -34,7 +36,7 @@ public class StaffActivity extends AppCompatActivity {
         bar.setPurpose("food");
 
         OrderContainerFragment waiter = new OrderContainerFragment();
-        waiter.setPurpose("requests");
+        waiter.setPurpose("operations");
 
         adapter.addFragment(kitchen, "");
         adapter.addFragment(bar, "");

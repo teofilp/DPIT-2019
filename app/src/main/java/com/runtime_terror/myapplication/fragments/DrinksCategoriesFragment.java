@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.runtime_terror.myapplication.R;
-import com.runtime_terror.myapplication.adapters.StaffPagerAdapter;
+import com.runtime_terror.myapplication.adapters.CustomPagerAdapter;
 import com.runtime_terror.myapplication.fragments.CategoriesMenuFragment;
 
 
@@ -29,7 +29,7 @@ public class DrinksCategoriesFragment extends Fragment {
         tabLayout = view.findViewById(R.id.tab_layout);
         viewPager = view.findViewById(R.id.pager);
 
-        StaffPagerAdapter adapter = new StaffPagerAdapter(getChildFragmentManager());
+        CustomPagerAdapter adapter = new CustomPagerAdapter(getChildFragmentManager());
         adapter.addFragment(new CategoriesMenuFragment(), "");
         adapter.addFragment(new CategoriesMenuFragment(), "");
         adapter.addFragment(new CategoriesMenuFragment(), "");
