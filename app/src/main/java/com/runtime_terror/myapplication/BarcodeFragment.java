@@ -53,21 +53,21 @@ public class BarcodeFragment extends Fragment {
 
     private void processBarcode(final SparseArray<Barcode> barcode) {
         if(barcode.valueAt(0).valueFormat != 7) {
-            Log.w("Scanner", "The QR code has an incorrect format.");
+            Log.d("Scanner", "The QR code has an incorrect format.");
             return;
         }
         String barcodeData = barcode.valueAt(0).displayValue;
 
         if(!barcodeData.substring(1,12).equals("RESTAURANTS")) {
-            Log.w("Scanner", "The QR code is not a valid reference.");
+            Log.d("Scanner", "The QR code is not a valid reference.");
             return;
         }
 
-        cameraSource.stop();
         Log.d("Scanner", barcodeData);
-        Intent intent = new Intent(getContext(), MenuActivity.class);// TODO: Open MenuActivity instead of this one.
+        Intent intent = new Intent(getContext(), MenuActivity.class);
         intent.putExtra(EXTRA_MESSAGE, barcodeData);
         startActivity(intent);
+        cameraSource.stop();
     }
 
     public void setupBarcode(ViewGroup container) {
