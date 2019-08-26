@@ -1,4 +1,4 @@
-package com.runtime_terror.myapplication;
+package com.runtime_terror.myapplication.activities;
 
 import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 
+import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.adapters.StaffPagerAdapter;
+import com.runtime_terror.myapplication.fragments.OrderContainerFragment;
 
 public class StaffActivity extends AppCompatActivity {
     @Override
@@ -34,9 +36,9 @@ public class StaffActivity extends AppCompatActivity {
         OrderContainerFragment waiter = new OrderContainerFragment();
         waiter.setPurpose("requests");
 
-        adapter.addFragment(kitchen, "Kitchen");
-        adapter.addFragment(bar, "Bar");
-        adapter.addFragment(waiter, "Waiter");
+        adapter.addFragment(kitchen, "");
+        adapter.addFragment(bar, "");
+        adapter.addFragment(waiter, "");
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);

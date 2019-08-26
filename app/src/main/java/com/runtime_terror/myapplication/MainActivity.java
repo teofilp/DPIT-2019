@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.runtime_terror.myapplication.activities.MenuActivity;
+import com.runtime_terror.myapplication.activities.StaffActivity;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -12,18 +15,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-//        startActivity(new Intent(getApplicationContext(), StaffActivity.class));
-        findViewById(R.id.tempStaffSide).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                launchStaffSideActivity(view);
-            }
-        });
     }
 
     public void launchClientSideActivity(View view){
-        Intent intent = new Intent(this, DisplayMenuActivity.class);
+        Intent intent = new Intent(this, MenuActivity.class);
         startActivity(intent);
     }
 

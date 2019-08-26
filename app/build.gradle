@@ -1,7 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28// Required for Androidx
+    compileSdkVersion 28// Changed from 27. Required for Androidx
+
     defaultConfig {
         applicationId "com.runtime_terror.myapplication"
         minSdkVersion 21
@@ -22,7 +23,9 @@ android {
     }
 }
 
+
 dependencies {// Migrated to Andoidx
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'

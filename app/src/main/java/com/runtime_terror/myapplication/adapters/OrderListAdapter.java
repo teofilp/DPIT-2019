@@ -12,7 +12,7 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.runtime_terror.myapplication.KitchenTableOrder;
+import com.runtime_terror.myapplication.activities.KitchenTableOrder;
 import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.models.Order;
 

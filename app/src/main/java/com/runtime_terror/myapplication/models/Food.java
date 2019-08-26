@@ -5,15 +5,18 @@ public class Food {
     String title;
     String reqs;
     int qty;
+    String description;
     double price;
     boolean prepared;
 
-    public Food(String image, String title, double price, String reqs, int qty, boolean prepared){
+    public Food(String image, String title, double price, String reqs, int qty, boolean prepared,String description){
         this.image = image;
         this.title = title;
         this.price = price;
         this.reqs = reqs;
         this.qty = qty;
+        this.description=description;
+
         this.prepared = prepared;
     }
 
@@ -28,6 +31,10 @@ public class Food {
     public String getTitle() {
         return title;
     }
+
+    public String getDescription(){return  description;}
+
+    public void setDescription(String description){this.description = description;}
 
     public void setTitle(String title) {
         this.title = title;
