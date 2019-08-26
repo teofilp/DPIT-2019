@@ -12,7 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
 
-import com.runtime_terror.myapplication.DrinksCategoriesFragment;
+import com.runtime_terror.myapplication.fragments.DrinksCategoriesFragment;
 import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.adapters.StaffPagerAdapter;
 import com.runtime_terror.myapplication.fragments.CategoriesMenuFragment;
