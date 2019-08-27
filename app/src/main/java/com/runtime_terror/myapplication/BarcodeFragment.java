@@ -67,7 +67,9 @@ public class BarcodeFragment extends Fragment {
         Intent intent = new Intent(getContext(), MenuActivity.class);
         intent.putExtra(EXTRA_MESSAGE, barcodeData);
         startActivity(intent);
-        cameraSource.stop();
+        //cameraSource.stop();// TODO: I swear something ain't right with this.
+        //cameraSource.release();//same
+        //cameraSource = null;//same
     }
 
     public void setupBarcode(ViewGroup container) {
