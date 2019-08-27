@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void launchClientSideActivity(View view){
-        Intent intent = new Intent(this, DisplayMenuActivity.class);
+        Intent intent = new Intent(this, DisplayMenuActivity.class);// TODO: Open MenuActivity form "client".
         startActivity(intent);
     }
 

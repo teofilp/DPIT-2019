@@ -50,6 +50,25 @@ public class BarcodeFragment extends Fragment {
         view.findViewById(R.id.scanner_dash).setAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.slide_transition));
     }
 
+    private void processBarcode(final SparseArray<Barcode> barcode) {
+        if(barcode.valueAt(0).valueFormat != 7) {
+            Log.w("Scanner", "The QR code has an incorrect format.");
+            return;
+        }
+        String barcodeData = barcode.valueAt(0).displayValue;
+
+        if(!barcodeData.substring(1,12).equals("RESTAURANTS")) {
+            Log.w("Scanner", "The QR code is not a valid reference.");
+            return;
+        }
+
+        cameraSource.stop();
+        Log.d("Scanner", barcodeData);
+        Intent intent = new Intent(getContext(), DisplayMenuActivity.class);// TODO: Open MenuActivity instead of this one.
+        intent.putExtra(EXTRA_MESSAGE, barcodeData);
+        startActivity(intent);
+    }
+
     public void setupBarcode(ViewGroup container) {
 
         BarcodeDetector barcodeDetector = new BarcodeDetector.Builder(getActivity())
@@ -96,12 +115,7 @@ public class BarcodeFragment extends Fragment {
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
 
                 if(barcodes.size() != 0){
-                    String barcodeData = barcodes.valueAt(0).displayValue;
-                    Log.d("scanned", barcodeData);
-                    Intent intent = new Intent(getContext(), DisplayMenuActivity.class);
-                    intent.putExtra(EXTRA_MESSAGE, barcodeData);
-                    startActivity(intent);
-                    cameraSource.stop();
+                    processBarcode(barcodes);
                 }
             }
         });
