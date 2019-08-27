@@ -58,7 +58,7 @@ public class BarcodeFragment extends Fragment {
         }
         String barcodeData = barcode.valueAt(0).displayValue;
 
-        if(!barcodeData.substring(1,12).equals("RESTAURANTS")) {
+        if(barcodeData.length() < 12 || !barcodeData.substring(1,13).equals("RESTAURANTS/")) {
             Log.d("Scanner", "The QR code is not a valid reference.");
             return;
         }
