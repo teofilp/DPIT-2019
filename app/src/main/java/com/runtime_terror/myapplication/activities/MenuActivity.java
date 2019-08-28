@@ -23,6 +23,10 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import com.google.firebase.firestore.FirebaseFirestore;
+//import com.runtime_terror.myapplication.database.FirestoreSetup;
+
 import com.runtime_terror.myapplication.fragments.DrinksCategoriesFragment;
 import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.adapters.CustomPagerAdapter;
@@ -56,18 +60,9 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     private void setupDataBase() {
-        Intent intent = getIntent();
-        String barcodeData = intent.getStringExtra(EXTRA_MESSAGE);
-        try {
-            tableNr = Integer.parseInt(barcodeData.substring(barcodeData.indexOf(" ") + 1));
-            //Log.d(TAG, tableNr + "");
-        } catch(NumberFormatException nfe) {
-            Log.d(TAG, "Table number is invalid.");
-        }
-
         db = FirebaseFirestore.getInstance();
         //Log.d(TAG, barcodeData.substring(1, barcodeData.indexOf(" ")) + "/MENU");
-        menuRef = db.collection(barcodeData.substring(1, barcodeData.indexOf(" ")) + "/MENU");
+        menuRef = db.collection("RESTAURANTS/" + getIntent().getStringExtra("rest") + "/MENU");
         //Log.d(TAG, "After menuRef=...");
     }
 
@@ -88,27 +83,27 @@ public class MenuActivity extends AppCompatActivity {
 
     private void setupTablayout(CustomPagerAdapter adapter) {
 
+        try {
+            tableNr = getIntent().getIntExtra("tableNr", 0);
+            //Log.d(TAG, tableNr + "");
+        } catch(NumberFormatException nfe) {
+            Log.d(TAG, "Table number is invalid.");
+        }
+
         menuRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                Log.d(TAG, "Before task.isSuccessful()");
+                Log.d(TAG, "Loading categories...");
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot foodCategory : task.getResult()) {
-                        Log.d(TAG, foodCategory.getId());
+                        Log.d(TAG, foodCategory.getString("food_category"));
+                        adapter.addFragment(new CategoriesMenuFragment(), foodCategory.getString("food_category"));
                     }
                 } else {
                     Log.d(TAG, "Error getting documents.", task.getException());
                 }
             }
         });
-
-        /*adapter.addFragment(new CategoriesMenuFragment(), "Soups");
-        adapter.addFragment(new CategoriesMenuFragment(), "Pizza");
-        adapter.addFragment(new CategoriesMenuFragment(), "Main Course");
-        adapter.addFragment(new CategoriesMenuFragment(), "Side Dishes");
-        adapter.addFragment(new CategoriesMenuFragment(), "Dessert");
-        adapter.addFragment(new DrinksCategoriesFragment(),"Drinks");*/
-        //Log.d(TAG, "Instead of hardcoded categories");
     }
 
 

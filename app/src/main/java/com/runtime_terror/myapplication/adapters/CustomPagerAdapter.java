@@ -37,6 +37,7 @@ public class CustomPagerAdapter extends FragmentPagerAdapter {
     public void addFragment(Fragment fragment, String title){
         fragmentList.add(fragment);
         fragmentTitleList.add(title);
+        notifyDataSetChanged();
     }
 
 }

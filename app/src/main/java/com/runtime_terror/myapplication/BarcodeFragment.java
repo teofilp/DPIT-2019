@@ -32,6 +32,8 @@ public class BarcodeFragment extends Fragment {
 
     SurfaceView cameraView;
     CameraSource cameraSource;
+    boolean isProcessing;
+    private String TAG = "Scanner";
 
     @Nullable
     @Override
@@ -46,30 +48,38 @@ public class BarcodeFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        isProcessing = false;
+    }
+
     private void setupAnimations(View view) {
         view.findViewById(R.id.scanner).setAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.fade));
         view.findViewById(R.id.scanner_dash).setAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.slide_transition));
     }
 
     private void processBarcode(final SparseArray<Barcode> barcode) {
-        if(barcode.valueAt(0).valueFormat != 7) {
-            Log.d("Scanner", "The QR code has an incorrect format.");
-            return;
-        }
+
+        isProcessing = true;
         String barcodeData = barcode.valueAt(0).displayValue;
+        Log.d(TAG, barcodeData);
 
-        if(barcodeData.length() < 12 || !barcodeData.substring(1,13).equals("RESTAURANTS/")) {
-            Log.d("Scanner", "The QR code is not a valid reference.");
-            return;
+        if(barcode.valueAt(0).valueFormat != 7 || barcodeData.length() < 25 || !barcodeData.substring(0,3).equals("\\\\:") || barcodeData.charAt(23) != '/') {
+            Log.d(TAG, "The QR code is invalid:");
+            Log.d(TAG, barcode.valueAt(0).valueFormat + "");
+            Log.d(TAG, barcodeData.length() + "");
+            Log.d(TAG, barcodeData.substring(1,4));
+            Log.d(TAG, barcodeData.charAt(23) + "");
+            // TODO: Display a dialog fragment for the user.
         }
-
-        Log.d("Scanner", barcodeData);
-        Intent intent = new Intent(getContext(), MenuActivity.class);
-        intent.putExtra(EXTRA_MESSAGE, barcodeData);
-        startActivity(intent);
-        //cameraSource.stop();// TODO: I swear something ain't right with this.
-        //cameraSource.release();//same
-        //cameraSource = null;//same
+        else {
+            Log.d(TAG, "QR code passed the validation check.");
+            Intent intent = new Intent(getContext(), MenuActivity.class);
+            intent.putExtra("rest", barcodeData.substring(barcodeData.indexOf(":") + 1, barcodeData.indexOf("/")));
+            intent.putExtra("tableNr", barcodeData.substring(barcodeData.indexOf("/") + 1));
+            startActivity(intent);
+        }
     }
 
     public void setupBarcode(ViewGroup container) {
@@ -117,7 +127,8 @@ public class BarcodeFragment extends Fragment {
             public void receiveDetections(Detector.Detections<Barcode> detections) {
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
 
-                if(barcodes.size() != 0){
+                if(barcodes.size() != 0 && !isProcessing){
+                    Log.d(TAG, "Scanned something:");
                     processBarcode(barcodes);
                 }
             }
