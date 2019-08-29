@@ -9,20 +9,31 @@ import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
-import com.runtime_terror.myapplication.fragments.DrinksCategoriesFragment;
+import com.google.gson.Gson;
+import com.runtime_terror.myapplication.interfaces.AddToCartListener;
 import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.adapters.StaffPagerAdapter;
 import com.runtime_terror.myapplication.fragments.CategoriesMenuFragment;
+import com.runtime_terror.myapplication.models.Food;
 import com.runtime_terror.myapplication.models.HelpDialog;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MenuActivity extends AppCompatActivity {
 
     private Context mContext;
     private Intent mIntent;
+
+    List<Pair<Food, Integer>> cartList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +45,7 @@ public class MenuActivity extends AppCompatActivity {
         setupCartButton();
 
         mContext = this;
-        mIntent = new Intent(this,OrderDetailsActivity.class);
+        mIntent = new Intent(this, OrderDetailsActivity.class);
     }
 
     private void setupViewPagerAndTablayout() {
@@ -44,12 +55,28 @@ public class MenuActivity extends AppCompatActivity {
 
         StaffPagerAdapter adapter = new StaffPagerAdapter(getSupportFragmentManager());
 
-        adapter.addFragment(new CategoriesMenuFragment(), "Soups");
-        adapter.addFragment(new CategoriesMenuFragment(), "Pizza");
-        adapter.addFragment(new CategoriesMenuFragment(), "Main Course");
-        adapter.addFragment(new CategoriesMenuFragment(), "Side Dishes");
-        adapter.addFragment(new CategoriesMenuFragment(), "Dessert");
-        adapter.addFragment(new DrinksCategoriesFragment(),"Drinks");
+        String[] cateogories = {"Soups", "Pizza", "Main Course", "Side Dishes", "Dessert", "Drinks"};
+
+        for(String category: cateogories) {
+
+            CategoriesMenuFragment fragment = new CategoriesMenuFragment();
+            fragment.registerAddToCartListener(new AddToCartListener() {
+                @Override
+                public void addToCart(Pair<Food, Integer> food) {
+                    cartList.add(food);
+                    if(cartList.size() > 0) {
+                        findViewById(R.id.cart_count).setVisibility(View.VISIBLE);
+                        ((TextView) findViewById(R.id.cart_count)).setText(Integer.toString(cartList.size()));
+                    }
+                    else {
+                        findViewById(R.id.cart_count).setVisibility(View.GONE);
+                    }
+                }
+            });
+
+            adapter.addFragment(fragment, category);
+
+        }
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
@@ -76,9 +103,14 @@ public class MenuActivity extends AppCompatActivity {
     private void setupCartButton(){
 
         FloatingActionButton cartButton = findViewById(R.id.cartButton);
+
         cartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String cartJSON = new Gson().toJson(cartList);
+                mIntent.putExtra("cart", cartJSON);
+
                 startActivity(mIntent);
             }
         });

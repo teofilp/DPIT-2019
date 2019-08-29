@@ -6,16 +6,22 @@ import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
+
+import android.util.Log;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.adapters.FoodListAdapter;
 import com.runtime_terror.myapplication.models.Food;
 import com.runtime_terror.myapplication.models.HelpDialog;
 
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,16 +49,22 @@ public class OrderDetailsActivity extends AppCompatActivity {
     }
 
     private List<Food> getFoodData(){
+
+        String cartJson = getIntent().getStringExtra("cart");
+
+        Type cartType = new TypeToken<List<Pair<Food, Integer>>>(){}.getType();
+        List<Pair<Food, Integer> > cartList = new Gson().fromJson(cartJson,  cartType);
+
+        Log.d("cart length", cartList.size() + "");
+
         List<Food> foodList = new ArrayList<>();
-        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false,"description"));
-        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false, "description"));
-        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false,"description"));
-        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false,"description"));
-        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false,"description"));
-        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false,"description"));
-        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false,"description"));
-        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false,"description"));
-        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false,"description"));
+        for(Pair<Food, Integer> pair: cartList) {
+            Food food = pair.first;
+            int qty = pair.second;
+            food.setQty(qty);
+
+            foodList.add(food);
+        }
         return foodList;
     }
 
@@ -92,10 +104,9 @@ public class OrderDetailsActivity extends AppCompatActivity {
     private void computeOrderPrice(List<Food> foodList){
         double total = 0.0;
         for(Food food : foodList){
-            total += food.getPrice();
+            total += food.getPrice()*food.getQty();
         }
 
         ((TextView)findViewById(R.id.total)).setText("Total price: " + total);
     }
 }
-

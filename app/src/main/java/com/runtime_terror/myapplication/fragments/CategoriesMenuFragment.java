@@ -11,17 +11,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.runtime_terror.myapplication.R;
+import com.runtime_terror.myapplication.interfaces.AddToCartListener;
 import com.runtime_terror.myapplication.models.Food;
 import com.runtime_terror.myapplication.adapters.MenuItemListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class CategoriesMenuFragment extends Fragment {
     View view;
     RecyclerView menuRecycler;
-
+    AddToCartListener listener;
 
     @Nullable
     @Override
@@ -52,9 +52,14 @@ public class CategoriesMenuFragment extends Fragment {
             orders.add(order);
         }
 
-        final MenuItemListAdapter adapter = new MenuItemListAdapter(getContext(), orders);
+        final MenuItemListAdapter adapter = new MenuItemListAdapter(getContext(), orders, listener);
 
         return adapter;
+    }
+
+    public void registerAddToCartListener(AddToCartListener listener) {
+
+        this.listener = listener;
     }
 }
 

@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 
 import com.runtime_terror.myapplication.R;
+import com.runtime_terror.myapplication.interfaces.AddToCartListener;
 import com.runtime_terror.myapplication.interfaces.EditItemInterface;
 import com.runtime_terror.myapplication.models.EditItemDialog;
 import com.runtime_terror.myapplication.models.Food;
@@ -23,10 +24,12 @@ public class MenuItemListAdapter extends RecyclerView.Adapter<MenuItemListAdapte
 
     private List<Food> menuItemsList;
     private Context context;
+    private AddToCartListener listener;
 
-    public MenuItemListAdapter(Context context, List<Food> menuItemsList) {
+    public MenuItemListAdapter(Context context, List<Food> menuItemsList, AddToCartListener listener) {
         this.menuItemsList = menuItemsList;
         this.context = context;
+        this.listener = listener;
     }
 
     @NonNull
@@ -46,7 +49,8 @@ public class MenuItemListAdapter extends RecyclerView.Adapter<MenuItemListAdapte
         holder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditItemDialog addDialog = new EditItemDialog(context,holder);
+                EditItemDialog addDialog = new EditItemDialog(context, holder, menuItemsList.get(position));
+                addDialog.registerAddToCartListener(listener);
                 addDialog.setVisibilities("addToCart");
                 addDialog.setupDialog();
             }

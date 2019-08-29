@@ -179,7 +179,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
             @Override
             public void onClick(View view) {
                 //Dialog Setup
-                final EditItemDialog dialog = new EditItemDialog(mContext, myViewHolder);
+                final EditItemDialog dialog = new EditItemDialog(mContext, myViewHolder, dataset.get(position));
                 dialog.setVisibilities("editItem");
                 dialog.setupDialog();
             }

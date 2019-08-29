@@ -2,20 +2,21 @@ package com.runtime_terror.myapplication.models;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.runtime_terror.myapplication.interfaces.AddToCartListener;
 import com.runtime_terror.myapplication.interfaces.EditItemInterface;
 import com.runtime_terror.myapplication.R;
 
 public class EditItemDialog extends Dialog {
 
     private int initialQty;
-    private String requirements;
-    private Dialog dialog;
+
     private ImageButton increaseButton;
     private ImageButton decreaseButton;
     private TextView qtyDisplay;
@@ -25,13 +26,18 @@ public class EditItemDialog extends Dialog {
     private Button saveButton;
     private Button cancelButton;
     private EditItemInterface editItemInterface;
+    private AddToCartListener addToCartListener;
 
-    public EditItemDialog(Context mContext, EditItemInterface editItemInterface){
+    private String purpose;
+    private Food foodItem;
+
+    public EditItemDialog(Context mContext, EditItemInterface editItemInterface, Food foodItem){
         //Dialog creation
         super(mContext);
         setContentView(R.layout.edit_item_dialog);
         setCancelable(false);
         //Item binding
+        this.foodItem = foodItem;
         this.editItemInterface = editItemInterface;
         this.increaseButton = findViewById(R.id.qtyIncrease);
         this.decreaseButton = findViewById(R.id.qtyDecrease);
@@ -43,7 +49,12 @@ public class EditItemDialog extends Dialog {
         this.cancelButton = findViewById(R.id.cancelEditButton);
     }
 
+    public void registerAddToCartListener(AddToCartListener listener) {
+        this.addToCartListener = listener;
+    }
+
     public void setVisibilities(String purpose){
+        this.purpose = purpose;
         if(purpose.equals("addToCart")){
             deleteLabel.setVisibility(View.GONE);
             deleteButton.setVisibility(View.GONE);
@@ -83,7 +94,10 @@ public class EditItemDialog extends Dialog {
             }
         });
 
+        final String dialogPurpose = this.purpose;
+
         saveButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
                 editItemInterface.setQty(Integer.parseInt(qtyDisplay.getText().toString()));
@@ -93,6 +107,9 @@ public class EditItemDialog extends Dialog {
                 } else {
                     editItemInterface.setReqs(reqs);
                 }
+
+                if(dialogPurpose.equals("addToCart"))
+                    addToCartListener.addToCart(new Pair<>(foodItem, Integer.parseInt(qtyDisplay.getText().toString())));
 
                 dismiss();
             }
