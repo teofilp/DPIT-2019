@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.runtime_terror.myapplication">
-
+    <uses-permission android:name="android.permission.CAMERA"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,9 +18,11 @@
             android:name=".activities.OrderDetailsActivity"
             android:parentActivityName=".activities.MenuActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".Launcher"
+            android:screenOrientation="portrait" ></activity>
 
         <activity android:name=".MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,9 +30,12 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.KitchenTableOrder"
-            android:parentActivityName=".activities.StaffActivity"
-            android:screenOrientation="portrait"/>
-</application>
+        <activity
+            android:name=".KitchenTableOrder"
+            android:parentActivityName=".StaffActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".SignupActivity"
+            android:screenOrientation="portrait" />
+    </application>
 
 </manifest>
