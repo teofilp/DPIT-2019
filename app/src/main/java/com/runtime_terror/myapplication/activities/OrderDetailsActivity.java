@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
 import android.widget.TextView;
+
 
 import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.adapters.FoodListAdapter;

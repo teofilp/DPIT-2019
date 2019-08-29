@@ -8,12 +8,12 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StaffPagerAdapter extends FragmentPagerAdapter {
+public class CustomPagerAdapter extends FragmentPagerAdapter {
 
     private final List<Fragment> fragmentList = new ArrayList<>();
     private final List<String> fragmentTitleList = new ArrayList<>();
 
-    public StaffPagerAdapter(FragmentManager fm) {
+    public CustomPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
@@ -37,6 +37,7 @@ public class StaffPagerAdapter extends FragmentPagerAdapter {
     public void addFragment(Fragment fragment, String title){
         fragmentList.add(fragment);
         fragmentTitleList.add(title);
+        notifyDataSetChanged();
     }
 
 }
