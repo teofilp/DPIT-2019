@@ -12,24 +12,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.models.Food;
 import com.runtime_terror.myapplication.adapters.MenuItemListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-
-import com.runtime_terror.myapplication.activities.MenuActivity;
 
 public class CategoriesMenuFragment extends Fragment {
     View view;
     RecyclerView menuRecycler;
     private FirebaseFirestore db;
-    private DocumentReference catRef;
+    private CollectionReference typeRef;
     private String path;
+    private final String TAG = "DebugFrag";// for debug purposes only
 
 
     @Nullable
@@ -38,10 +37,10 @@ public class CategoriesMenuFragment extends Fragment {
 
         view = inflater.inflate(R.layout.categories_menu_fragment, container, false);
         menuRecycler = view.findViewById(R.id.menuRecycler);
-        path = getArguments().getString("path");
+        path = getArguments().getString("path") + "/" + getArguments().getStringArrayList("foodTypes").get(0);
 
-        setupRecyclerView();
         setupDataBase();
+        setupRecyclerView();
 
         return view;
     }
@@ -49,29 +48,33 @@ public class CategoriesMenuFragment extends Fragment {
     private void setupDataBase() {
 
         db = FirebaseFirestore.getInstance();
-        catRef = db.document(path);
+        typeRef = db.collection(path);
     }
 
     private void setupRecyclerView() {
         menuRecycler.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        menuRecycler.setAdapter(getRandomAdapter());
+        menuRecycler.setAdapter(getAdapter());
         
     }
 
-    private MenuItemListAdapter getRandomAdapter() {// TODO: Implement my thing (DB) here.
-
-
+    private MenuItemListAdapter getAdapter() {// TODO: Implement my thing (DB) here.
 
         final List<Food> orders = new ArrayList<>();
 
+        typeRef.get().addOnCompleteListener(task -> {
+            Log.d(TAG, "Loading food items...");
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot food : task.getResult()) {
+                    Log.d(TAG, food.getString("name"));
 
-
-        /*for( int i=0; i < 15; i++) {
-
-            Food order = new Food("someImage", "Some title1", 10,"Some reqs1", 3, false,"description");
-
-            orders.add(order);
-        }*/
+                    Food foodItem = new Food("someImage", food.getString("name"), (double) food.get("price"), "", 1, food.getBoolean("isAvailable"), food.getString("desc"));
+                    orders.add(foodItem);
+                }
+            }
+            else {
+                Log.d(TAG, "Error getting food documents: ", task.getException());
+            }
+        });
 
         final MenuItemListAdapter adapter = new MenuItemListAdapter(getContext(), orders);
 

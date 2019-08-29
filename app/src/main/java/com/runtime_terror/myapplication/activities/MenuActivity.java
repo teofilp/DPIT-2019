@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.google.common.io.LittleEndianDataInputStream;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -33,6 +34,9 @@ import com.runtime_terror.myapplication.fragments.CategoriesMenuFragment;
 import com.runtime_terror.myapplication.fragments.ComplexCategoriesMenuFragment;
 import com.runtime_terror.myapplication.models.HelpDialog;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class MenuActivity extends AppCompatActivity {
@@ -42,7 +46,8 @@ public class MenuActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private CollectionReference menuRef;
     private int tableNr;
-    private String TAG = "DebugMenu";// for debug purposes only
+    private ArrayList<String> foodTypes;
+    private final String TAG = "DebugMenu";// for debug purposes only
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,29 +92,32 @@ public class MenuActivity extends AppCompatActivity {
 
     private void setupTablayout(CustomPagerAdapter adapter) {
 
-        menuRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                Log.d(TAG, "Loading categories...");
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot foodCategory : task.getResult()) {
-                        Log.d(TAG, foodCategory.getString("food_category"));
-                        Bundle fragData = new Bundle();
-                        fragData.putString("path", foodCategory.getReference().getPath());
-                        if(foodCategory.getBoolean("isComplex")==null) {
-                            CategoriesMenuFragment frag = new CategoriesMenuFragment();
-                            frag.setArguments(fragData);
-                            adapter.addFragment(frag, foodCategory.getString("food_category"));
-                        }
-                        else {
-                            ComplexCategoriesMenuFragment Cfrag = new ComplexCategoriesMenuFragment();
-                            Cfrag.setArguments(fragData);
-                            adapter.addFragment(Cfrag, foodCategory.getString("food_category"));
-                        }
+        menuRef.get().addOnCompleteListener(task -> {
+            Log.d(TAG, "Loading categories...");
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot foodCategory : task.getResult()) {
+                    Log.d(TAG, foodCategory.getString("food_category"));
+
+                    Bundle fragData = new Bundle();
+                    foodTypes = (ArrayList<String>) foodCategory.get("food_types");
+                    fragData.putString("path", foodCategory.getReference().getPath());
+                    fragData.putStringArrayList("foodTypes", foodTypes);
+
+                    if(foodCategory.getBoolean("isComplex")==null) {
+                        CategoriesMenuFragment frag = new CategoriesMenuFragment();
+                        frag.setArguments(fragData);
+                        adapter.addFragment(frag, foodCategory.getString("food_category"));
                     }
-                } else {
-                    Log.d(TAG, "Error getting documents.", task.getException());
+                    else {
+                        /*ComplexCategoriesMenuFragment Cfrag = new ComplexCategoriesMenuFragment();
+                        Cfrag.setArguments(fragData);
+                        adapter.addFragment(Cfrag, foodCategory.getString("food_category"));*/
+                    }
                 }
+                Log.d(TAG, "All loaded.");
+            }
+            else {
+                Log.d(TAG, "Error getting food categories documents.", task.getException());
             }
         });
     }
