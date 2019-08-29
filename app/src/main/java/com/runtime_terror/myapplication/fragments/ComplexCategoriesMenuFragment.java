@@ -16,7 +16,7 @@ import com.runtime_terror.myapplication.adapters.CustomPagerAdapter;
 import com.runtime_terror.myapplication.fragments.CategoriesMenuFragment;
 
 
-public class DrinksCategoriesFragment extends Fragment {
+public class ComplexCategoriesMenuFragment extends Fragment {
     View view;
     TabLayout tabLayout;
     ViewPager viewPager;

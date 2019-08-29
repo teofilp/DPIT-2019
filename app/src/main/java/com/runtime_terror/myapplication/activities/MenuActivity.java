@@ -27,14 +27,13 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 //import com.runtime_terror.myapplication.database.FirestoreSetup;
 
-import com.runtime_terror.myapplication.fragments.DrinksCategoriesFragment;
 import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.adapters.CustomPagerAdapter;
 import com.runtime_terror.myapplication.fragments.CategoriesMenuFragment;
+import com.runtime_terror.myapplication.fragments.ComplexCategoriesMenuFragment;
 import com.runtime_terror.myapplication.models.HelpDialog;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
-
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -63,7 +62,12 @@ public class MenuActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         //Log.d(TAG, barcodeData.substring(1, barcodeData.indexOf(" ")) + "/MENU");
         menuRef = db.collection("RESTAURANTS/" + getIntent().getStringExtra("rest") + "/MENU");
-        //Log.d(TAG, "After menuRef=...");
+        try {
+            tableNr = getIntent().getIntExtra("tableNr", 0);
+            //Log.d(TAG, tableNr + "");
+        } catch(NumberFormatException nfe) {
+            Log.d(TAG, "Table number is invalid.");
+        }
     }
 
     private void setupViewPagerAndTablayout() {
@@ -83,13 +87,6 @@ public class MenuActivity extends AppCompatActivity {
 
     private void setupTablayout(CustomPagerAdapter adapter) {
 
-        try {
-            tableNr = getIntent().getIntExtra("tableNr", 0);
-            //Log.d(TAG, tableNr + "");
-        } catch(NumberFormatException nfe) {
-            Log.d(TAG, "Table number is invalid.");
-        }
-
         menuRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -97,7 +94,18 @@ public class MenuActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot foodCategory : task.getResult()) {
                         Log.d(TAG, foodCategory.getString("food_category"));
-                        adapter.addFragment(new CategoriesMenuFragment(), foodCategory.getString("food_category"));
+                        Bundle fragData = new Bundle();
+                        fragData.putString("path", foodCategory.getReference().getPath());
+                        if(foodCategory.getBoolean("isComplex")==null) {
+                            CategoriesMenuFragment frag = new CategoriesMenuFragment();
+                            frag.setArguments(fragData);
+                            adapter.addFragment(frag, foodCategory.getString("food_category"));
+                        }
+                        else {
+                            ComplexCategoriesMenuFragment Cfrag = new ComplexCategoriesMenuFragment();
+                            Cfrag.setArguments(fragData);
+                            adapter.addFragment(Cfrag, foodCategory.getString("food_category"));
+                        }
                     }
                 } else {
                     Log.d(TAG, "Error getting documents.", task.getException());
