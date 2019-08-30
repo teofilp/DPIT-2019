@@ -52,19 +52,14 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
         String cartJson = getIntent().getStringExtra("cart");
 
-        Type cartType = new TypeToken<List<Pair<Food, Integer>>>(){}.getType();
-        List<Pair<Food, Integer> > cartList = new Gson().fromJson(cartJson,  cartType);
+        Type cartType = new TypeToken<List<Food>>(){}.getType();
+        List<Food> cartList = new Gson().fromJson(cartJson,  cartType);
 
         Log.d("cart length", cartList.size() + "");
 
         List<Food> foodList = new ArrayList<>();
-        for(Pair<Food, Integer> pair: cartList) {
-            Food food = pair.first;
-            int qty = pair.second;
-            food.setQty(qty);
 
-            foodList.add(food);
-        }
+        foodList.addAll(cartList);
         return foodList;
     }
 
@@ -92,6 +87,11 @@ public class OrderDetailsActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+
+        if(id == android.R.id.home){
+            finish();
+            return true;
+        }
 
         if (id == R.id.helpButton) {
             HelpDialog dialog = new HelpDialog(this);

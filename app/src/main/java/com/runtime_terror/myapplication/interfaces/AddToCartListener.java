@@ -6,5 +6,5 @@ import com.runtime_terror.myapplication.models.Food;
 
 public interface AddToCartListener {
 
-    void addToCart(Pair<Food, Integer> food);
+    void addToCart(Food food);
 }

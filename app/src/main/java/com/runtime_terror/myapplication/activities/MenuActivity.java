@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
 import android.util.Pair;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -33,7 +34,7 @@ public class MenuActivity extends AppCompatActivity {
     private Context mContext;
     private Intent mIntent;
 
-    List<Pair<Food, Integer>> cartList = new ArrayList<>();
+    List<Food> cartList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +63,7 @@ public class MenuActivity extends AppCompatActivity {
             CategoriesMenuFragment fragment = new CategoriesMenuFragment();
             fragment.registerAddToCartListener(new AddToCartListener() {
                 @Override
-                public void addToCart(Pair<Food, Integer> food) {
+                public void addToCart(Food food) {
                     cartList.add(food);
                     if(cartList.size() > 0) {
                         findViewById(R.id.cart_count).setVisibility(View.VISIBLE);
@@ -102,7 +103,8 @@ public class MenuActivity extends AppCompatActivity {
 
     private void setupCartButton(){
 
-        FloatingActionButton cartButton = findViewById(R.id.cartButton);
+        View cartButton = findViewById(R.id.fab_wrapper);
+        findViewById(R.id.cartButton).setEnabled(false);
 
         cartButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,4 +117,5 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
     }
+
 }

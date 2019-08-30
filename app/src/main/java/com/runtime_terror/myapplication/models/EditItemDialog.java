@@ -108,9 +108,10 @@ public class EditItemDialog extends Dialog {
                     editItemInterface.setReqs(reqs);
                 }
 
-                if(dialogPurpose.equals("addToCart"))
-                    addToCartListener.addToCart(new Pair<>(foodItem, Integer.parseInt(qtyDisplay.getText().toString())));
-
+                if(dialogPurpose.equals("addToCart")) {
+                    foodItem.setQty(Integer.parseInt(qtyDisplay.getText().toString()));
+                    addToCartListener.addToCart(foodItem);
+                }
                 dismiss();
             }
         });
