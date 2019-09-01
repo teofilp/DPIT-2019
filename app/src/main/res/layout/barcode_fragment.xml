@@ -19,8 +19,40 @@
             android:layout_height="match_parent"
             android:background="@drawable/inner_scanner"
             android:layout_centerInParent="true">
-
         </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/invalid_qr"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/invalid_qr"
+            android:alpha="0.0"
+            >
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#0000"
+                android:src="@drawable/ic_close"
+                android:padding="10dp"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/valid_qr"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/valid_qr"
+            android:alpha="0.0"
+            >
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#0000"
+                android:src="@drawable/ic_done"
+                android:padding="10dp"
+                />
+        </RelativeLayout>
+
     </RelativeLayout>
     <View
         android:id="@+id/scanner_dash"

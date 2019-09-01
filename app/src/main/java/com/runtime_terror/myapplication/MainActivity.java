@@ -15,6 +15,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+    startActivity(new Intent(getApplicationContext(), Launcher.class));
+
+        findViewById(R.id.tempStaffSide).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                launchStaffSideActivity(view);
+            }
+        });
     }
 
     public void launchClientSideActivity(View view){
