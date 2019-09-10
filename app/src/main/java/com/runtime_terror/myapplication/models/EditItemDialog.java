@@ -23,15 +23,20 @@ public class EditItemDialog extends Dialog {
     private TextView deleteLabel;
     private ImageButton deleteButton;
     private Button saveButton;
+    private TextView dialogTitle;
+    private TextView dialogDescription;
     private Button cancelButton;
+    private Food menuItemList;
+
     private EditItemInterface editItemInterface;
 
-    public EditItemDialog(Context mContext, EditItemInterface editItemInterface){
+    public EditItemDialog(Context mContext, EditItemInterface editItemInterface, Food menuItemList){
         //Dialog creation
         super(mContext);
         setContentView(R.layout.edit_item_dialog);
         setCancelable(false);
         //Item binding
+        this.menuItemList= menuItemList;
         this.editItemInterface = editItemInterface;
         this.increaseButton = findViewById(R.id.qtyIncrease);
         this.decreaseButton = findViewById(R.id.qtyDecrease);
@@ -41,6 +46,15 @@ public class EditItemDialog extends Dialog {
         this.deleteButton = findViewById(R.id.deleteButton);
         this.saveButton = findViewById(R.id.saveEditButton);
         this.cancelButton = findViewById(R.id.cancelEditButton);
+        this.dialogTitle= findViewById(R.id.dialogTitle);
+        this.dialogDescription= findViewById(R.id.dialogDescription);
+        bindDataToViews();
+    }
+
+    public void bindDataToViews()
+    {
+        this.dialogTitle.setText(this.menuItemList.getTitle());
+        this.dialogDescription.setText(this.menuItemList.getDescription());
     }
 
     public void setVisibilities(String purpose){
@@ -48,6 +62,9 @@ public class EditItemDialog extends Dialog {
             deleteLabel.setVisibility(View.GONE);
             deleteButton.setVisibility(View.GONE);
             saveButton.setText(R.string.addToCartButton);
+        }
+        if(purpose.equals("editItem")){
+            dialogDescription.setVisibility(View.GONE);
         }
     }
 
@@ -60,6 +77,7 @@ public class EditItemDialog extends Dialog {
             public void onClick(View view) {
                 int qty = Integer.parseInt(qtyDisplay.getText().toString()) + 1;
                 qtyDisplay.setText(qty + "");
+                menuItemList.setQty(qty);
             }
         });
 
@@ -70,6 +88,7 @@ public class EditItemDialog extends Dialog {
                 if(qty > 1)
                     qty = Integer.parseInt(qtyDisplay.getText().toString()) - 1;
                 qtyDisplay.setText(qty + "");
+                menuItemList.setQty(qty);
             }
         });
 
@@ -93,7 +112,7 @@ public class EditItemDialog extends Dialog {
                 } else {
                     editItemInterface.setReqs(reqs);
                 }
-
+                editItemInterface.itemChanged();
                 dismiss();
             }
         });

@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.adapters.FoodListAdapter;
+import com.runtime_terror.myapplication.interfaces.ItemChanged;
 import com.runtime_terror.myapplication.models.Food;
 import com.runtime_terror.myapplication.models.HelpDialog;
 
@@ -60,7 +61,12 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
     private void setupAdapterAndData(List<Food> foodList){
 
-        adapter = new FoodListAdapter(foodList, "client", this);
+        adapter = new FoodListAdapter(foodList, "client", this, new ItemChanged() {
+            @Override
+            public void onItemChange() {
+                computeOrderPrice(foodList);
+            }
+        });
         mainList.setAdapter(adapter);
     }
 

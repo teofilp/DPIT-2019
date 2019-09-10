@@ -46,9 +46,10 @@ public class MenuItemListAdapter extends RecyclerView.Adapter<MenuItemListAdapte
         holder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditItemDialog addDialog = new EditItemDialog(context,holder);
+                EditItemDialog addDialog = new EditItemDialog(context,holder,menuItemsList.get(position));
                 addDialog.setVisibilities("addToCart");
                 addDialog.setupDialog();
+
             }
         });
 
@@ -125,6 +126,11 @@ public class MenuItemListAdapter extends RecyclerView.Adapter<MenuItemListAdapte
         @Override
         public void dialogNotifyItemRemoved(int position) {
             notifyItemRemoved(position);
+        }
+
+        @Override
+        public void itemChanged() {
+
         }
 
         @Override

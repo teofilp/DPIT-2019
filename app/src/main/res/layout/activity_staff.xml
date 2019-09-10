@@ -6,12 +6,31 @@
     android:layout_height="match_parent"
     tools:context=".activities.StaffActivity">
 
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="match_parent"
         style="@style/customToolbar"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+        android:layout_width="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <ImageButton
+            android:id="@+id/logoutButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignTop="@+id/toolbar"
+            android:layout_marginLeft="200dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:src="@drawable/logout"
+            android:clickable="true"
+            android:focusable="true"
+            />
+    </androidx.appcompat.widget.Toolbar>
+
+
 
 
     <com.google.android.material.tabs.TabLayout
