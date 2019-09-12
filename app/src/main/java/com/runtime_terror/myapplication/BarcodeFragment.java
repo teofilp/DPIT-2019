@@ -22,6 +22,7 @@ import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
+import com.runtime_terror.myapplication.activities.MenuActivity;
 
 import java.io.IOException;
 
@@ -64,7 +65,7 @@ public class BarcodeFragment extends Fragment {
 
         cameraSource.stop();
         Log.d("Scanner", barcodeData);
-        Intent intent = new Intent(getContext(), DisplayMenuActivity.class);// TODO: Open MenuActivity instead of this one.
+        Intent intent = new Intent(getContext(), MenuActivity.class);// TODO: Open MenuActivity instead of this one.
         intent.putExtra(EXTRA_MESSAGE, barcodeData);
         startActivity(intent);
     }

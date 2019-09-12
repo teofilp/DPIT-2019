@@ -8,15 +8,14 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        tools:context=".OrderDetailsActivity">
+        tools:context=".activities.OrderDetailsActivity">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/borderColor"
-            android:elevation="4dp"
+            style="@style/customToolbar"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
@@ -57,20 +56,23 @@
                     android:id="@+id/orderButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary"
                     android:text="@string/orderButton"
-                    android:textColor="@android:color/white"
-                    android:layout_marginRight="12dp"
+                    style="@style/customBottomButton"
+                    android:padding="4dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginLeft="6dp"
                     android:layout_weight="0.5"/>
 
                 <Button
                     android:id="@+id/payButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary"
                     android:text="@string/payButton"
-                    android:textColor="@android:color/white"
-                    android:layout_weight="0.5"/>
+                    style="@style/customBottomButton"
+                    android:padding="4dp"
+                    android:layout_weight="0.5"
+                    android:layout_marginRight="6dp"
+                    android:layout_marginLeft="3dp"/>
 
             </LinearLayout>
         </LinearLayout>

@@ -9,18 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+        <activity android:name=".activities.StaffActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".activities.MenuActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activities.OrderDetailsActivity"
+            android:parentActivityName=".activities.MenuActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".Launcher"
             android:screenOrientation="portrait" ></activity>
-        <activity android:name=".StaffActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".OrderDetailsActivity"
-            android:parentActivityName=".DisplayMenuActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".DisplayMenuActivity"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" />
+
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -29,6 +29,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".KitchenTableOrder"
             android:parentActivityName=".StaffActivity"

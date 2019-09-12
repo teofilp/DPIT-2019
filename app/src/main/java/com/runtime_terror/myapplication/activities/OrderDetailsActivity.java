@@ -1,7 +1,6 @@
-package com.runtime_terror.myapplication;
+package com.runtime_terror.myapplication.activities;
 
 
-import android.app.Dialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,11 +8,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
+import android.widget.TextView;
+
+
+import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.adapters.FoodListAdapter;
 import com.runtime_terror.myapplication.models.Food;
+import com.runtime_terror.myapplication.models.HelpDialog;
 
 
 import java.util.ArrayList;
@@ -31,6 +33,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order_details);
         bindMainList();
         List<Food> foodList = getFoodData();
+        computeOrderPrice(foodList);
         setupAdapterAndData(foodList);
         setupToolbar();
 
@@ -43,15 +46,15 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
     private List<Food> getFoodData(){
         List<Food> foodList = new ArrayList<>();
-        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false));
-        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false));
-        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false));
-        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false));
-        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false));
-        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false));
-        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false));
-        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false));
-        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false));
+        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false,"description"));
+        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false, "description"));
+        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false,"description"));
+        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false,"description"));
+        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false,"description"));
+        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false,"description"));
+        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false,"description"));
+        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false,"description"));
+        foodList.add(new Food("","Title 1",25.0, "Some reqs", 2,false,"description"));
         return foodList;
     }
 
@@ -81,31 +84,20 @@ public class OrderDetailsActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.helpButton) {
-            final Dialog dialog = new Dialog(this);
-            dialog.setContentView(R.layout.help_dialog);
-            dialog.setCancelable(false);
-
-            //Setup Cancel and Call Waiter buttons
-
-            Button callWaiterButton = dialog.findViewById(R.id.callWaiterButton);
-            callWaiterButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    dialog.dismiss();
-                }
-            });
-
-            Button cancelHelpButton = dialog.findViewById(R.id.cancelHelp);
-            cancelHelpButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    dialog.dismiss();
-                }
-            });
-
-            dialog.show();
+            HelpDialog dialog = new HelpDialog(this);
+            dialog.setupDialog();
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+    private void computeOrderPrice(List<Food> foodList){
+        double total = 0.0;
+        for(Food food : foodList){
+            total += food.getPrice();
+        }
+
+        ((TextView)findViewById(R.id.total)).setText("Total price: " + total);
+    }
 }
+

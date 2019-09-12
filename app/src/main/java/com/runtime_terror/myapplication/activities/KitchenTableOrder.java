@@ -1,6 +1,7 @@
-package com.runtime_terror.myapplication;
+package com.runtime_terror.myapplication.activities;
 
 import android.content.Intent;
+
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,7 +11,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.adapters.FoodListAdapter;
+import com.runtime_terror.myapplication.interfaces.OrderUpdatesListener;
 import com.runtime_terror.myapplication.models.Food;
 
 import java.util.ArrayList;
@@ -49,15 +52,15 @@ public class KitchenTableOrder extends AppCompatActivity {
         tableOrderRecycler.setLayoutManager(new LinearLayoutManager(this));
         tableOrderRecycler.setNestedScrollingEnabled(false);
         ArrayList<Food> list = new ArrayList<Food>();
-        list.add(new Food("someImage", "Chicken Cheeseburger", 18,"Some reqs1", 1, false));
-        list.add(new Food("someImage", "Peanut Jelly Burger", 20,"Some reqs1", 2, true));
-        list.add(new Food("someImage", "Veggie Burger", 10,"Some reqs1", 3, true));
-        list.add(new Food("someImage", "Chicken Cheeseburger", 18,"Some reqs1", 1, true));
-        list.add(new Food("someImage", "Peanut Jelly Burger", 20,"Some reqs1", 3, false));
-        list.add(new Food("someImage", "Veggie Burger", 10,"Some reqs1", 2, true));
-        list.add(new Food("someImage", "Chicken Cheeseburger", 18,"Some reqs1", 2, true));
-        list.add(new Food("someImage", "Peanut Jelly Burger", 20,"Some reqs1", 1, true));
-        list.add(new Food("someImage", "Veggie Burger", 10,"Some reqs1", 3, false));
+        list.add(new Food("someImage", "Chicken Cheeseburger", 18,"Some reqs1", 1, false,"description"));
+        list.add(new Food("someImage", "Peanut Jelly Burger", 20,"Some reqs1", 2, true, "description"));
+        list.add(new Food("someImage", "Veggie Burger", 10,"Some reqs1", 3, true, "description"));
+        list.add(new Food("someImage", "Chicken Cheeseburger", 18,"Some reqs1", 1, true, "description"));
+        list.add(new Food("someImage", "Peanut Jelly Burger", 20,"Some reqs1", 3, false, "description"));
+        list.add(new Food("someImage", "Veggie Burger", 10,"Some reqs1", 2, true, "description"));
+        list.add(new Food("someImage", "Chicken Cheeseburger", 18,"Some reqs1", 2, true, "description"));
+        list.add(new Food("someImage", "Peanut Jelly Burger", 20,"Some reqs1", 1, true, "description"));
+        list.add(new Food("someImage", "Veggie Burger", 10,"Some reqs1", 3, false, "description"));
 
         adapter = new FoodListAdapter(list, purpose, getApplicationContext());
 

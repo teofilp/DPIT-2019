@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/food_card_bg"
+    android:background="@drawable/rounded"
     android:layout_height="wrap_content"
     android:layout_marginLeft="6dp"
     android:layout_marginRight="6dp"
@@ -64,6 +64,7 @@
         android:layout_below="@+id/title_price_wrapper"
         android:layout_toEndOf="@+id/food_image"
         android:layout_toLeftOf="@+id/qty_options_wrapper"
+        android:layout_toStartOf="@+id/qty_options_wrapper"
         android:layout_marginTop="12dp"
         android:layout_marginLeft="12dp"
         android:layout_marginBottom="8dp"

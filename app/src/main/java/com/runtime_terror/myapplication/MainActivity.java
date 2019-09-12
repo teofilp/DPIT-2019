@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.runtime_terror.myapplication.activities.MenuActivity;
+import com.runtime_terror.myapplication.activities.StaffActivity;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void launchClientSideActivity(View view){
-        Intent intent = new Intent(this, DisplayMenuActivity.class);// TODO: Open MenuActivity form "client".
+        Intent intent = new Intent(this, MenuActivity.class);// TODO: Open MenuActivity form "client".
         startActivity(intent);
     }
 

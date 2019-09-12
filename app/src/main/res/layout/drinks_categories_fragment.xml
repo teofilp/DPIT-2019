@@ -4,34 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.StaffActivity">
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        style="@style/customToolbar"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+    tools:context=".MenuActivity">
 
 
     <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tablayout"
-        android:layout_below="@id/toolbar"
+        android:id="@+id/tab_layout"
+        app:tabMode="scrollable"
+        android:paddingTop="-8dp"
         android:background="@color/white"
-        app:tabMode="fixed"
         app:tabGravity="fill"
-        app:tabTextColor="@color/borderColor"
-        app:tabSelectedTextColor="@color/borderColor"
-        app:tabIndicatorColor="@color/borderColor"
+        app:tabSelectedTextColor="@color/colorPrimaryDark"
+        app:tabIndicatorColor="@color/colorPrimaryDark"
+        app:tabTextColor="@color/colorPrimary"
 
         />
 
     <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/viewPager"
+        android:id="@+id/pager"
+        android:background="@drawable/food_card_bg"
         android:layout_marginTop="8dp"
-        android:layout_below="@id/tablayout"/>
+        android:layout_below="@id/tab_layout"/>
+
 </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.runtime_terror.myapplication;
+package com.runtime_terror.myapplication.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,11 +7,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.adapters.OrderListAdapter;
 import com.runtime_terror.myapplication.models.BillOrder;
 import com.runtime_terror.myapplication.models.Food;
@@ -104,7 +107,7 @@ public class OrderContainerFragment extends Fragment {
             FoodOrder foodOrder = new FoodOrder(tableNumber);
 
             for(int j=0; j<=max; j++){
-                foodOrder.addFood(new Food("someImage", "Some title1", 35, "Some reqs1", 3, true));
+                foodOrder.addFood(new Food("someImage", "Some title1", 35, "Some reqs1", 3, true,"description"));
             }
             foodOrders.add(foodOrder);
         }

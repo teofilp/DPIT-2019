@@ -1,6 +1,5 @@
 package com.runtime_terror.myapplication.adapters;
 
-import android.app.Dialog;
 import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,15 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.runtime_terror.myapplication.OrderUpdatesListener;
+import com.runtime_terror.myapplication.interfaces.EditItemInterface;
+import com.runtime_terror.myapplication.interfaces.OrderUpdatesListener;
+import com.runtime_terror.myapplication.models.EditItemDialog;
 import com.runtime_terror.myapplication.models.Food;
 import com.runtime_terror.myapplication.R;
 
@@ -32,7 +30,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
     public String purpose = "N/A";
     public Context mContext;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements EditItemInterface {
         RelativeLayout container;
         CircleImageView image;
         TextView title;
@@ -86,9 +84,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
             this.reqs.setText(reqs);
         }
 
-        public void setPrice(double price) {
-            this.price.setText("$" + price);
-        }
+        public void setPrice(double price) { this.price.setText("$" + price); }
 
         public void setQty(int qty) {
             this.qty.setText("QTY: " + qty);
@@ -96,6 +92,43 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
 
         public void setPrepared(Boolean prepared) {
             this.prepared.setChecked(prepared);
+        }
+
+        @Override
+        public int getQty() {
+            String tmp = qty.getText().toString();
+            if(tmp.contains("QTY: ")){
+                tmp = tmp.substring(tmp.indexOf("QTY: ")+5);
+            }
+            if(tmp.length()>0) {
+                return Integer.parseInt(tmp);
+            }
+            return 1;
+        }
+
+        @Override
+        public String getReqs() {
+            return reqs.getText().toString();
+        }
+
+        @Override
+        public List getDataSet() {
+            return dataset;
+        }
+
+        @Override
+        public int getItemPosition() {
+            return getAdapterPosition();
+        }
+
+        @Override
+        public void dialogNotifyItemRemoved(int position) {
+            notifyItemRemoved(position);
+        }
+
+        @Override
+        public String getTranslation(int resource) {
+            return mContext.getString(resource);
         }
 
         public void applyTranslateAnimation() {
@@ -145,51 +178,10 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
         myViewHolder.options.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 //Dialog Setup
-
-                final Dialog dialog = new Dialog(mContext);
-                dialog.setContentView(R.layout.edit_item_dialog);
-                dialog.setCancelable(false);
-
-                //Setup number picker
-
-                final NumberPicker quantityPicker = dialog.findViewById(R.id.quantityPicker);
-                quantityPicker.setMinValue(1);
-                quantityPicker.setMaxValue(100);
-                quantityPicker.setWrapSelectorWheel(false);
-
-                //Setup Cancel and Save buttons
-
-                Button saveButton = dialog.findViewById(R.id.saveEditButton);
-                saveButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        int qty = quantityPicker.getValue();
-                        myViewHolder.setQty(qty);
-
-                        EditText reqsEditor = dialog.findViewById(R.id.requirementsEditor);
-                        String reqs = reqsEditor.getText().toString();
-                        if(reqs.equals("")){
-                            myViewHolder.setReqs(mContext.getString(R.string.noReqs));
-                        }
-                        else {
-                            myViewHolder.setReqs(reqs);
-                        }
-
-                        dialog.dismiss();
-                    }
-                });
-
-                Button cancelButton = dialog.findViewById(R.id.cancelEditButton);
-                cancelButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.dismiss();
-                    }
-                });
-
-                dialog.show();
+                final EditItemDialog dialog = new EditItemDialog(mContext, myViewHolder);
+                dialog.setVisibilities("editItem");
+                dialog.setupDialog();
             }
         });
 
