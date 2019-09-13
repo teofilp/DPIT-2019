@@ -89,7 +89,7 @@ public class RestaurantLoginFragment extends Fragment {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     progressBar.setVisibility(View.GONE);
-                    Intent intent = new Intent(getContext(), MenuActivity.class);
+                    Intent intent = new Intent(getContext(), StaffActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 }
