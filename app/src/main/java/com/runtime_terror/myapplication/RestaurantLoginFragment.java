@@ -14,9 +14,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.runtime_terror.myapplication.activities.MenuActivity;
 import com.runtime_terror.myapplication.activities.StaffActivity;
 
 import static android.app.Activity.RESULT_OK;
@@ -29,6 +35,8 @@ public class RestaurantLoginFragment extends Fragment {
     EditText _passwordText;
     Button _loginButton;
     TextView _signupLink;
+    ProgressBar progressBar;
+    FirebaseAuth mAuth;
 
 
 
@@ -37,10 +45,13 @@ public class RestaurantLoginFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.restaurant_login_fragment, container, false);
 
+        mAuth=  FirebaseAuth.getInstance();
+
         _emailText = view.findViewById(R.id.input_email);
         _passwordText = view.findViewById(R.id.input_password);
         _loginButton = view.findViewById(R.id.btn_login);
         _signupLink = view.findViewById(R.id.link_signup);
+        progressBar = view.findViewById(R.id.progressbar);
 
         _loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,30 +79,25 @@ public class RestaurantLoginFragment extends Fragment {
     }
 
     public void login() {
-        startActivity(new Intent(getContext(), StaffActivity.class));
-        Log.d(TAG, "Login");
-
-        if (!validate()) {
-            onLoginFailed();
-            return;
-        }
-
-        _loginButton.setEnabled(false);
 
 
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
-
-        // TODO: Implement your own authentication logic here.
-
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onLoginSuccess or onLoginFailed
-                        onLoginSuccess();
-                        // onLoginFailed();
-                    }
-                }, 3000);
+        progressBar.setVisibility(View.VISIBLE);
+        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    progressBar.setVisibility(View.GONE);
+                    Intent intent = new Intent(getContext(), StaffActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
 
