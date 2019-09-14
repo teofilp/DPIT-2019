@@ -21,8 +21,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/editDialogTitle"
+            android:id="@+id/dialogTitle"
             style="@style/customTextView"
             android:textStyle="bold"
+            android:layout_marginBottom="4dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/dialogDescription"
+            style="@style/customTextView"
             android:layout_marginBottom="4dp"/>
 
         <RelativeLayout

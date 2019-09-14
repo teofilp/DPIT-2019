@@ -58,6 +58,12 @@ public class Launcher extends AppCompatActivity {
         setupPermissions();
         setupCustomTabsAnimations();
 
+        handleLoginRedirect();
+    }
+
+    public void handleLoginRedirect() {
+        if(getIntent().getBooleanExtra("redirectToLogin", false))
+            viewPager.setCurrentItem(1);
     }
 
     private void setupCustomTabsAnimations(){

@@ -24,20 +24,27 @@ public class EditItemDialog extends Dialog {
     private TextView deleteLabel;
     private ImageButton deleteButton;
     private Button saveButton;
+    private TextView dialogTitle;
+    private TextView dialogDescription;
     private Button cancelButton;
+    private Food menuItemList;
+
     private EditItemInterface editItemInterface;
     private AddToCartListener addToCartListener;
 
     private String purpose;
     private Food foodItem;
 
+
     public EditItemDialog(Context mContext, EditItemInterface editItemInterface, Food foodItem){
+
         //Dialog creation
         super(mContext);
         setContentView(R.layout.edit_item_dialog);
         setCancelable(false);
         //Item binding
         this.foodItem = foodItem;
+
         this.editItemInterface = editItemInterface;
         this.increaseButton = findViewById(R.id.qtyIncrease);
         this.decreaseButton = findViewById(R.id.qtyDecrease);
@@ -47,6 +54,15 @@ public class EditItemDialog extends Dialog {
         this.deleteButton = findViewById(R.id.deleteButton);
         this.saveButton = findViewById(R.id.saveEditButton);
         this.cancelButton = findViewById(R.id.cancelEditButton);
+        this.dialogTitle= findViewById(R.id.dialogTitle);
+        this.dialogDescription= findViewById(R.id.dialogDescription);
+        bindDataToViews();
+    }
+
+    public void bindDataToViews()
+    {
+        this.dialogTitle.setText(this.menuItemList.getTitle());
+        this.dialogDescription.setText(this.menuItemList.getDescription());
     }
 
     public void registerAddToCartListener(AddToCartListener listener) {
@@ -60,6 +76,9 @@ public class EditItemDialog extends Dialog {
             deleteButton.setVisibility(View.GONE);
             saveButton.setText(R.string.addToCartButton);
         }
+        if(purpose.equals("editItem")){
+            dialogDescription.setVisibility(View.GONE);
+        }
     }
 
     public void setupDialog(){
@@ -71,6 +90,7 @@ public class EditItemDialog extends Dialog {
             public void onClick(View view) {
                 int qty = Integer.parseInt(qtyDisplay.getText().toString()) + 1;
                 qtyDisplay.setText(qty + "");
+                menuItemList.setQty(qty);
             }
         });
 
@@ -81,6 +101,7 @@ public class EditItemDialog extends Dialog {
                 if(qty > 1)
                     qty = Integer.parseInt(qtyDisplay.getText().toString()) - 1;
                 qtyDisplay.setText(qty + "");
+                menuItemList.setQty(qty);
             }
         });
 
@@ -111,6 +132,7 @@ public class EditItemDialog extends Dialog {
                 if(dialogPurpose.equals("addToCart"))
                     addToCartListener.addToCart(new Pair<>(foodItem, Integer.parseInt(qtyDisplay.getText().toString())));
 
+                editItemInterface.itemChanged();
                 dismiss();
             }
         });

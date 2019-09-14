@@ -4,6 +4,9 @@
     <string name="orderTotalPrice">Total: </string>
     <string name="orderButton">ORDER</string>
     <string name="payButton">BILL</string>
+    <string name="logoutDialogTitle">WANT TO LOG OUT?</string>
+    <string name="logoutDialogContent">This will automatically log you out of your account</string>
+    <string name="logoutButton">LOG OUT</string>
     <string name="editDialogTitle">EDIT ITEM:</string>
     <string name="clientQtyChooseLabel">Choose Quantity:</string>
     <string name="specialReqsLabel">Special Requirements:</string>

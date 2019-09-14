@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.runtime_terror.myapplication.interfaces.EditItemInterface;
+import com.runtime_terror.myapplication.interfaces.ItemChanged;
 import com.runtime_terror.myapplication.interfaces.OrderUpdatesListener;
 import com.runtime_terror.myapplication.models.EditItemDialog;
 import com.runtime_terror.myapplication.models.Food;
@@ -29,6 +30,9 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
     List<OrderUpdatesListener> preparedMealListeners = new ArrayList<>();
     public String purpose = "N/A";
     public Context mContext;
+
+    public ItemChanged itemChanged;
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements EditItemInterface {
         RelativeLayout container;
@@ -131,16 +135,32 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
             return mContext.getString(resource);
         }
 
+        @Override
+        public void itemChanged() {
+            itemChanged.onItemChange();
+        }
+
         public void applyTranslateAnimation() {
             container.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.slide_transition));
         }
     }
+
+    public FoodListAdapter(List<Food> dataset, String purpose, Context context, ItemChanged listener){
+        this.dataset = dataset;
+        this.purpose = purpose;
+        this.mContext = context;
+        this.itemChanged = listener;
+    }
+
 
     public FoodListAdapter(List<Food> dataset, String purpose, Context context){
         this.dataset = dataset;
         this.purpose = purpose;
         this.mContext = context;
     }
+
+
+
     @NonNull
     @Override
     public FoodListAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
@@ -206,5 +226,4 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
         for(OrderUpdatesListener listener : preparedMealListeners)
             listener.onOrderUpdate(isComplete);
     }
-
 }

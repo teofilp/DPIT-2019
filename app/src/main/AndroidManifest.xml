@@ -31,8 +31,8 @@
         </activity>
 
         <activity
-            android:name=".KitchenTableOrder"
-            android:parentActivityName=".StaffActivity"
+            android:name=".activities.KitchenTableOrder"
+            android:parentActivityName=".activities.StaffActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".SignupActivity"
             android:screenOrientation="portrait" />

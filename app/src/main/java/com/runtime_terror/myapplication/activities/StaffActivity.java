@@ -3,16 +3,25 @@ package com.runtime_terror.myapplication.activities;
 import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
+
 import androidx.appcompat.widget.Toolbar;
 
 import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.fragments.OrderContainerFragment;
 
 import com.runtime_terror.myapplication.adapters.CustomPagerAdapter;
+import com.runtime_terror.myapplication.models.HelpDialog;
+import com.runtime_terror.myapplication.models.LogoutDialog;
 
 
 public class StaffActivity extends AppCompatActivity {
+    private Context mContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +29,7 @@ public class StaffActivity extends AppCompatActivity {
 
         setupToolbar();
         setupViewPagerAndTablayout();
+        mContext=this;
     }
 
     private void setupViewPagerAndTablayout() {
@@ -55,5 +65,13 @@ public class StaffActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         setTitle("Staff Activity");
 
+        ImageButton logoutButton = findViewById(R.id.logoutButton);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LogoutDialog logoutDialog = new LogoutDialog(mContext);
+                logoutDialog.setupDialog();
+            }
+        });
     }
 }

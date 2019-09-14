@@ -12,12 +12,9 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-    </androidx.appcompat.widget.Toolbar>
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
     <ImageButton
-
         android:id="@+id/imageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,8 +24,6 @@
         android:layout_alignRight="@+id/fab_wrapper"
         android:background="@color/colorPrimary"
         android:src="@drawable/ic_help_button" />
-
-
 
     <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"

@@ -4,6 +4,9 @@
     <string name="orderTotalPrice">Total: </string>
     <string name="orderButton">COMANDĂ</string>
     <string name="payButton">NOTA DE PLATĂ</string>
+    <string name="logoutButton">DECONECTARE</string>
+    <string name="logoutDialogTitle">DORESTI SA TE DECONECTEZI?</string>
+    <string name="logoutDialogContent">Butonul de mai jos vă va deconectat automat de la contul dumneavoastră</string>
     <string name="editDialogTitle">MODIFICARE ARTICOL:</string>
     <string name="clientQtyChooseLabel">Alegeți Cantitate:</string>
     <string name="specialReqsLabel">Cerințe Speciale:</string>
