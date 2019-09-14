@@ -2,6 +2,7 @@ package com.runtime_terror.myapplication.models;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
@@ -9,7 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.runtime_terror.myapplication.interfaces.AddToCartListener;
+import com.runtime_terror.myapplication.interfaces.CartListener;
 import com.runtime_terror.myapplication.interfaces.EditItemInterface;
 import com.runtime_terror.myapplication.R;
 
@@ -27,10 +28,9 @@ public class EditItemDialog extends Dialog {
     private TextView dialogTitle;
     private TextView dialogDescription;
     private Button cancelButton;
-    private Food menuItemList;
 
     private EditItemInterface editItemInterface;
-    private AddToCartListener addToCartListener;
+    private CartListener cartListener;
 
     private String purpose;
     private Food foodItem;
@@ -61,12 +61,12 @@ public class EditItemDialog extends Dialog {
 
     public void bindDataToViews()
     {
-        this.dialogTitle.setText(this.menuItemList.getTitle());
-        this.dialogDescription.setText(this.menuItemList.getDescription());
+        this.dialogTitle.setText(this.foodItem.getTitle());
+        this.dialogDescription.setText(this.foodItem.getDescription());
     }
 
-    public void registerAddToCartListener(AddToCartListener listener) {
-        this.addToCartListener = listener;
+    public void registerCartListener(CartListener listener) {
+        this.cartListener = listener;
     }
 
     public void setVisibilities(String purpose){
@@ -81,6 +81,9 @@ public class EditItemDialog extends Dialog {
         }
     }
 
+    private int getQty() {
+       return Integer.parseInt(qtyDisplay.getText().toString());
+    }
     public void setupDialog(){
         initialQty = editItemInterface.getQty();
         qtyDisplay.setText(initialQty + "");
@@ -88,30 +91,27 @@ public class EditItemDialog extends Dialog {
         increaseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int qty = Integer.parseInt(qtyDisplay.getText().toString()) + 1;
+                int qty = getQty() + 1;
                 qtyDisplay.setText(qty + "");
-                menuItemList.setQty(qty);
+                foodItem.setQty(qty);
             }
         });
 
         decreaseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int qty = Integer.parseInt(qtyDisplay.getText().toString());
+                int qty = getQty();
                 if(qty > 1)
-                    qty = Integer.parseInt(qtyDisplay.getText().toString()) - 1;
+                    qty = getQty() - 1;
                 qtyDisplay.setText(qty + "");
-                menuItemList.setQty(qty);
+                foodItem.setQty(qty);
             }
         });
 
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int position = editItemInterface.getItemPosition();
-                dismiss();
-                editItemInterface.getDataSet().remove(position);
-                editItemInterface.dialogNotifyItemRemoved(position);
+                deleteItem();
             }
         });
 
@@ -121,16 +121,21 @@ public class EditItemDialog extends Dialog {
 
             @Override
             public void onClick(View view) {
-                editItemInterface.setQty(Integer.parseInt(qtyDisplay.getText().toString()));
+                foodItem.setQty(Integer.parseInt(qtyDisplay.getText().toString()));
+                if(getQty() < 1) {
+                    dismiss();
+                    return;
+                }
+
                 String reqs = reqsEditor.getText().toString();
                 if(reqs.equals("")){
-                    editItemInterface.setReqs(editItemInterface.getTranslation(R.string.noReqs));
+                    foodItem.setReqs(editItemInterface.getTranslation(R.string.noReqs));
                 } else {
-                    editItemInterface.setReqs(reqs);
+                    foodItem.setReqs(reqs);
                 }
 
                 if(dialogPurpose.equals("addToCart"))
-                    addToCartListener.addToCart(new Pair<>(foodItem, Integer.parseInt(qtyDisplay.getText().toString())));
+                    cartListener.addToCart(new Pair<>(foodItem, Integer.parseInt(qtyDisplay.getText().toString())));
 
                 editItemInterface.itemChanged();
                 dismiss();
@@ -146,5 +151,16 @@ public class EditItemDialog extends Dialog {
         });
         show();
     }
+
+    private void deleteItem(){
+        int position = editItemInterface.getItemPosition();
+        dismiss();
+//        Food foodItem = (Food)editItemInterface.getDataSet().get(position);
+//        cartListener.removeFromCart(foodItem.getTitle());
+        editItemInterface.getDataSet().remove(position);
+        editItemInterface.dialogNotifyItemRemoved(position);
+        editItemInterface.itemChanged();
+    }
+
 
 }

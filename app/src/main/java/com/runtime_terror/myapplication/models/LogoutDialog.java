@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import androidx.core.content.ContextCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.runtime_terror.myapplication.Launcher;
 import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.RestaurantLoginFragment;
@@ -40,6 +41,7 @@ public class LogoutDialog extends Dialog {
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(v.getContext(), Launcher.class);
                 intent.putExtra("redirectToLogin", true);
                 v.getContext().startActivity(intent);

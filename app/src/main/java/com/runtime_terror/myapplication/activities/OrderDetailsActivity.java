@@ -114,7 +114,9 @@ public class OrderDetailsActivity extends AppCompatActivity {
         for(Food food : foodList){
             total += food.getPrice()*food.getQty();
         }
-
-        ((TextView)findViewById(R.id.total)).setText("Total price: " + total);
+        if(total == 0)
+            finish();
+        total = ((double)((int) (total * 100)) / 100);
+        ((TextView)findViewById(R.id.total)).setText("Total price: " + total + " Lei");
     }
 }

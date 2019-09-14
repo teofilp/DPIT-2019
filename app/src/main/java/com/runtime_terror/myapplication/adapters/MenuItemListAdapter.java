@@ -4,6 +4,8 @@ package com.runtime_terror.myapplication.adapters;
 import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +15,7 @@ import android.widget.TextView;
 
 
 import com.runtime_terror.myapplication.R;
-import com.runtime_terror.myapplication.interfaces.AddToCartListener;
+import com.runtime_terror.myapplication.interfaces.CartListener;
 import com.runtime_terror.myapplication.interfaces.EditItemInterface;
 import com.runtime_terror.myapplication.models.EditItemDialog;
 import com.runtime_terror.myapplication.models.Food;
@@ -24,9 +26,9 @@ public class MenuItemListAdapter extends RecyclerView.Adapter<MenuItemListAdapte
 
     private List<Food> menuItemsList;
     private Context context;
-    private AddToCartListener listener;
+    private CartListener listener;
 
-    public MenuItemListAdapter(Context context, List<Food> menuItemsList, AddToCartListener listener) {
+    public MenuItemListAdapter(Context context, List<Food> menuItemsList, CartListener listener) {
         this.menuItemsList = menuItemsList;
         this.context = context;
         this.listener = listener;
@@ -49,8 +51,9 @@ public class MenuItemListAdapter extends RecyclerView.Adapter<MenuItemListAdapte
         holder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("menuItem pressed", menuItemsList.get(position).getTitle());
                 EditItemDialog addDialog = new EditItemDialog(context, holder, menuItemsList.get(position));
-                addDialog.registerAddToCartListener(listener);
+                addDialog.registerCartListener(listener);
                 addDialog.setVisibilities("addToCart");
                 addDialog.setupDialog();
 

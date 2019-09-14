@@ -11,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.runtime_terror.myapplication.interfaces.EditItemInterface;
 import com.runtime_terror.myapplication.interfaces.ItemChanged;
@@ -88,7 +89,10 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
             this.reqs.setText(reqs);
         }
 
-        public void setPrice(double price) { this.price.setText("$" + price); }
+        public void setPrice(double price, int qty) {
+            double totalPrice = ((double)((int) (price * qty * 100)) / 100);
+            this.price.setText(totalPrice + " Lei");
+        }
 
         public void setQty(int qty) {
             this.qty.setText("QTY: " + qty);
@@ -137,6 +141,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
 
         @Override
         public void itemChanged() {
+            notifyDataSetChanged();
             itemChanged.onItemChange();
         }
 
@@ -176,7 +181,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
         myViewHolder.setTitle(dataset.get(position).getTitle());
         myViewHolder.setReqs(dataset.get(position).getReqs());
         myViewHolder.setQty(dataset.get(position).getQty());
-        myViewHolder.setPrice(dataset.get(position).getPrice());
+        myViewHolder.setPrice(dataset.get(position).getPrice(), dataset.get(position).getQty());
 
         myViewHolder.setPrepared(dataset.get(position).isPrepared());
 

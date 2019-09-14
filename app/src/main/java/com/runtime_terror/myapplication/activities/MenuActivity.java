@@ -20,9 +20,10 @@ import android.util.Pair;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.runtime_terror.myapplication.interfaces.AddToCartListener;
+import com.runtime_terror.myapplication.interfaces.CartListener;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -92,7 +93,7 @@ public class MenuActivity extends AppCompatActivity {
 //        for(String category: cateogories) {
 //
 //            CategoriesMenuFragment fragment = new CategoriesMenuFragment();
-//            fragment.registerAddToCartListener(new AddToCartListener() {
+//            fragment.registerCartListener(new CartListener() {
 //                @Override
 //                public void addToCart(Pair<Food, Integer> food) {
 //                    cartList.add(food);
@@ -134,7 +135,7 @@ public class MenuActivity extends AppCompatActivity {
                     if(foodCategory.getBoolean("isComplex")==null) {
                         CategoriesMenuFragment frag = new CategoriesMenuFragment();
 
-                        frag.registerAddToCartListener(new AddToCartListener() {
+                        frag.registerCartListener(new CartListener() {
                             @Override
                             public void addToCart(Pair<Food, Integer> food) {
                                 cartList.add(food);
@@ -145,6 +146,11 @@ public class MenuActivity extends AppCompatActivity {
                                 else {
                                     findViewById(R.id.cart_count).setVisibility(View.GONE);
                                 }
+                            }
+
+                            @Override
+                            public void removeFromCart(String productTitle) {
+                                Toast.makeText(mContext, productTitle, Toast.LENGTH_SHORT).show();
                             }
                         });
 

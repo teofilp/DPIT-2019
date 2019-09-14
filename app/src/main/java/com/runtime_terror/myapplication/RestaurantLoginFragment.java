@@ -95,6 +95,7 @@ public class RestaurantLoginFragment extends Fragment {
                 }
                 else{
                     Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
                 }
             }
         });
