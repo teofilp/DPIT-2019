@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.adapters.OrderListAdapter;
 import com.runtime_terror.myapplication.models.BillOrder;
-import com.runtime_terror.myapplication.models.Food;
+import com.runtime_terror.myapplication.models.ProductItem;
 import com.runtime_terror.myapplication.models.FoodOrder;
 import com.runtime_terror.myapplication.models.HelpOrder;
 import com.runtime_terror.myapplication.models.Order;
@@ -107,7 +107,7 @@ public class OrderContainerFragment extends Fragment {
             FoodOrder foodOrder = new FoodOrder(tableNumber);
 
             for(int j=0; j<=max; j++){
-                foodOrder.addFood(new Food("someImage", "Some title1", 35, "Some reqs1", 3, true,"description"));
+                foodOrder.addFood(new ProductItem("someImage", "Some title1", 35, "Some reqs1", 3, true,"description"));
             }
             foodOrders.add(foodOrder);
         }

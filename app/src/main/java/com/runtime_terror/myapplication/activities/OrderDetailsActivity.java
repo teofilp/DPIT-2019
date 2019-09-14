@@ -20,7 +20,7 @@ import com.google.gson.reflect.TypeToken;
 import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.adapters.FoodListAdapter;
 import com.runtime_terror.myapplication.interfaces.ItemChanged;
-import com.runtime_terror.myapplication.models.Food;
+import com.runtime_terror.myapplication.models.ProductItem;
 import com.runtime_terror.myapplication.models.HelpDialog;
 
 
@@ -39,9 +39,9 @@ public class OrderDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_details);
         bindMainList();
-        List<Food> foodList = getFoodData();
-        computeOrderPrice(foodList);
-        setupAdapterAndData(foodList);
+        List<ProductItem> productItemList = getFoodData();
+        computeOrderPrice(productItemList);
+        setupAdapterAndData(productItemList);
         setupToolbar();
 
     }
@@ -51,34 +51,34 @@ public class OrderDetailsActivity extends AppCompatActivity {
         mainList.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    private List<Food> getFoodData(){
+    private List<ProductItem> getFoodData(){
 
         String cartJson = getIntent().getStringExtra("cart");
 
-        Type cartType = new TypeToken<List<Pair<Food, Integer>>>(){}.getType();
-        List<Pair<Food, Integer> > cartList = new Gson().fromJson(cartJson,  cartType);
+        Type cartType = new TypeToken<List<Pair<ProductItem, Integer>>>(){}.getType();
+        List<Pair<ProductItem, Integer> > cartList = new Gson().fromJson(cartJson,  cartType);
 
         Log.d("cart length", cartList.size() + "");
 
-        List<Food> foodList = new ArrayList<>();
-        for(Pair<Food, Integer> pair: cartList) {
-            Food food = pair.first;
+        List<ProductItem> productItemList = new ArrayList<>();
+        for(Pair<ProductItem, Integer> pair: cartList) {
+            ProductItem productItem = pair.first;
             int qty = pair.second;
-            food.setQty(qty);
+            productItem.setQty(qty);
 
-            foodList.add(food);
+            productItemList.add(productItem);
         }
-        return foodList;
+        return productItemList;
     }
 
-    private void setupAdapterAndData(List<Food> foodList){
+    private void setupAdapterAndData(List<ProductItem> productItemList){
 
-        adapter = new FoodListAdapter(foodList, "client", this, new ItemChanged() {
+        adapter = new FoodListAdapter(productItemList, "client", this, new ItemChanged() {
             @Override
             public void onItemChange() {
-                computeOrderPrice(foodList);
+                computeOrderPrice(productItemList);
             }
-        });
+        }, this);
         mainList.setAdapter(adapter);
     }
 
@@ -109,10 +109,10 @@ public class OrderDetailsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void computeOrderPrice(List<Food> foodList){
+    private void computeOrderPrice(List<ProductItem> productItemList){
         double total = 0.0;
-        for(Food food : foodList){
-            total += food.getPrice()*food.getQty();
+        for(ProductItem productItem : productItemList){
+            total += productItem.getPrice()* productItem.getQty();
         }
         if(total == 0)
             finish();

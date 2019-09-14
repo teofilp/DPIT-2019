@@ -1,7 +1,5 @@
 package com.runtime_terror.myapplication.interfaces;
 
-import com.runtime_terror.myapplication.models.Food;
-
 import java.util.List;
 
 public interface EditItemInterface {

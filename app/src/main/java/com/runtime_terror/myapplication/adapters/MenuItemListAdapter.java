@@ -18,17 +18,17 @@ import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.interfaces.CartListener;
 import com.runtime_terror.myapplication.interfaces.EditItemInterface;
 import com.runtime_terror.myapplication.models.EditItemDialog;
-import com.runtime_terror.myapplication.models.Food;
+import com.runtime_terror.myapplication.models.ProductItem;
 
 import java.util.List;
 
 public class MenuItemListAdapter extends RecyclerView.Adapter<MenuItemListAdapter.MyViewHolder> {
 
-    private List<Food> menuItemsList;
+    private List<ProductItem> menuItemsList;
     private Context context;
     private CartListener listener;
 
-    public MenuItemListAdapter(Context context, List<Food> menuItemsList, CartListener listener) {
+    public MenuItemListAdapter(Context context, List<ProductItem> menuItemsList, CartListener listener) {
         this.menuItemsList = menuItemsList;
         this.context = context;
         this.listener = listener;

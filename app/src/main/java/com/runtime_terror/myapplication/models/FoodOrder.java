@@ -1,26 +1,23 @@
 package com.runtime_terror.myapplication.models;
 
-import android.content.Context;
-
 import com.runtime_terror.myapplication.R;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class FoodOrder extends Order {
-    private List<Food> orderList;
+    private List<ProductItem> orderList;
 
     public FoodOrder(int tableNumber) {
         super(tableNumber);
         orderList = new ArrayList<>();
     }
 
-    public void addFood(Food item) {
+    public void addFood(ProductItem item) {
         orderList.add(item);
     }
 
-    public List<Food> getOrderList() {
+    public List<ProductItem> getOrderList() {
         return this.orderList;
     }
 

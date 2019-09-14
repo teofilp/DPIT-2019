@@ -92,6 +92,7 @@ public class RestaurantLoginFragment extends Fragment {
                     Intent intent = new Intent(getContext(), StaffActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
+                    getActivity().finish();
                 }
                 else{
                     Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();

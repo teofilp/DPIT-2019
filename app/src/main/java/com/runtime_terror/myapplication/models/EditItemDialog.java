@@ -1,14 +1,15 @@
 package com.runtime_terror.myapplication.models;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.runtime_terror.myapplication.interfaces.CartListener;
 import com.runtime_terror.myapplication.interfaces.EditItemInterface;
@@ -33,17 +34,19 @@ public class EditItemDialog extends Dialog {
     private CartListener cartListener;
 
     private String purpose;
-    private Food foodItem;
+    private ProductItem productItemItem;
+
+    private Activity parentActivity;
 
 
-    public EditItemDialog(Context mContext, EditItemInterface editItemInterface, Food foodItem){
+    public EditItemDialog(Context mContext, EditItemInterface editItemInterface, ProductItem productItemItem){
 
         //Dialog creation
         super(mContext);
         setContentView(R.layout.edit_item_dialog);
         setCancelable(false);
         //Item binding
-        this.foodItem = foodItem;
+        this.productItemItem = productItemItem;
 
         this.editItemInterface = editItemInterface;
         this.increaseButton = findViewById(R.id.qtyIncrease);
@@ -61,8 +64,8 @@ public class EditItemDialog extends Dialog {
 
     public void bindDataToViews()
     {
-        this.dialogTitle.setText(this.foodItem.getTitle());
-        this.dialogDescription.setText(this.foodItem.getDescription());
+        this.dialogTitle.setText(this.productItemItem.getTitle());
+        this.dialogDescription.setText(this.productItemItem.getDescription());
     }
 
     public void registerCartListener(CartListener listener) {
@@ -93,7 +96,7 @@ public class EditItemDialog extends Dialog {
             public void onClick(View view) {
                 int qty = getQty() + 1;
                 qtyDisplay.setText(qty + "");
-                foodItem.setQty(qty);
+                productItemItem.setQty(qty);
             }
         });
 
@@ -104,7 +107,7 @@ public class EditItemDialog extends Dialog {
                 if(qty > 1)
                     qty = getQty() - 1;
                 qtyDisplay.setText(qty + "");
-                foodItem.setQty(qty);
+                productItemItem.setQty(qty);
             }
         });
 
@@ -121,7 +124,7 @@ public class EditItemDialog extends Dialog {
 
             @Override
             public void onClick(View view) {
-                foodItem.setQty(Integer.parseInt(qtyDisplay.getText().toString()));
+                productItemItem.setQty(Integer.parseInt(qtyDisplay.getText().toString()));
                 if(getQty() < 1) {
                     dismiss();
                     return;
@@ -129,13 +132,13 @@ public class EditItemDialog extends Dialog {
 
                 String reqs = reqsEditor.getText().toString();
                 if(reqs.equals("")){
-                    foodItem.setReqs(editItemInterface.getTranslation(R.string.noReqs));
+                    productItemItem.setReqs(editItemInterface.getTranslation(R.string.noReqs));
                 } else {
-                    foodItem.setReqs(reqs);
+                    productItemItem.setReqs(reqs);
                 }
 
                 if(dialogPurpose.equals("addToCart"))
-                    cartListener.addToCart(new Pair<>(foodItem, Integer.parseInt(qtyDisplay.getText().toString())));
+                    cartListener.addToCart(new Pair<>(productItemItem, Integer.parseInt(qtyDisplay.getText().toString())));
 
                 editItemInterface.itemChanged();
                 dismiss();
@@ -155,11 +158,19 @@ public class EditItemDialog extends Dialog {
     private void deleteItem(){
         int position = editItemInterface.getItemPosition();
         dismiss();
-//        Food foodItem = (Food)editItemInterface.getDataSet().get(position);
-//        cartListener.removeFromCart(foodItem.getTitle());
+        removeProductFromCart(editItemInterface.getDataSet().get(position));
         editItemInterface.getDataSet().remove(position);
         editItemInterface.dialogNotifyItemRemoved(position);
         editItemInterface.itemChanged();
+    }
+
+    public void setActivityForDialog(Activity act) {
+        parentActivity = act;
+    }
+
+    private void removeProductFromCart(Object o) {
+        ProductItem item = (ProductItem) o;
+        ((MyApplication)parentActivity.getApplication()).deleteItemFromCart(item.getTitle());
     }
 
 

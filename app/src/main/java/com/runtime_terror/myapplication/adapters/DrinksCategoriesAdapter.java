@@ -11,16 +11,16 @@ import android.widget.RelativeLayout;
 
 
 import com.runtime_terror.myapplication.R;
-import com.runtime_terror.myapplication.models.Food;
+import com.runtime_terror.myapplication.models.ProductItem;
 
 import java.util.List;
 
 public class DrinksCategoriesAdapter extends RecyclerView.Adapter<DrinksCategoriesAdapter.MyViewHolder> {
 
-    private List<Food> drinksItemsList;
+    private List<ProductItem> drinksItemsList;
     private Context context;
 
-    public DrinksCategoriesAdapter(Context context, List<Food> drinksItemsList) {
+    public DrinksCategoriesAdapter(Context context, List<ProductItem> drinksItemsList) {
         this.drinksItemsList = drinksItemsList;
         this.context = context;
     }

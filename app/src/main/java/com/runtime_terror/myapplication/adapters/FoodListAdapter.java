@@ -1,5 +1,6 @@
 package com.runtime_terror.myapplication.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,13 +12,12 @@ import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.runtime_terror.myapplication.interfaces.EditItemInterface;
 import com.runtime_terror.myapplication.interfaces.ItemChanged;
 import com.runtime_terror.myapplication.interfaces.OrderUpdatesListener;
 import com.runtime_terror.myapplication.models.EditItemDialog;
-import com.runtime_terror.myapplication.models.Food;
+import com.runtime_terror.myapplication.models.ProductItem;
 import com.runtime_terror.myapplication.R;
 
 import java.util.ArrayList;
@@ -27,12 +27,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyViewHolder> {
 
-    List<Food> dataset;
+    List<ProductItem> dataset;
     List<OrderUpdatesListener> preparedMealListeners = new ArrayList<>();
     public String purpose = "N/A";
     public Context mContext;
 
     public ItemChanged itemChanged;
+
+    public Activity parentActivity;
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements EditItemInterface {
@@ -150,15 +152,23 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
         }
     }
 
-    public FoodListAdapter(List<Food> dataset, String purpose, Context context, ItemChanged listener){
+    public FoodListAdapter(List<ProductItem> dataset, String purpose, Context context, ItemChanged listener){
         this.dataset = dataset;
         this.purpose = purpose;
         this.mContext = context;
         this.itemChanged = listener;
     }
 
+    public FoodListAdapter(List<ProductItem> dataset, String purpose, Context context, ItemChanged listener, Activity act){
+        this.dataset = dataset;
+        this.purpose = purpose;
+        this.mContext = context;
+        this.itemChanged = listener;
+        this.parentActivity = act;
+    }
 
-    public FoodListAdapter(List<Food> dataset, String purpose, Context context){
+
+    public FoodListAdapter(List<ProductItem> dataset, String purpose, Context context){
         this.dataset = dataset;
         this.purpose = purpose;
         this.mContext = context;
@@ -205,6 +215,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
             public void onClick(View view) {
                 //Dialog Setup
                 final EditItemDialog dialog = new EditItemDialog(mContext, myViewHolder, dataset.get(position));
+                dialog.setActivityForDialog(parentActivity);
                 dialog.setVisibilities("editItem");
                 dialog.setupDialog();
             }
@@ -221,8 +232,8 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
     }
 
     private boolean isOrderComplete() {
-        for(Food food : dataset)
-            if(!food.isPrepared())
+        for(ProductItem productItem : dataset)
+            if(!productItem.isPrepared())
                 return false;
         return true;
     }
@@ -231,4 +242,5 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
         for(OrderUpdatesListener listener : preparedMealListeners)
             listener.onOrderUpdate(isComplete);
     }
+
 }

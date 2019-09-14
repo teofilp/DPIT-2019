@@ -33,7 +33,8 @@ import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.adapters.CustomPagerAdapter;
 import com.runtime_terror.myapplication.fragments.CategoriesMenuFragment;
 
-import com.runtime_terror.myapplication.models.Food;
+import com.runtime_terror.myapplication.models.MyApplication;
+import com.runtime_terror.myapplication.models.ProductItem;
 
 import com.runtime_terror.myapplication.models.HelpDialog;
 
@@ -52,12 +53,15 @@ public class MenuActivity extends AppCompatActivity {
     private ArrayList<String> foodTypes;
     private final String TAG = "DebugMenu";// for debug purposes only
 
-    List<Pair<Food, Integer>> cartList = new ArrayList<>();
+    List<Pair<ProductItem, Integer>> cartList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        ((MyApplication) this.getApplication()).setCartList(cartList);
+        ((MyApplication) this.getApplication()).setCartItems((findViewById(R.id.cart_count)));
 
         setupToolbar();
         setupDataBase();
@@ -95,7 +99,7 @@ public class MenuActivity extends AppCompatActivity {
 //            CategoriesMenuFragment fragment = new CategoriesMenuFragment();
 //            fragment.registerCartListener(new CartListener() {
 //                @Override
-//                public void addToCart(Pair<Food, Integer> food) {
+//                public void addToCart(Pair<ProductItem, Integer> food) {
 //                    cartList.add(food);
 //                    if(cartList.size() > 0) {
 //                        findViewById(R.id.cart_count).setVisibility(View.VISIBLE);
@@ -137,7 +141,7 @@ public class MenuActivity extends AppCompatActivity {
 
                         frag.registerCartListener(new CartListener() {
                             @Override
-                            public void addToCart(Pair<Food, Integer> food) {
+                            public void addToCart(Pair<ProductItem, Integer> food) {
                                 cartList.add(food);
                                 if(cartList.size() > 0) {
                                     findViewById(R.id.cart_count).setVisibility(View.VISIBLE);
@@ -176,6 +180,7 @@ public class MenuActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle("Restaurant name");
+
 
         ImageButton helpButton = findViewById(R.id.imageButton);
         helpButton.setOnClickListener(new View.OnClickListener() {

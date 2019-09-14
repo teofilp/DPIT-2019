@@ -17,7 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.interfaces.CartListener;
-import com.runtime_terror.myapplication.models.Food;
+import com.runtime_terror.myapplication.models.ProductItem;
 import com.runtime_terror.myapplication.adapters.MenuItemListAdapter;
 
 import java.util.ArrayList;
@@ -62,7 +62,7 @@ public class CategoriesMenuFragment extends Fragment {
 
     private MenuItemListAdapter getAdapter() {// TODO: Implement my thing (DB) here.
 
-        final List<Food> orders = new ArrayList<>();
+        final List<ProductItem> orders = new ArrayList<>();
         final MenuItemListAdapter adapter = new MenuItemListAdapter(getContext(), orders, listener);
         typeRef.get().addOnCompleteListener(task -> {
             Log.d(TAG, "Loading food items...");
@@ -70,8 +70,8 @@ public class CategoriesMenuFragment extends Fragment {
                 for (QueryDocumentSnapshot food : task.getResult()) {
                     Log.d(TAG, food.getString("name"));
 
-                    Food foodItem = new Food("someImage", food.getString("name"), (double) food.get("price"), "", 1, food.getBoolean("isAvailable"), food.getString("desc"));
-                    orders.add(foodItem);
+                    ProductItem productItemItem = new ProductItem("someImage", food.getString("name"), (double) food.get("price"), "", 1, food.getBoolean("isAvailable"), food.getString("desc"));
+                    orders.add(productItemItem);
                 }
                 adapter.notifyDataSetChanged();
             }
