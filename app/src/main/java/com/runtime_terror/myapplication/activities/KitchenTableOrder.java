@@ -97,7 +97,7 @@ public class KitchenTableOrder extends AppCompatActivity {
     private void setupToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle("FoodOrder for Table #1");
+        setTitle("ProductOrder for Table #1");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }

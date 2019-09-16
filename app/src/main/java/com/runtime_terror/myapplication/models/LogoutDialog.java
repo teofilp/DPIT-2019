@@ -45,7 +45,6 @@ public class LogoutDialog extends Dialog {
                 Intent intent = new Intent(v.getContext(), Launcher.class);
                 intent.putExtra("redirectToLogin", true);
                 v.getContext().startActivity(intent);
-
             }
         });
         show();

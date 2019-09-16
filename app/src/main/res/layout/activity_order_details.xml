@@ -54,6 +54,7 @@
 
                 <Button
                     android:id="@+id/orderButton"
+                    android:onClick="placeOrder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/orderButton"
@@ -68,6 +69,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/payButton"
+                    android:onClick="requestBill"
                     style="@style/customBottomButton"
                     android:padding="4dp"
                     android:layout_weight="0.5"

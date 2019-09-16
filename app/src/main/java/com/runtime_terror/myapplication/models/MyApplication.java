@@ -24,7 +24,7 @@ public class MyApplication extends Application {
         if(cartList.size() > 0) {
             cartItems.setVisibility(View.VISIBLE);
             cartItems.setText(Integer.toString(cartList.size()));
-                    }
+        }
         else {
             cartItems.setVisibility(View.GONE);
         }

@@ -14,11 +14,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.adapters.OrderListAdapter;
+import com.runtime_terror.myapplication.database.FirestoreSetup;
 import com.runtime_terror.myapplication.models.BillOrder;
 import com.runtime_terror.myapplication.models.ProductItem;
-import com.runtime_terror.myapplication.models.FoodOrder;
+import com.runtime_terror.myapplication.models.ProductOrder;
 import com.runtime_terror.myapplication.models.HelpOrder;
 import com.runtime_terror.myapplication.models.Order;
 
@@ -31,6 +36,7 @@ public class OrderContainerFragment extends Fragment {
     View view;
     RecyclerView orderRecycler;
     String purpose;
+    int orderType;
     OrderListAdapter adapter;
 
     @Override
@@ -69,6 +75,28 @@ public class OrderContainerFragment extends Fragment {
         orderRecycler.setAdapter(getRandomAdapter());
     }
 
+//    public void loadOrder(int orderType) {
+//        final String restaurantId = "restaurantId";
+//        DocumentReference docRef = new FirestoreSetup().getDb().collection(restaurantId+ "/ORDERS").document("");
+//        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    DocumentSnapshot document = task.getResult();
+//                    if (document.exists()) {
+//                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+//                    } else {
+//                        Log.d(TAG, "No such document");
+//                    }
+//                } else {
+//                    Log.d(TAG, "get failed with ", task.getException());
+//                }
+//            }
+//        });
+
+
+//    }
+
     private OrderListAdapter getRandomAdapter() {
 
         if(purpose.equals("food"))
@@ -98,21 +126,21 @@ public class OrderContainerFragment extends Fragment {
 
     private OrderListAdapter getRandomFoodAdapter() {
 
-        final List<FoodOrder> foodOrders = new ArrayList<>();
+        final List<ProductOrder> productOrders = new ArrayList<>();
         for( int i=0; i < 11; i++) {
 
             Random random = new Random();
             int max = Math.abs(random.nextInt() % 11);
             int tableNumber = Math.abs(random.nextInt() % 20);
-            FoodOrder foodOrder = new FoodOrder(tableNumber);
+            ProductOrder productOrder = new ProductOrder(tableNumber);
 
             for(int j=0; j<=max; j++){
-                foodOrder.addFood(new ProductItem("someImage", "Some title1", 35, "Some reqs1", 3, true,"description"));
+                productOrder.addFood(new ProductItem("someImage", "Some title1", 35, "Some reqs1", 3, true,"description"));
             }
-            foodOrders.add(foodOrder);
+            productOrders.add(productOrder);
         }
 
-        adapter = new OrderListAdapter(getContext(), foodOrders, this);
+        adapter = new OrderListAdapter(getContext(), productOrders, this);
         return adapter;
     }
 

@@ -1,6 +1,7 @@
 package com.runtime_terror.myapplication.activities;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,20 +13,30 @@ import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.adapters.FoodListAdapter;
+import com.runtime_terror.myapplication.database.FirestoreSetup;
 import com.runtime_terror.myapplication.interfaces.ItemChanged;
+import com.runtime_terror.myapplication.models.BillOrder;
 import com.runtime_terror.myapplication.models.ProductItem;
 import com.runtime_terror.myapplication.models.HelpDialog;
 
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class OrderDetailsActivity extends AppCompatActivity {
@@ -33,13 +44,14 @@ public class OrderDetailsActivity extends AppCompatActivity {
     private RecyclerView mainList;
     private RecyclerView.Adapter adapter;
     public static final String TAG = "OrderDetailsActivity";
+    List<ProductItem> productItemList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_details);
         bindMainList();
-        List<ProductItem> productItemList = getFoodData();
+        productItemList = getFoodData();
         computeOrderPrice(productItemList);
         setupAdapterAndData(productItemList);
         setupToolbar();
@@ -118,5 +130,30 @@ public class OrderDetailsActivity extends AppCompatActivity {
             finish();
         total = ((double)((int) (total * 100)) / 100);
         ((TextView)findViewById(R.id.total)).setText("Total price: " + total + " Lei");
+    }
+
+    public void requestBill(View view) {
+        final int RANDOM_TABLE_NUMBER = 213;
+        final String restaurantId = "restaurantId";
+        BillOrder order = new BillOrder(RANDOM_TABLE_NUMBER, productItemList);
+        HashMap<String, Object> docData = new HashMap<>();
+        docData.put("order", order);
+        FirebaseFirestore db = new FirestoreSetup().getDb();
+
+        db.collection(restaurantId + "/ORDERS").add(docData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                Log.d("Order id", documentReference.getId());
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.e("could not place order", e.toString());
+            }
+        });
+    }
+
+    public void placeOrder(View view) {
+        
     }
 }
