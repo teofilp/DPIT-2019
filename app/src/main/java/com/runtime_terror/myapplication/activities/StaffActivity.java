@@ -19,7 +19,12 @@ import com.runtime_terror.myapplication.models.BillOrder;
 import com.runtime_terror.myapplication.models.DrinkOrder;
 import com.runtime_terror.myapplication.models.FoodOrder;
 import com.runtime_terror.myapplication.models.HelpDialog;
+import com.runtime_terror.myapplication.models.HelpOrder;
 import com.runtime_terror.myapplication.models.LogoutDialog;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class StaffActivity extends AppCompatActivity {
@@ -52,7 +57,13 @@ public class StaffActivity extends AppCompatActivity {
 
         OrderContainerFragment waiter = new OrderContainerFragment();
         waiter.setPurpose("operations");
-//        waiter.loadOrder(BillOrder.BILL_ORDER_TYPE);
+
+        waiter.loadOrder(new ArrayList<Integer>(
+                Arrays.asList(
+                        BillOrder.BILL_ORDER_TYPE,
+                        HelpOrder.HELP_ORDER_TYPE
+                        )
+        ));
 
 
         adapter.addFragment(kitchen, "");

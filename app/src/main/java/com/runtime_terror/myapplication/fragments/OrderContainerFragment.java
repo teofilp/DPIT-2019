@@ -18,25 +18,31 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.adapters.OrderListAdapter;
 import com.runtime_terror.myapplication.database.FirestoreSetup;
+import com.runtime_terror.myapplication.interfaces.CompleteOrder;
 import com.runtime_terror.myapplication.models.BillOrder;
+import com.runtime_terror.myapplication.models.FoodOrder;
 import com.runtime_terror.myapplication.models.ProductItem;
 import com.runtime_terror.myapplication.models.ProductOrder;
 import com.runtime_terror.myapplication.models.HelpOrder;
 import com.runtime_terror.myapplication.models.Order;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class OrderContainerFragment extends Fragment {
+public class OrderContainerFragment extends Fragment implements CompleteOrder {
 
     View view;
     RecyclerView orderRecycler;
     String purpose;
-    int orderType;
+    List<Order> orders = new ArrayList<>();
     OrderListAdapter adapter;
 
     @Override
@@ -64,7 +70,7 @@ public class OrderContainerFragment extends Fragment {
 
         view = inflater.inflate(R.layout.order_fragment, container, false);
         orderRecycler = view.findViewById(R.id.orderRecycler);
-
+        adapter = new OrderListAdapter(getContext(), orders, this);
         setupRecyclerView();
 
         return view;
@@ -72,57 +78,49 @@ public class OrderContainerFragment extends Fragment {
 
     private void setupRecyclerView() {
         orderRecycler.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        orderRecycler.setAdapter(getRandomAdapter());
+        orderRecycler.setAdapter(getAdapter());
     }
 
-//    public void loadOrder(int orderType) {
-//        final String restaurantId = "restaurantId";
-//        DocumentReference docRef = new FirestoreSetup().getDb().collection(restaurantId+ "/ORDERS").document("");
-//        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    DocumentSnapshot document = task.getResult();
-//                    if (document.exists()) {
-//                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-//                    } else {
-//                        Log.d(TAG, "No such document");
-//                    }
-//                } else {
-//                    Log.d(TAG, "get failed with ", task.getException());
-//                }
-//            }
-//        });
+    public void loadOrder(List<Integer> orderTypes) {
+        final String restaurantId = "lrApMZq9rBNLQGtzVjKa";
 
+        adapter = new OrderListAdapter(getContext(), orders, this);
+        for(Integer orderType : orderTypes)
+            new FirestoreSetup().getDb().collection("RESTAURANTS")
+                    .document(restaurantId).collection("ORDERS").whereEqualTo("status", Order.ORDER_STATUS.PLACED).whereEqualTo("orderType", orderType).get()
+                    .addOnCompleteListener(task -> {
+                        if(task.isSuccessful()){
+                            for(QueryDocumentSnapshot document: task.getResult()) {
+                                Order order = getOrderObject(document, orderType);
+                                order.setId(document.getId());
+                                orders.add(order);
+                            }
+                            Collections.reverse(orders);
+                            adapter.notifyItemInserted(orders.size() - 1);
+                        }
+                    });
+    }
 
-//    }
+    private Order getOrderObject(QueryDocumentSnapshot document, Integer orderType) {
+        if(orderType == BillOrder.BILL_ORDER_TYPE)
+            return document.toObject(BillOrder.class);
+        else if(orderType == HelpOrder.HELP_ORDER_TYPE)
+            return document.toObject(HelpOrder.class);
+        else
+            return null;
 
-    private OrderListAdapter getRandomAdapter() {
+    }
+
+    private OrderListAdapter getAdapter() {
 
         if(purpose.equals("food"))
             return getRandomFoodAdapter();
         else if(purpose.equals("operations"))
-            return getRandomRequestAdapter();
+            return adapter;
 
         return null;
     }
 
-    private OrderListAdapter getRandomRequestAdapter(){
-
-        final List<Order> requestOrders = new ArrayList<>();
-
-        for(int i=0; i<11; i++){
-            Random random = new Random();
-            Random tableRandom = new Random();
-            if(Math.abs(random.nextInt() % 2) == 0)
-                requestOrders.add(new BillOrder(Math.abs(tableRandom.nextInt() % 10)));
-            else
-                requestOrders.add(new HelpOrder(Math.abs(tableRandom.nextInt() % 10)));
-        }
-
-        adapter = new OrderListAdapter(getContext(), requestOrders, this);
-        return adapter;
-    }
 
     private OrderListAdapter getRandomFoodAdapter() {
 
@@ -146,6 +144,16 @@ public class OrderContainerFragment extends Fragment {
 
     public void setPurpose(String purpose) {
         this.purpose = purpose;
+    }
+
+    @Override
+    public void completeOrder(Order order) {
+
+        final String restaurantId = "lrApMZq9rBNLQGtzVjKa";
+        order.setStatus(Order.ORDER_STATUS.COMPLETED);
+
+        new FirestoreSetup().getDb().collection("RESTAURANTS").document(restaurantId).collection("ORDERS")
+                .document(order.getId()).set(order, SetOptions.merge());
     }
 }
 

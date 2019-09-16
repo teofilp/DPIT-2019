@@ -134,23 +134,14 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
     public void requestBill(View view) {
         final int RANDOM_TABLE_NUMBER = 213;
-        final String restaurantId = "restaurantId";
+        final String restaurantId = "lrApMZq9rBNLQGtzVjKa";
         BillOrder order = new BillOrder(RANDOM_TABLE_NUMBER, productItemList);
-        HashMap<String, Object> docData = new HashMap<>();
-        docData.put("order", order);
+
         FirebaseFirestore db = new FirestoreSetup().getDb();
 
-        db.document(restaurantId).collection("ORDERS").add(docData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-            @Override
-            public void onSuccess(DocumentReference documentReference) {
-                Log.d("Order id", documentReference.getId());
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.e("could not place order", e.toString());
-            }
-        });
+        db.collection("RESTAURANTS").document(restaurantId).collection("ORDERS").add(order)
+                .addOnSuccessListener(documentReference -> Log.d("Order id", documentReference.getId()))
+                .addOnFailureListener(e -> Log.e("could not place order", e.toString()));
     }
 
     public void placeOrder(View view) {

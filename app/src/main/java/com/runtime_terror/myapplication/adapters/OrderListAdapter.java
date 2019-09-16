@@ -14,9 +14,12 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.runtime_terror.myapplication.activities.KitchenTableOrder;
 import com.runtime_terror.myapplication.R;
+import com.runtime_terror.myapplication.interfaces.CompleteOrder;
 import com.runtime_terror.myapplication.models.Order;
 
 import java.util.Date;
@@ -33,7 +36,6 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyVi
         this.parent = parent;
         this.ordersList = ordersList;
         this.context = context;
-
     }
 
     @NonNull
@@ -56,6 +58,8 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyVi
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context.getApplicationContext(), KitchenTableOrder.class);
+                    String cartJSON = new Gson().toJson(ordersList.get(holder.getAdapterPosition()));
+                    intent.putExtra("orderList", cartJSON);
                     intent.putExtra("purpose", ordersList.get(holder.getAdapterPosition()).getPurpose());
                     intent.putExtra("position", holder.getAdapterPosition());
                     parent.startActivityForResult(intent, ORDER_ACTIVITY_REQUEST_CODE);
@@ -69,6 +73,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyVi
             holder.closeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    ((CompleteOrder) parent).completeOrder(ordersList.get(holder.getAdapterPosition()));
                     ordersList.remove(holder.getAdapterPosition());
                     notifyItemRemoved(holder.getAdapterPosition());
                 }

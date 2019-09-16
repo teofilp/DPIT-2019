@@ -8,15 +8,24 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.firestore.SetOptions;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.adapters.FoodListAdapter;
+import com.runtime_terror.myapplication.database.FirestoreSetup;
 import com.runtime_terror.myapplication.interfaces.OrderUpdatesListener;
+import com.runtime_terror.myapplication.models.BillOrder;
+import com.runtime_terror.myapplication.models.Order;
 import com.runtime_terror.myapplication.models.ProductItem;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 public class KitchenTableOrder extends AppCompatActivity {
     RecyclerView tableOrderRecycler;
@@ -24,6 +33,7 @@ public class KitchenTableOrder extends AppCompatActivity {
     String purpose;
     Button completeButton;
     int position;
+    Order order;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,16 +61,11 @@ public class KitchenTableOrder extends AppCompatActivity {
         tableOrderRecycler = findViewById(R.id.tableOrderRecycler);
         tableOrderRecycler.setLayoutManager(new LinearLayoutManager(this));
         tableOrderRecycler.setNestedScrollingEnabled(false);
-        ArrayList<ProductItem> list = new ArrayList<ProductItem>();
-        list.add(new ProductItem("someImage", "Chicken Cheeseburger", 18,"Some reqs1", 1, false,"description"));
-        list.add(new ProductItem("someImage", "Peanut Jelly Burger", 20,"Some reqs1", 2, true, "description"));
-        list.add(new ProductItem("someImage", "Veggie Burger", 10,"Some reqs1", 3, true, "description"));
-        list.add(new ProductItem("someImage", "Chicken Cheeseburger", 18,"Some reqs1", 1, true, "description"));
-        list.add(new ProductItem("someImage", "Peanut Jelly Burger", 20,"Some reqs1", 3, false, "description"));
-        list.add(new ProductItem("someImage", "Veggie Burger", 10,"Some reqs1", 2, true, "description"));
-        list.add(new ProductItem("someImage", "Chicken Cheeseburger", 18,"Some reqs1", 2, true, "description"));
-        list.add(new ProductItem("someImage", "Peanut Jelly Burger", 20,"Some reqs1", 1, true, "description"));
-        list.add(new ProductItem("someImage", "Veggie Burger", 10,"Some reqs1", 3, false, "description"));
+
+        String orderJSON = getIntent().getStringExtra("orderList");
+        Type cartType = new TypeToken<BillOrder>(){}.getType();
+        order = (BillOrder)new Gson().fromJson(orderJSON,  cartType);
+        List<ProductItem> list = ((BillOrder)order).getOrderList();
 
         adapter = new FoodListAdapter(list, purpose, getApplicationContext());
 
@@ -85,7 +90,7 @@ public class KitchenTableOrder extends AppCompatActivity {
         tableOrderRecycler.setAdapter(adapter);
     }
 
-    private boolean isOrderPrepared(ArrayList<ProductItem> productItemList) {
+    private boolean isOrderPrepared(List<ProductItem> productItemList) {
         int preparedMeals = 0;
         for(ProductItem productItem : productItemList)
             if(productItem.isPrepared())
@@ -104,6 +109,12 @@ public class KitchenTableOrder extends AppCompatActivity {
 
     public void completeOrder(View view){
         // emit a complete order message and delete order from list
+        final String restaurantId = "lrApMZq9rBNLQGtzVjKa";
+        order.setStatus(Order.ORDER_STATUS.COMPLETED);
+
+        new FirestoreSetup().getDb().collection("RESTAURANTS").document(restaurantId).collection("ORDERS")
+                .document(order.getId()).set(order, SetOptions.merge());
+
         Intent resultIntent = new Intent();
         resultIntent.putExtra("deletePosition", position);
         int result_code = 2;

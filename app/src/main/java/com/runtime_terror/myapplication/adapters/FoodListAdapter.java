@@ -36,12 +36,10 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
 
     public Activity parentActivity;
 
-
     public class MyViewHolder extends RecyclerView.ViewHolder implements EditItemInterface {
         RelativeLayout container;
         CircleImageView image;
         TextView title;
-        View dash;
         TextView price;
         TextView reqs;
         TextView qty;
@@ -54,20 +52,17 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
             container = (RelativeLayout) v;
             image = v.findViewById(R.id.food_image);
             title = v.findViewById(R.id.food_title);
-            dash = v.findViewById(R.id.dash);
             price = v.findViewById(R.id.price);
             reqs = v.findViewById(R.id.food_reqs);
             qty = v.findViewById(R.id.food_qty);
             prepared = v.findViewById(R.id.food_preparation_completed);
             options = v.findViewById(R.id.options);
             this.setVisibilities(purpose);
-
         }
 
 
         private void setVisibilities(String purpose){
             if (purpose.equals("delivery") || purpose.equals("operations")){
-                dash.setVisibility(View.GONE);
                 price.setVisibility(View.GONE);
                 options.setVisibility(View.GONE);
 

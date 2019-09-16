@@ -10,6 +10,10 @@ public class ProductItem {
     boolean prepared;
     boolean isFood;
 
+    public ProductItem() {
+
+    }
+
     public ProductItem(String image, String title, double price, String reqs, int qty, boolean prepared, String description){
         this.image = image;
         this.title = title;
