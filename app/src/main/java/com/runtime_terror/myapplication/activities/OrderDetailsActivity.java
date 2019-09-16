@@ -140,7 +140,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
         docData.put("order", order);
         FirebaseFirestore db = new FirestoreSetup().getDb();
 
-        db.collection(restaurantId + "/ORDERS").add(docData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        db.document(restaurantId).collection("ORDERS").add(docData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 Log.d("Order id", documentReference.getId());
