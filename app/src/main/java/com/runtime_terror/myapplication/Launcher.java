@@ -2,6 +2,7 @@ package com.runtime_terror.myapplication;
 
 import android.Manifest;
 import android.animation.ArgbEvaluator;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,9 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageButton;
 
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.runtime_terror.myapplication.activities.MenuActivity;
+import com.runtime_terror.myapplication.activities.StaffActivity;
 import com.runtime_terror.myapplication.adapters.CustomPagerAdapter;
 
 public class Launcher extends AppCompatActivity {
@@ -64,6 +68,18 @@ public class Launcher extends AppCompatActivity {
     public void handleLoginRedirect() {
         if(getIntent().getBooleanExtra("redirectToLogin", false))
             viewPager.setCurrentItem(1);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if(FirebaseAuth.getInstance().getCurrentUser() != null){
+            Intent intent = new Intent(this, StaffActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+        }
     }
 
     private void setupCustomTabsAnimations(){

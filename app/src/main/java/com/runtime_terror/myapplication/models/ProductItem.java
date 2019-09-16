@@ -1,6 +1,6 @@
 package com.runtime_terror.myapplication.models;
 
-public class Food {
+public class ProductItem {
     String image;
     String title;
     String reqs;
@@ -8,8 +8,9 @@ public class Food {
     String description;
     double price;
     boolean prepared;
+    boolean isFood;
 
-    public Food(String image, String title, double price, String reqs, int qty, boolean prepared,String description){
+    public ProductItem(String image, String title, double price, String reqs, int qty, boolean prepared, String description){
         this.image = image;
         this.title = title;
         this.price = price;
@@ -70,5 +71,13 @@ public class Food {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public boolean isFood() {
+        return isFood;
+    }
+
+    public void setFood(boolean food) {
+        isFood = food;
     }
 }

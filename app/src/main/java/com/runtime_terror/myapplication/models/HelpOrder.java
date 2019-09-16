@@ -3,6 +3,7 @@ package com.runtime_terror.myapplication.models;
 import com.runtime_terror.myapplication.R;
 
 public class HelpOrder extends Order {
+    public static final int HELP_ORDER_TYPE = 4;
 
     public HelpOrder(int tableNumber) {
         super(tableNumber);

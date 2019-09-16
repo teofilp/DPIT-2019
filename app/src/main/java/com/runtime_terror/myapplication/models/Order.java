@@ -5,6 +5,7 @@ import java.util.Date;
 public abstract class Order {
     private int tableNumber;
     private Date requestDate;
+    protected int orderType;
 
     public Order(int tableNumber){
         this.tableNumber = tableNumber;

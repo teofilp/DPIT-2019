@@ -15,6 +15,9 @@ import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.fragments.OrderContainerFragment;
 
 import com.runtime_terror.myapplication.adapters.CustomPagerAdapter;
+import com.runtime_terror.myapplication.models.BillOrder;
+import com.runtime_terror.myapplication.models.DrinkOrder;
+import com.runtime_terror.myapplication.models.FoodOrder;
 import com.runtime_terror.myapplication.models.HelpDialog;
 import com.runtime_terror.myapplication.models.LogoutDialog;
 
@@ -41,23 +44,30 @@ public class StaffActivity extends AppCompatActivity {
 
         OrderContainerFragment kitchen = new OrderContainerFragment();
         kitchen.setPurpose("food");
+//        kitchen.loadOrder(FoodOrder.FOOD_ORDER_TYPE);
 
         OrderContainerFragment bar = new OrderContainerFragment();
         bar.setPurpose("food");
+//        bar.loadOrder(DrinkOrder.DRINK_ORDER_TYPE);
 
         OrderContainerFragment waiter = new OrderContainerFragment();
         waiter.setPurpose("operations");
+//        waiter.loadOrder(BillOrder.BILL_ORDER_TYPE);
+
 
         adapter.addFragment(kitchen, "");
         adapter.addFragment(bar, "");
         adapter.addFragment(waiter, "");
 
+
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+
 
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_hamburger);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_cocktail);
         tabLayout.getTabAt(2).setIcon(R.drawable.ic_q_mark);
+
     }
 
     private void setupToolbar() {

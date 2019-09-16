@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DPIT</string>
+    <string name="app_name">Hungrezy</string>
     <string name="kitchenCompleteAll">Complete all</string>
     <string name="orderTotalPrice">Total: </string>
     <string name="orderButton">ORDER</string>

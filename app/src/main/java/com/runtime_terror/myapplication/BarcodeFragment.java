@@ -132,6 +132,7 @@ public class BarcodeFragment extends Fragment {
                 intent.putExtra("rest", barcodeData.substring(barcodeData.indexOf(":") + 1, barcodeData.indexOf("/")));
                 intent.putExtra("tableNr", barcodeData.substring(barcodeData.indexOf("/") + 1));
                 getActivity().startActivity(intent);
+                getActivity().finish();
             }
 
             @Override

@@ -1,5 +1,6 @@
 package com.runtime_terror.myapplication.models;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.util.Pair;
@@ -8,8 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.runtime_terror.myapplication.interfaces.AddToCartListener;
+import com.runtime_terror.myapplication.interfaces.CartListener;
 import com.runtime_terror.myapplication.interfaces.EditItemInterface;
 import com.runtime_terror.myapplication.R;
 
@@ -27,23 +29,24 @@ public class EditItemDialog extends Dialog {
     private TextView dialogTitle;
     private TextView dialogDescription;
     private Button cancelButton;
-    private Food menuItemList;
 
     private EditItemInterface editItemInterface;
-    private AddToCartListener addToCartListener;
+    private CartListener cartListener;
 
     private String purpose;
-    private Food foodItem;
+    private ProductItem productItemItem;
+
+    private Activity parentActivity;
 
 
-    public EditItemDialog(Context mContext, EditItemInterface editItemInterface, Food foodItem){
+    public EditItemDialog(Context mContext, EditItemInterface editItemInterface, ProductItem productItemItem){
 
         //Dialog creation
         super(mContext);
         setContentView(R.layout.edit_item_dialog);
         setCancelable(false);
         //Item binding
-        this.foodItem = foodItem;
+        this.productItemItem = productItemItem;
 
         this.editItemInterface = editItemInterface;
         this.increaseButton = findViewById(R.id.qtyIncrease);
@@ -61,12 +64,12 @@ public class EditItemDialog extends Dialog {
 
     public void bindDataToViews()
     {
-        this.dialogTitle.setText(this.menuItemList.getTitle());
-        this.dialogDescription.setText(this.menuItemList.getDescription());
+        this.dialogTitle.setText(this.productItemItem.getTitle());
+        this.dialogDescription.setText(this.productItemItem.getDescription());
     }
 
-    public void registerAddToCartListener(AddToCartListener listener) {
-        this.addToCartListener = listener;
+    public void registerCartListener(CartListener listener) {
+        this.cartListener = listener;
     }
 
     public void setVisibilities(String purpose){
@@ -81,6 +84,9 @@ public class EditItemDialog extends Dialog {
         }
     }
 
+    private int getQty() {
+       return Integer.parseInt(qtyDisplay.getText().toString());
+    }
     public void setupDialog(){
         initialQty = editItemInterface.getQty();
         qtyDisplay.setText(initialQty + "");
@@ -88,30 +94,27 @@ public class EditItemDialog extends Dialog {
         increaseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int qty = Integer.parseInt(qtyDisplay.getText().toString()) + 1;
+                int qty = getQty() + 1;
                 qtyDisplay.setText(qty + "");
-                menuItemList.setQty(qty);
+                productItemItem.setQty(qty);
             }
         });
 
         decreaseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int qty = Integer.parseInt(qtyDisplay.getText().toString());
+                int qty = getQty();
                 if(qty > 1)
-                    qty = Integer.parseInt(qtyDisplay.getText().toString()) - 1;
+                    qty = getQty() - 1;
                 qtyDisplay.setText(qty + "");
-                menuItemList.setQty(qty);
+                productItemItem.setQty(qty);
             }
         });
 
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int position = editItemInterface.getItemPosition();
-                dismiss();
-                editItemInterface.getDataSet().remove(position);
-                editItemInterface.dialogNotifyItemRemoved(position);
+                deleteItem();
             }
         });
 
@@ -121,16 +124,21 @@ public class EditItemDialog extends Dialog {
 
             @Override
             public void onClick(View view) {
-                editItemInterface.setQty(Integer.parseInt(qtyDisplay.getText().toString()));
+                productItemItem.setQty(Integer.parseInt(qtyDisplay.getText().toString()));
+                if(getQty() < 1) {
+                    dismiss();
+                    return;
+                }
+
                 String reqs = reqsEditor.getText().toString();
                 if(reqs.equals("")){
-                    editItemInterface.setReqs(editItemInterface.getTranslation(R.string.noReqs));
+                    productItemItem.setReqs(editItemInterface.getTranslation(R.string.noReqs));
                 } else {
-                    editItemInterface.setReqs(reqs);
+                    productItemItem.setReqs(reqs);
                 }
 
                 if(dialogPurpose.equals("addToCart"))
-                    addToCartListener.addToCart(new Pair<>(foodItem, Integer.parseInt(qtyDisplay.getText().toString())));
+                    cartListener.addToCart(new Pair<>(productItemItem, Integer.parseInt(qtyDisplay.getText().toString())));
 
                 editItemInterface.itemChanged();
                 dismiss();
@@ -146,5 +154,24 @@ public class EditItemDialog extends Dialog {
         });
         show();
     }
+
+    private void deleteItem(){
+        int position = editItemInterface.getItemPosition();
+        dismiss();
+        removeProductFromCart(editItemInterface.getDataSet().get(position));
+        editItemInterface.getDataSet().remove(position);
+        editItemInterface.dialogNotifyItemRemoved(position);
+        editItemInterface.itemChanged();
+    }
+
+    public void setActivityForDialog(Activity act) {
+        parentActivity = act;
+    }
+
+    private void removeProductFromCart(Object o) {
+        ProductItem item = (ProductItem) o;
+        ((MyApplication)parentActivity.getApplication()).deleteItemFromCart(item.getTitle());
+    }
+
 
 }

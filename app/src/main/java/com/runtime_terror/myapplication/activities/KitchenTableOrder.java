@@ -14,7 +14,7 @@ import android.widget.Button;
 import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.adapters.FoodListAdapter;
 import com.runtime_terror.myapplication.interfaces.OrderUpdatesListener;
-import com.runtime_terror.myapplication.models.Food;
+import com.runtime_terror.myapplication.models.ProductItem;
 
 import java.util.ArrayList;
 
@@ -51,16 +51,16 @@ public class KitchenTableOrder extends AppCompatActivity {
         tableOrderRecycler = findViewById(R.id.tableOrderRecycler);
         tableOrderRecycler.setLayoutManager(new LinearLayoutManager(this));
         tableOrderRecycler.setNestedScrollingEnabled(false);
-        ArrayList<Food> list = new ArrayList<Food>();
-        list.add(new Food("someImage", "Chicken Cheeseburger", 18,"Some reqs1", 1, false,"description"));
-        list.add(new Food("someImage", "Peanut Jelly Burger", 20,"Some reqs1", 2, true, "description"));
-        list.add(new Food("someImage", "Veggie Burger", 10,"Some reqs1", 3, true, "description"));
-        list.add(new Food("someImage", "Chicken Cheeseburger", 18,"Some reqs1", 1, true, "description"));
-        list.add(new Food("someImage", "Peanut Jelly Burger", 20,"Some reqs1", 3, false, "description"));
-        list.add(new Food("someImage", "Veggie Burger", 10,"Some reqs1", 2, true, "description"));
-        list.add(new Food("someImage", "Chicken Cheeseburger", 18,"Some reqs1", 2, true, "description"));
-        list.add(new Food("someImage", "Peanut Jelly Burger", 20,"Some reqs1", 1, true, "description"));
-        list.add(new Food("someImage", "Veggie Burger", 10,"Some reqs1", 3, false, "description"));
+        ArrayList<ProductItem> list = new ArrayList<ProductItem>();
+        list.add(new ProductItem("someImage", "Chicken Cheeseburger", 18,"Some reqs1", 1, false,"description"));
+        list.add(new ProductItem("someImage", "Peanut Jelly Burger", 20,"Some reqs1", 2, true, "description"));
+        list.add(new ProductItem("someImage", "Veggie Burger", 10,"Some reqs1", 3, true, "description"));
+        list.add(new ProductItem("someImage", "Chicken Cheeseburger", 18,"Some reqs1", 1, true, "description"));
+        list.add(new ProductItem("someImage", "Peanut Jelly Burger", 20,"Some reqs1", 3, false, "description"));
+        list.add(new ProductItem("someImage", "Veggie Burger", 10,"Some reqs1", 2, true, "description"));
+        list.add(new ProductItem("someImage", "Chicken Cheeseburger", 18,"Some reqs1", 2, true, "description"));
+        list.add(new ProductItem("someImage", "Peanut Jelly Burger", 20,"Some reqs1", 1, true, "description"));
+        list.add(new ProductItem("someImage", "Veggie Burger", 10,"Some reqs1", 3, false, "description"));
 
         adapter = new FoodListAdapter(list, purpose, getApplicationContext());
 
@@ -85,19 +85,19 @@ public class KitchenTableOrder extends AppCompatActivity {
         tableOrderRecycler.setAdapter(adapter);
     }
 
-    private boolean isOrderPrepared(ArrayList<Food> foodList) {
+    private boolean isOrderPrepared(ArrayList<ProductItem> productItemList) {
         int preparedMeals = 0;
-        for(Food food: foodList)
-            if(food.isPrepared())
+        for(ProductItem productItem : productItemList)
+            if(productItem.isPrepared())
                 preparedMeals++;
 
-        return preparedMeals == foodList.size();
+        return preparedMeals == productItemList.size();
     }
 
     private void setupToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle("FoodOrder for Table #1");
+        setTitle("ProductOrder for Table #1");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
