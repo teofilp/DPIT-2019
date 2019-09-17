@@ -21,8 +21,18 @@ public class ProductItem {
         this.reqs = reqs;
         this.qty = qty;
         this.description=description;
-
         this.prepared = prepared;
+    }
+
+    public ProductItem(String image, String title, double price, String reqs, int qty, boolean prepared, String description, boolean isFood){
+        this.image = image;
+        this.title = title;
+        this.price = price;
+        this.reqs = reqs;
+        this.qty = qty;
+        this.description=description;
+        this.prepared = prepared;
+        this.isFood = isFood;
     }
 
     public String getImage() {
@@ -81,7 +91,7 @@ public class ProductItem {
         return isFood;
     }
 
-    public void setFood(boolean food) {
+    public void setIsFood(boolean food) {
         isFood = food;
     }
 }

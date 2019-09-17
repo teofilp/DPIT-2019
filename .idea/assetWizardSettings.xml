@@ -28,9 +28,10 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_close" />
-                            <entry key="sourceFile" value="C:\Users\Tudor Filp\Downloads\q_mark.svg" />
+                            <entry key="outputName" value="loading_spinner" />
+                            <entry key="sourceFile" value="C:\Users\Tudor Filp\Downloads\SVG-Loaders-master\spinning-circles.svg" />
                           </map>
                         </option>
                       </PersistentState>

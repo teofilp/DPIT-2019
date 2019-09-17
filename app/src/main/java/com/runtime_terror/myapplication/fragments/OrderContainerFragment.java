@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -71,7 +72,7 @@ public class OrderContainerFragment extends Fragment implements CompleteOrder {
 
         view = inflater.inflate(R.layout.order_fragment, container, false);
         orderRecycler = view.findViewById(R.id.orderRecycler);
-        adapter = new OrderListAdapter(getContext(), orders, this);
+        adapter = new OrderListAdapter(getContext(), orders, this, getActivity());
         setupRecyclerView();
 
         return view;
@@ -86,6 +87,7 @@ public class OrderContainerFragment extends Fragment implements CompleteOrder {
         final String restaurantId = "lrApMZq9rBNLQGtzVjKa";
 
         adapter = new OrderListAdapter(getContext(), orders, this);
+
         for(Integer orderType : orderTypes)
             new FirestoreSetup().getDb().collection("RESTAURANTS")
                     .document(restaurantId).collection("ORDERS").whereEqualTo("status", Order.ORDER_STATUS.PLACED).whereEqualTo("orderType", orderType).get()
@@ -103,26 +105,29 @@ public class OrderContainerFragment extends Fragment implements CompleteOrder {
     }
 
     private Order getOrderObject(QueryDocumentSnapshot document, Integer orderType) {
-        if(orderType == BillOrder.BILL_ORDER_TYPE)
-            return document.toObject(BillOrder.class);
-        else if(orderType == HelpOrder.HELP_ORDER_TYPE)
-            return document.toObject(HelpOrder.class);
-        else if(orderType == FoodOrder.FOOD_ORDER_TYPE)
-            return document.toObject(FoodOrder.class);
-//        else if(orderType == DrinkOrder.DRINK_ORDER_TYPE)
-//            return document.toObject(DrinkOrder.class);
-        else
-            return null;
+        Order order;
+        if(orderType == BillOrder.BILL_ORDER_TYPE) {
+            order = document.toObject(BillOrder.class);
+        } else if(orderType == HelpOrder.HELP_ORDER_TYPE)
+            order = document.toObject(HelpOrder.class);
+        else if(orderType == FoodOrder.FOOD_ORDER_TYPE) {
+            order = document.toObject(FoodOrder.class);
+        } else if(orderType == DrinkOrder.DRINK_ORDER_TYPE) {
+                order = document.toObject(DrinkOrder.class);
+        } else
+            order = null;
+
+
+        return order;
     }
 
     private OrderListAdapter getAdapter() {
 
-        if(purpose.equals("food"))
-            return getRandomFoodAdapter();
-        else if(purpose.equals("operations"))
-            return adapter;
+//        if(purpose.equals("food"))
+//            return getRandomFoodAdapter();
+//        else if(purpose.equals("operations"))
+        return adapter;
 
-        return null;
     }
 
     private OrderListAdapter getRandomFoodAdapter() {

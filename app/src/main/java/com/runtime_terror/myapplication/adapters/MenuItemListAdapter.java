@@ -14,6 +14,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
+import com.runtime_terror.myapplication.GlideApp;
 import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.interfaces.CartListener;
 import com.runtime_terror.myapplication.interfaces.EditItemInterface;
@@ -86,8 +88,9 @@ public class MenuItemListAdapter extends RecyclerView.Adapter<MenuItemListAdapte
 
             }
 
-        public void setImage(String image) {
-            this.image.setImageResource(R.drawable.food);
+        public void setImage(String imageLink) {
+            Glide.with(context).load(imageLink).into(this.image);
+//            this.image.setImageResource(R.drawable.food);
         }
 
         public void setTitle(String title) {
@@ -98,7 +101,14 @@ public class MenuItemListAdapter extends RecyclerView.Adapter<MenuItemListAdapte
             this.price.setText("$" + price);
         }
 
-        public void setDescription(String description) { this.description.setText(description); }
+        public void setDescription(String description) {
+            String formattedDescription = description;
+
+            if(formattedDescription.length() > 50)
+                formattedDescription = formattedDescription.substring(0, 50);
+            formattedDescription += "...";
+            this.description.setText(formattedDescription);
+        }
 
         @Override
         public int getQty() {

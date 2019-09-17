@@ -70,8 +70,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
         String cartJson = getIntent().getStringExtra("cart");
 
-        Type cartType = new TypeToken<List<Pair<ProductItem, Integer>>>() {
-        }.getType();
+        Type cartType = new TypeToken<List<Pair<ProductItem, Integer>>>() {}.getType();
         List<Pair<ProductItem, Integer>> cartList = new Gson().fromJson(cartJson, cartType);
 
         Log.d("cart length", cartList.size() + "");
@@ -121,8 +120,10 @@ public class OrderDetailsActivity extends AppCompatActivity {
         if (id == R.id.helpButton) {
             HelpDialog dialog = new HelpDialog(this);
             dialog.setupDialog();
+        } else if(id == android.R.id.home) {
+            finish();
+            return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -155,16 +156,16 @@ public class OrderDetailsActivity extends AppCompatActivity {
         List<ProductItem> foodList = new ArrayList<>();
 
         for (ProductItem item : productItemList) {
+            item.setPrepared(false);
             if (item.isFood())
                 foodList.add(item);
             else drinksList.add(item);
         }
-
         FirebaseFirestore db = new FirestoreSetup().getDb();
 
         if (foodList.size() > 0) {
             FoodOrder foodOrder = new FoodOrder(1, foodList);
-
+            Toast.makeText(this, foodOrder.getOrderList().size() + "", Toast.LENGTH_SHORT).show();
             db.collection("RESTAURANTS").document(restaurantId).collection("ORDERS").add(foodOrder)
                     .addOnSuccessListener(documentReference -> Log.d("Order id", documentReference.getId()))
                     .addOnFailureListener(e -> Log.e("could not place order", e.toString()));

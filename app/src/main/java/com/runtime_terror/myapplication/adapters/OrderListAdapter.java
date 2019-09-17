@@ -1,5 +1,6 @@
 package com.runtime_terror.myapplication.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
@@ -20,6 +21,8 @@ import com.google.gson.Gson;
 import com.runtime_terror.myapplication.activities.KitchenTableOrder;
 import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.interfaces.CompleteOrder;
+import com.runtime_terror.myapplication.models.FoodOrder;
+import com.runtime_terror.myapplication.models.MyApplication;
 import com.runtime_terror.myapplication.models.Order;
 
 import java.util.Date;
@@ -31,11 +34,19 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyVi
     private Context context;
     private Fragment parent;
     public static final int ORDER_ACTIVITY_REQUEST_CODE = 199;
+    private Activity parentActivity;
 
     public OrderListAdapter(Context context, List<? extends Order> ordersList, Fragment parent) {
         this.parent = parent;
         this.ordersList = ordersList;
         this.context = context;
+    }
+
+    public OrderListAdapter(Context context, List<? extends Order> ordersList, Fragment parent, Activity act) {
+        this.parent = parent;
+        this.ordersList = ordersList;
+        this.context = context;
+        this.parentActivity = act;
     }
 
     @NonNull
@@ -58,8 +69,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyVi
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context.getApplicationContext(), KitchenTableOrder.class);
-                    String cartJSON = new Gson().toJson(ordersList.get(holder.getAdapterPosition()));
-                    intent.putExtra("orderList", cartJSON);
+                    ((MyApplication) parentActivity.getApplication()).setStaffActiveOrder(ordersList.get(holder.getAdapterPosition()));
                     intent.putExtra("purpose", ordersList.get(holder.getAdapterPosition()).getPurpose());
                     intent.putExtra("position", holder.getAdapterPosition());
                     parent.startActivityForResult(intent, ORDER_ACTIVITY_REQUEST_CODE);

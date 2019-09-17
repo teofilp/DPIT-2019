@@ -20,6 +20,10 @@ import com.runtime_terror.myapplication.adapters.FoodListAdapter;
 import com.runtime_terror.myapplication.database.FirestoreSetup;
 import com.runtime_terror.myapplication.interfaces.OrderUpdatesListener;
 import com.runtime_terror.myapplication.models.BillOrder;
+import com.runtime_terror.myapplication.models.DrinkOrder;
+import com.runtime_terror.myapplication.models.FoodOrder;
+import com.runtime_terror.myapplication.models.HelpOrder;
+import com.runtime_terror.myapplication.models.MyApplication;
 import com.runtime_terror.myapplication.models.Order;
 import com.runtime_terror.myapplication.models.ProductItem;
 
@@ -62,10 +66,7 @@ public class KitchenTableOrder extends AppCompatActivity {
         tableOrderRecycler.setLayoutManager(new LinearLayoutManager(this));
         tableOrderRecycler.setNestedScrollingEnabled(false);
 
-        String orderJSON = getIntent().getStringExtra("orderList");
-        Type cartType = new TypeToken<BillOrder>(){}.getType();
-        order = (BillOrder)new Gson().fromJson(orderJSON,  cartType);
-        List<ProductItem> list = ((BillOrder)order).getOrderList();
+        List<ProductItem> list = getOrderList();
 
         adapter = new FoodListAdapter(list, purpose, getApplicationContext());
 
@@ -88,6 +89,17 @@ public class KitchenTableOrder extends AppCompatActivity {
             });
         }
         tableOrderRecycler.setAdapter(adapter);
+    }
+
+    private List<ProductItem> getOrderList() {
+        order = ((MyApplication)getApplication()).getStaffActiveOrder();
+        if(order.getOrderType() == 1){
+            return ((FoodOrder)order).getOrderList();
+        } else if (order.getOrderType() == 2) {
+            return ((DrinkOrder)order).getOrderList();
+        } else {
+            return ((BillOrder)order).getOrderList();
+        }
     }
 
     private boolean isOrderPrepared(List<ProductItem> productItemList) {

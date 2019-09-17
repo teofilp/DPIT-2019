@@ -11,6 +11,19 @@ import java.util.List;
 public class MyApplication extends Application {
     private List<Pair<ProductItem, Integer>> cartList;
     private TextView cartItems;
+    private Order staffActiveOrder;
+
+    public TextView getCartItems() {
+        return cartItems;
+    }
+
+    public Order getStaffActiveOrder() {
+        return staffActiveOrder;
+    }
+
+    public void setStaffActiveOrder(Order staffActiveOrder) {
+        this.staffActiveOrder = staffActiveOrder;
+    }
 
     public void setCartList(List<Pair<ProductItem, Integer>> list) {
         this.cartList = list;

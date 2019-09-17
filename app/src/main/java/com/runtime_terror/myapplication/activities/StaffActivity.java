@@ -5,12 +5,15 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.runtime_terror.myapplication.Launcher;
 import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.fragments.OrderContainerFragment;
 
@@ -98,5 +101,17 @@ public class StaffActivity extends AppCompatActivity {
                 logoutDialog.setupDialog();
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(FirebaseAuth.getInstance().getCurrentUser() == null) {
+            Intent intent = new Intent(getApplicationContext(), Launcher.class);
+            intent.putExtra("redirectToLogin", true);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+        }
     }
 }

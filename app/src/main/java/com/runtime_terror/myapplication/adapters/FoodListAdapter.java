@@ -162,14 +162,11 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
         this.parentActivity = act;
     }
 
-
     public FoodListAdapter(List<ProductItem> dataset, String purpose, Context context){
         this.dataset = dataset;
         this.purpose = purpose;
         this.mContext = context;
     }
-
-
 
     @NonNull
     @Override

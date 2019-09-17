@@ -44,6 +44,7 @@ public class LogoutDialog extends Dialog {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(v.getContext(), Launcher.class);
                 intent.putExtra("redirectToLogin", true);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 v.getContext().startActivity(intent);
             }
         });

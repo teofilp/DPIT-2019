@@ -70,7 +70,8 @@ public class CategoriesMenuFragment extends Fragment {
                 for (QueryDocumentSnapshot food : task.getResult()) {
                     Log.d(TAG, food.getString("name"));
 
-                    ProductItem productItemItem = new ProductItem("someImage", food.getString("name"), (double) food.get("price"), "", 1, food.getBoolean("isAvailable"), food.getString("desc"));
+                    ProductItem productItemItem = new ProductItem(food.getString("imgLink"), food.getString("name"), (double) food.get("price"), "", 1, false, food.getString("desc"),
+                            food.getBoolean("isFood"));
                     orders.add(productItemItem);
                 }
                 adapter.notifyDataSetChanged();

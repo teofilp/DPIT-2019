@@ -4,7 +4,6 @@ import java.util.List;
 
 public class FoodOrder extends ProductOrder {
     public static final int FOOD_ORDER_TYPE = 1;
-    public List<ProductItem> orderList;
 
     public FoodOrder() {}
 
