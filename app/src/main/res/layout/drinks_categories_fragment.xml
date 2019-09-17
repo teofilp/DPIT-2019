@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MenuActivity">
+
+
+    <com.google.android.material.tabs.TabLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tab_layout"
+        app:tabMode="scrollable"
+        android:paddingTop="-8dp"
+        android:background="@color/white"
+        app:tabGravity="fill"
+        app:tabSelectedTextColor="@color/colorPrimaryDark"
+        app:tabIndicatorColor="@color/colorPrimaryDark"
+        app:tabTextColor="@color/colorPrimary"
+
+        />
+
+    <androidx.viewpager.widget.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/pager"
+        android:background="@drawable/food_card_bg"
+        android:layout_marginTop="8dp"
+        android:layout_below="@id/tab_layout"/>
+
+</RelativeLayout>

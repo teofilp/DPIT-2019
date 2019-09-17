@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.MenuActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignTop="@+id/toolbar"
+        android:layout_above="@+id/tab_layout"
+        android:layout_alignRight="@+id/fab_wrapper"
+        android:background="@color/colorPrimary"
+        android:src="@drawable/ic_help_button" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tab_layout"
+        android:layout_below="@id/toolbar"
+        app:tabMode="scrollable"
+        android:background="@color/white"
+        app:tabGravity="fill"
+        app:tabSelectedTextColor="@color/colorPrimaryDark"
+        app:tabIndicatorColor="@color/colorPrimaryDark"
+        app:tabTextColor="@color/colorPrimary"
+
+        />
+
+    <androidx.viewpager.widget.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/pager"
+        android:background="@drawable/food_card_bg"
+        android:layout_below="@id/tab_layout"/>
+
+    <RelativeLayout
+        android:id="@+id/fab_wrapper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="2dp"
+        android:padding="6dp"
+        android:layout_marginBottom="2dp">
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:borderWidth="0dp"
+            android:src="@drawable/ic_cart_icon_white"
+            android:backgroundTint="@color/colorPrimary"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="8dp"
+            android:id="@+id/cartButton"/>
+        <TextView
+            android:id="@+id/cart_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="4dp"
+            android:elevation="7dp"
+            android:gravity="center"
+            android:visibility="gone"
+            android:textColor="@color/white"
+            android:layout_alignParentRight="true"
+            android:textSize="12sp"
+            android:background="@drawable/cart_count_circle"
+            tools:text="" />
+    </RelativeLayout>
+
+
+</RelativeLayout>
