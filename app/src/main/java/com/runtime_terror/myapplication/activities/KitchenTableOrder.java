@@ -121,6 +121,4 @@ public class KitchenTableOrder extends AppCompatActivity {
         setResult(result_code, resultIntent);
         finish();
     }
-
-
 }

@@ -6,7 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductOrder extends Order {
-    private List<ProductItem> orderList;
+    public List<ProductItem> orderList;
+
+    public ProductOrder()
+    {
+
+    }
 
     public ProductOrder(int tableNumber) {
         super(tableNumber);
@@ -24,6 +29,10 @@ public class ProductOrder extends Order {
 
     public List<ProductItem> getOrderList() {
         return this.orderList;
+    }
+
+    public void setOrderList(List<ProductItem> orderList) {
+        this.orderList = orderList;
     }
 
     @Override

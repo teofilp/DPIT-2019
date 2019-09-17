@@ -1,5 +1,4 @@
 package com.runtime_terror.myapplication.fragments;
-
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -21,11 +20,13 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
+import com.google.protobuf.DescriptorProtos;
 import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.adapters.OrderListAdapter;
 import com.runtime_terror.myapplication.database.FirestoreSetup;
 import com.runtime_terror.myapplication.interfaces.CompleteOrder;
 import com.runtime_terror.myapplication.models.BillOrder;
+import com.runtime_terror.myapplication.models.DrinkOrder;
 import com.runtime_terror.myapplication.models.FoodOrder;
 import com.runtime_terror.myapplication.models.ProductItem;
 import com.runtime_terror.myapplication.models.ProductOrder;
@@ -106,9 +107,12 @@ public class OrderContainerFragment extends Fragment implements CompleteOrder {
             return document.toObject(BillOrder.class);
         else if(orderType == HelpOrder.HELP_ORDER_TYPE)
             return document.toObject(HelpOrder.class);
+        else if(orderType == FoodOrder.FOOD_ORDER_TYPE)
+            return document.toObject(FoodOrder.class);
+//        else if(orderType == DrinkOrder.DRINK_ORDER_TYPE)
+//            return document.toObject(DrinkOrder.class);
         else
             return null;
-
     }
 
     private OrderListAdapter getAdapter() {
@@ -120,7 +124,6 @@ public class OrderContainerFragment extends Fragment implements CompleteOrder {
 
         return null;
     }
-
 
     private OrderListAdapter getRandomFoodAdapter() {
 
@@ -156,5 +159,3 @@ public class OrderContainerFragment extends Fragment implements CompleteOrder {
                 .document(order.getId()).set(order, SetOptions.merge());
     }
 }
-
-

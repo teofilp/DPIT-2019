@@ -172,6 +172,4 @@ public class EditItemDialog extends Dialog {
         ProductItem item = (ProductItem) o;
         ((MyApplication)parentActivity.getApplication()).deleteItemFromCart(item.getTitle());
     }
-
-
 }

@@ -49,11 +49,18 @@ public class StaffActivity extends AppCompatActivity {
 
         OrderContainerFragment kitchen = new OrderContainerFragment();
         kitchen.setPurpose("food");
-//        kitchen.loadOrder(FoodOrder.FOOD_ORDER_TYPE);
-
+        kitchen.loadOrder(new ArrayList<Integer>(
+                Arrays.asList(
+                        FoodOrder.FOOD_ORDER_TYPE
+                )
+        ));
         OrderContainerFragment bar = new OrderContainerFragment();
         bar.setPurpose("food");
-//        bar.loadOrder(DrinkOrder.DRINK_ORDER_TYPE);
+        bar.loadOrder(new ArrayList<Integer>(
+                Arrays.asList(
+                        DrinkOrder.DRINK_ORDER_TYPE
+                )
+        ));
 
         OrderContainerFragment waiter = new OrderContainerFragment();
         waiter.setPurpose("operations");
@@ -70,15 +77,12 @@ public class StaffActivity extends AppCompatActivity {
         adapter.addFragment(bar, "");
         adapter.addFragment(waiter, "");
 
-
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
-
 
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_hamburger);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_cocktail);
         tabLayout.getTabAt(2).setIcon(R.drawable.ic_q_mark);
-
     }
 
     private void setupToolbar() {

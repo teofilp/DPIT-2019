@@ -195,7 +195,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
             myViewHolder.container.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    dataset.get(position).setPrepared(!myViewHolder.prepared.isChecked());
+                    dataset.get(myViewHolder.getAdapterPosition()).setPrepared(!myViewHolder.prepared.isChecked());
                     myViewHolder.prepared.setChecked(!myViewHolder.prepared.isChecked());
 
                     notifyOrderComplete(isOrderComplete());
