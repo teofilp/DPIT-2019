@@ -88,7 +88,7 @@ public class EditItemDialog extends Dialog {
        return Integer.parseInt(qtyDisplay.getText().toString());
     }
     public void setupDialog(){
-        initialQty = editItemInterface.getQty();
+        initialQty = editItemInterface.getQty() == 0 ? 1 : editItemInterface.getQty();
         qtyDisplay.setText(initialQty + "");
         reqsEditor.setText(editItemInterface.getReqs());
         increaseButton.setOnClickListener(new View.OnClickListener() {

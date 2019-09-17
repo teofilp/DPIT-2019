@@ -10,7 +10,9 @@ public class HelpOrder extends Order {
     }
 
     public HelpOrder(int tableNumber) {
+
         super(tableNumber);
+        this.orderType = HELP_ORDER_TYPE;
     }
 
     @Override
