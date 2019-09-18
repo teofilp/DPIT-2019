@@ -51,7 +51,9 @@ public class HelpDialog extends Dialog {
 
         FirebaseFirestore db = new FirestoreSetup().getDb();
 
-        db.collection("RESTAURANTS").document(restaurantId).collection("ORDERS").add(order)
+        db.collection("RESTAURANTS").document(restaurantId)
+                .collection("ORDERS")
+                .add(order)
                 .addOnSuccessListener(documentReference -> {
                     Log.d("Order id", documentReference.getId());
                     Toast.makeText(getContext(), "Your request has been sent. Wait for the waiter to come and help you",

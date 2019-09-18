@@ -16,8 +16,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
@@ -90,18 +93,42 @@ public class OrderContainerFragment extends Fragment implements CompleteOrder {
 
         for(Integer orderType : orderTypes)
             new FirestoreSetup().getDb().collection("RESTAURANTS")
-                    .document(restaurantId).collection("ORDERS").whereEqualTo("status", Order.ORDER_STATUS.PLACED).whereEqualTo("orderType", orderType).get()
-                    .addOnCompleteListener(task -> {
-                        if(task.isSuccessful()){
-                            for(QueryDocumentSnapshot document: task.getResult()) {
-                                Order order = getOrderObject(document, orderType);
-                                order.setId(document.getId());
-                                orders.add(order);
+                    .document(restaurantId).collection("ORDERS")
+                    .whereEqualTo("status", Order.ORDER_STATUS.PLACED)
+                    .whereEqualTo("orderType", orderType)
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                            if(e != null)
+                                return;
+                            for(DocumentChange dc: queryDocumentSnapshots.getDocumentChanges()){
+                                switch(dc.getType()){
+                                    case ADDED:
+                                        Order order = getOrderObject(dc.getDocument(), orderType);
+                                        order.setId(dc.getDocument().getId());
+                                        orders.add(0, order);
+                                        adapter.notifyItemInserted(0);
+                                        break;
+                                }
                             }
-                            Collections.reverse(orders);
-                            adapter.notifyItemInserted(orders.size() - 1);
+
                         }
                     });
+
+
+//            new FirestoreSetup().getDb().collection("RESTAURANTS")
+//                    .document(restaurantId).collection("ORDERS").whereEqualTo("status", Order.ORDER_STATUS.PLACED).whereEqualTo("orderType", orderType).get()
+//                    .addOnCompleteListener(task -> {
+//                        if(task.isSuccessful()){
+//                            for(QueryDocumentSnapshot document: task.getResult()) {
+//                                Order order = getOrderObject(document, orderType);
+//                                order.setId(document.getId());
+//                                orders.add(order);
+//                            }
+//                            Collections.reverse(orders);
+//                            adapter.notifyItemInserted(orders.size() - 1);
+//                        }
+//                    });
     }
 
     private Order getOrderObject(QueryDocumentSnapshot document, Integer orderType) {
