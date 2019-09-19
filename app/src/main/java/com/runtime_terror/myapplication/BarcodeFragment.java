@@ -24,6 +24,7 @@ import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.runtime_terror.myapplication.activities.MenuActivity;
+import com.runtime_terror.myapplication.models.MyApplication;
 
 import java.io.IOException;
 
@@ -128,9 +129,13 @@ public class BarcodeFragment extends Fragment {
             @Override
             public void onAnimationEnd(Animation animation) {
                 Log.d(TAG, "QR code passed the validation check.");
+                String restaurantId = barcodeData.substring(barcodeData.indexOf(":") + 1, barcodeData.indexOf("/"));
+                String tableNumber = barcodeData.substring(barcodeData.indexOf("/") + 1);
+                int tableNumberInt = Integer.parseInt(tableNumber);
+                saveRestaurantDetails(restaurantId, tableNumberInt);
                 Intent intent = new Intent(getContext(), MenuActivity.class);
-                intent.putExtra("rest", barcodeData.substring(barcodeData.indexOf(":") + 1, barcodeData.indexOf("/")));
-                intent.putExtra("tableNr", barcodeData.substring(barcodeData.indexOf("/") + 1));
+                intent.putExtra("rest", restaurantId);
+                intent.putExtra("tableNr", tableNumber);
                 getActivity().startActivity(intent);
                 getActivity().finish();
             }
@@ -141,6 +146,12 @@ public class BarcodeFragment extends Fragment {
             }
         });
         view.findViewById(R.id.valid_qr).startAnimation(anim);
+    }
+
+    private void saveRestaurantDetails(String restaurantId, int tableNumber) {
+        MyApplication app = (MyApplication) getActivity().getApplication();
+        app.setClientRestaurantId(restaurantId);
+        app.setClientTableNumber(tableNumber);
     }
 
     public void setupBarcode(ViewGroup container) {

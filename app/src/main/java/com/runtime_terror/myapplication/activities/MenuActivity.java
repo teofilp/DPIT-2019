@@ -91,32 +91,7 @@ public class MenuActivity extends AppCompatActivity {
 
         CustomPagerAdapter adapter = new CustomPagerAdapter(getSupportFragmentManager());
 
-
-//        String[] cateogories = {"Soups", "Pizza", "Main Course", "Side Dishes", "Dessert", "Drinks"};
-//
-//        for(String category: cateogories) {
-//
-//            CategoriesMenuFragment fragment = new CategoriesMenuFragment();
-//            fragment.registerCartListener(new CartListener() {
-//                @Override
-//                public void addToCart(Pair<ProductItem, Integer> food) {
-//                    cartList.add(food);
-//                    if(cartList.size() > 0) {
-//                        findViewById(R.id.cart_count).setVisibility(View.VISIBLE);
-//                        ((TextView) findViewById(R.id.cart_count)).setText(Integer.toString(cartList.size()));
-//                    }
-//                    else {
-//                        findViewById(R.id.cart_count).setVisibility(View.GONE);
-//                    }
-//                }
-//            });
-//
-//            adapter.addFragment(fragment, category);
-//
-//        }
-
         setupTablayout(adapter);
-
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
@@ -190,8 +165,6 @@ public class MenuActivity extends AppCompatActivity {
                 helpDialog.setupDialog();
             }
         });
-
-
     }
 
     private void setupCartButton(){

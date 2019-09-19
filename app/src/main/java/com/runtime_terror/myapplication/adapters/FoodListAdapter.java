@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.runtime_terror.myapplication.interfaces.EditItemInterface;
 import com.runtime_terror.myapplication.interfaces.ItemChanged;
 import com.runtime_terror.myapplication.interfaces.OrderUpdatesListener;
@@ -74,8 +75,9 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
             }
         }
 
-        public void setImage(String image) {
-            this.image.setImageResource(R.drawable.food);
+        public void setImage(String imageLink) {
+
+            Glide.with(mContext).load(imageLink).into(this.image);
         }
 
         public void setTitle(String title) {

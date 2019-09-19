@@ -98,15 +98,18 @@ public class MenuItemListAdapter extends RecyclerView.Adapter<MenuItemListAdapte
         }
 
         public void setPrice(double price) {
-            this.price.setText("$" + price);
+            this.price.setText(price + " Lei");
         }
 
         public void setDescription(String description) {
+
             String formattedDescription = description;
 
-            if(formattedDescription.length() > 50)
+            if(formattedDescription.length() > 50) {
                 formattedDescription = formattedDescription.substring(0, 50);
-            formattedDescription += "...";
+                formattedDescription += "...";
+            }
+
             this.description.setText(formattedDescription);
         }
 

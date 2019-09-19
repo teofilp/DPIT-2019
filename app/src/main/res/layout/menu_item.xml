@@ -25,31 +25,33 @@
             android:layout_marginTop="4dp"
             android:layout_below="@id/icon"
             android:id="@+id/title"
-            android:text="Title"
             android:layout_marginLeft="4dp"
-            android:textSize="25sp"
+            android:textSize="16sp"
             android:textColor="@color/black"
             android:layout_alignLeft="@id/icon"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/description"
-            android:text="Details item"
-            android:textSize="15sp"
+            android:textSize="12sp"
             android:layout_marginLeft="4dp"
-            android:textColor="@color/black"
+            android:layout_marginBottom="12dp"
+            android:textColor="#7f7f7f"
             android:layout_below="@id/title"
-            android:layout_alignLeft="@id/title"/>
+            android:fontFamily="sans-serif-light"
+            android:layout_alignLeft="@id/title"
+            />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@id/price"
-            android:layout_marginLeft="4dp"
-            android:text="$33"
-            android:layout_alignLeft="@+id/title"
-            android:layout_marginBottom="4dp"
-            android:textColor="@color/black"
+            android:layout_marginLeft="6dp"
+            android:layout_marginBottom="6dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:textColor="@color/primary"
             android:layout_below="@+id/description"
-            android:textSize="20sp"/>
+            android:fontFamily="sans-serif-light"
+            android:textSize="18sp"/>
 
 </RelativeLayout>

@@ -1,6 +1,5 @@
 package com.runtime_terror.myapplication.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,14 +13,8 @@ import android.view.MenuItem;
 
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.vision.L;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -32,21 +25,18 @@ import com.runtime_terror.myapplication.interfaces.ItemChanged;
 import com.runtime_terror.myapplication.models.BillOrder;
 import com.runtime_terror.myapplication.models.DrinkOrder;
 import com.runtime_terror.myapplication.models.FoodOrder;
-import com.runtime_terror.myapplication.models.Order;
+import com.runtime_terror.myapplication.models.MyApplication;
 import com.runtime_terror.myapplication.models.ProductItem;
 import com.runtime_terror.myapplication.models.HelpDialog;
 
-
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class OrderDetailsActivity extends AppCompatActivity {
 
     private RecyclerView mainList;
     private RecyclerView.Adapter adapter;
-    public static final String TAG = "OrderDetailsActivity";
     List<ProductItem> productItemList;
 
     @Override
@@ -138,10 +128,10 @@ public class OrderDetailsActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.total)).setText("Total price: " + total + " Lei");
     }
 
-    public void requestBill(View view) {
-        final int RANDOM_TABLE_NUMBER = 213;
-        final String restaurantId = "lrApMZq9rBNLQGtzVjKa";
-        BillOrder order = new BillOrder(RANDOM_TABLE_NUMBER, productItemList);
+    public void requestBill(View view) { ;
+        final int tableNumber = getMyApplication().getClientTableNumber();
+        final String restaurantId = getMyApplication().getClientRestaurantId();
+        BillOrder order = new BillOrder(tableNumber, productItemList);
 
         FirebaseFirestore db = new FirestoreSetup().getDb();
 
@@ -151,7 +141,8 @@ public class OrderDetailsActivity extends AppCompatActivity {
     }
 
     public void placeOrder(View view) {
-        final String restaurantId = "lrApMZq9rBNLQGtzVjKa";
+        view.setEnabled(false);
+        final String restaurantId = getMyApplication().getClientRestaurantId();
         List<ProductItem> drinksList = new ArrayList<>();
         List<ProductItem> foodList = new ArrayList<>();
 
@@ -163,20 +154,57 @@ public class OrderDetailsActivity extends AppCompatActivity {
         }
         FirebaseFirestore db = new FirestoreSetup().getDb();
 
+        placeOrder(db, restaurantId, foodList, drinksList);
+//        if (foodList.size() > 0) {
+//            FoodOrder foodOrder = new FoodOrder(getMyApplication().getClientTableNumber(), foodList);
+//            Toast.makeText(this, foodOrder.getOrderList().size() + "", Toast.LENGTH_SHORT).show();
+//            db.collection("RESTAURANTS").document(restaurantId).collection("ORDERS").add(foodOrder)
+//                    .addOnSuccessListener(documentReference -> Log.d("Order id", documentReference.getId()))
+//                    .addOnFailureListener(e -> Log.e("could not place order", e.toString()));
+//        }
+//
+//        if (drinksList.size() > 0) {
+//            DrinkOrder drinkOrder = new DrinkOrder(getMyApplication().getClientTableNumber(), drinksList);
+//
+//            db.collection("RESTAURANTS").document(restaurantId).collection("ORDERS").add(drinkOrder)
+//                    .addOnSuccessListener(documentReference -> Log.d("Order id", documentReference.getId()))
+//                    .addOnFailureListener(e -> Log.e("could not place order", e.toString()));
+//        }
+    }
+
+    private void placeOrder(FirebaseFirestore db, String restaurantId, List<ProductItem> foodList, List<ProductItem> drinksList) {
+
+        FoodOrder foodOrder = new FoodOrder(getMyApplication().getClientTableNumber(), foodList);
+        DrinkOrder drinkOrder = new DrinkOrder(getMyApplication().getClientTableNumber(), drinksList);
+        getMyApplication().placeOrder(this);
         if (foodList.size() > 0) {
-            FoodOrder foodOrder = new FoodOrder(1, foodList);
-            Toast.makeText(this, foodOrder.getOrderList().size() + "", Toast.LENGTH_SHORT).show();
             db.collection("RESTAURANTS").document(restaurantId).collection("ORDERS").add(foodOrder)
-                    .addOnSuccessListener(documentReference -> Log.d("Order id", documentReference.getId()))
+                    .addOnSuccessListener(documentReference -> {
+                        if(drinksList.size() > 0)
+                            db.collection("RESTAURANTS").document(restaurantId).collection("ORDERS")
+                                    .add(drinkOrder)
+                                    .addOnFailureListener(e -> Log.e("could not place order", e.toString()));
+                        finish();
+                    })
                     .addOnFailureListener(e -> Log.e("could not place order", e.toString()));
-        }
 
-        if (drinksList.size() > 0) {
-            DrinkOrder drinkOrder = new DrinkOrder(1, drinksList);
-
+        } else if (drinksList.size() > 0) {
             db.collection("RESTAURANTS").document(restaurantId).collection("ORDERS").add(drinkOrder)
-                    .addOnSuccessListener(documentReference -> Log.d("Order id", documentReference.getId()))
+                    .addOnSuccessListener(documentReference -> {
+                        if (foodList.size() > 0)
+                            db.collection("RESTAURANTS").document(restaurantId).collection("ORDERS")
+                                    .add(foodOrder)
+                                    .addOnFailureListener(e -> Log.e("could not place order", e.toString()));
+                        finish();
+                    })
                     .addOnFailureListener(e -> Log.e("could not place order", e.toString()));
         }
+
+    }
+
+    MyApplication getMyApplication() {
+        MyApplication app = (MyApplication) getApplication();
+        return app;
+
     }
 }

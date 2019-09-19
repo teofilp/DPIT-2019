@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.util.Pair;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -22,6 +23,7 @@ import com.runtime_terror.myapplication.interfaces.OrderUpdatesListener;
 import com.runtime_terror.myapplication.models.BillOrder;
 import com.runtime_terror.myapplication.models.DrinkOrder;
 import com.runtime_terror.myapplication.models.FoodOrder;
+import com.runtime_terror.myapplication.models.HelpDialog;
 import com.runtime_terror.myapplication.models.HelpOrder;
 import com.runtime_terror.myapplication.models.MyApplication;
 import com.runtime_terror.myapplication.models.Order;
@@ -124,13 +126,28 @@ public class KitchenTableOrder extends AppCompatActivity {
         final String restaurantId = "lrApMZq9rBNLQGtzVjKa";
         order.setStatus(Order.ORDER_STATUS.COMPLETED);
 
-        new FirestoreSetup().getDb().collection("RESTAURANTS").document(restaurantId).collection("ORDERS")
-                .document(order.getId()).set(order, SetOptions.merge());
+        new FirestoreSetup().getDb()
+                .collection("RESTAURANTS")
+                .document(restaurantId)
+                .collection("ORDERS")
+                .document(order.getId())
+                .set(order, SetOptions.merge());
 
         Intent resultIntent = new Intent();
         resultIntent.putExtra("deletePosition", position);
         int result_code = 2;
         setResult(result_code, resultIntent);
         finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if(id == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
