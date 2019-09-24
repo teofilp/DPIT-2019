@@ -158,6 +158,11 @@ public class MenuItemListAdapter extends RecyclerView.Adapter<MenuItemListAdapte
             return context.getString(resource);
         }
 
+        @Override
+        public boolean isOrdered(ProductItem item) {
+            return item.isOrdered();
+        }
+
     }
 }
 

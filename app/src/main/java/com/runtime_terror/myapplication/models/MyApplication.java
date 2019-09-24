@@ -65,8 +65,7 @@ public class MyApplication extends Application {
         if(cartList.size() > 0) {
             cartItems.setVisibility(View.VISIBLE);
             cartItems.setText(Integer.toString(cartList.size()));
-        }
-        else {
+        } else {
             cartItems.setVisibility(View.GONE);
         }
     }
@@ -97,8 +96,9 @@ public class MyApplication extends Application {
         orderList = new ArrayList<>();
         orderList.addAll(cartList);
         saveOrderDetailsLocally(activity);
+        updateCartItemsView();
 
-        emptyCart();
+//        emptyCart();
     }
 
     private void saveOrderDetailsLocally(Activity activity) {

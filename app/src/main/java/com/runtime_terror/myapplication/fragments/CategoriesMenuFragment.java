@@ -71,7 +71,7 @@ public class CategoriesMenuFragment extends Fragment {
                     Log.d(TAG, food.getString("name"));
 
                     ProductItem productItemItem = new ProductItem(food.getString("imgLink"), food.getString("name"), (double) food.get("price"), "", 1, false, food.getString("desc"),
-                            food.getBoolean("isFood"));
+                            food.getBoolean("isFood"),false);
                     orders.add(productItemItem);
                 }
                 adapter.notifyDataSetChanged();

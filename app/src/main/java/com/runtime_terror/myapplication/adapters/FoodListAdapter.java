@@ -44,6 +44,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
         TextView price;
         TextView reqs;
         TextView qty;
+        boolean ordered;
         CheckBox prepared;
         ImageButton options;
 
@@ -58,7 +59,6 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
             qty = v.findViewById(R.id.food_qty);
             prepared = v.findViewById(R.id.food_preparation_completed);
             options = v.findViewById(R.id.options);
-            this.setVisibilities(purpose);
         }
 
 
@@ -72,7 +72,14 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
 
             } else if (purpose.equals("client")) {
                 prepared.setVisibility(View.GONE);
+                for(ProductItem item : dataset)
+                {
+                    if(item.isOrdered())
+                        options.setVisibility(View.GONE);
+                }
+
             }
+
         }
 
         public void setImage(String imageLink) {
@@ -92,7 +99,6 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
             double totalPrice = ((double)((int) (price * qty * 100)) / 100);
             this.price.setText(totalPrice + " Lei");
         }
-
         public void setQty(int qty) {
             this.qty.setText("QTY: " + qty);
         }
@@ -136,6 +142,11 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
         @Override
         public String getTranslation(int resource) {
             return mContext.getString(resource);
+        }
+
+        @Override
+        public boolean isOrdered(ProductItem item) {
+            return item.isOrdered();
         }
 
         @Override
@@ -186,9 +197,9 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
         myViewHolder.setReqs(dataset.get(position).getReqs());
         myViewHolder.setQty(dataset.get(position).getQty());
         myViewHolder.setPrice(dataset.get(position).getPrice(), dataset.get(position).getQty());
-
         myViewHolder.setPrepared(dataset.get(position).isPrepared());
 
+        myViewHolder.setVisibilities(purpose);
 
         if(purpose.equals("delivery")) {
             myViewHolder.container.setOnClickListener(new View.OnClickListener() {
@@ -202,6 +213,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
             });
         }
 
+
         myViewHolder.setPrepared(dataset.get(position).isPrepared());
 
         myViewHolder.options.setOnClickListener(new View.OnClickListener() {
@@ -210,7 +222,8 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
                 //Dialog Setup
                 final EditItemDialog dialog = new EditItemDialog(mContext, myViewHolder, dataset.get(position));
                 dialog.setActivityForDialog(parentActivity);
-                dialog.setVisibilities("editItem");
+                if(getItemCount()!=0)
+                    dialog.setVisibilities("editItem");
                 dialog.setupDialog();
             }
         });

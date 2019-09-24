@@ -1,5 +1,7 @@
 package com.runtime_terror.myapplication.interfaces;
 
+import com.runtime_terror.myapplication.models.ProductItem;
+
 import java.util.List;
 
 public interface EditItemInterface {
@@ -12,6 +14,6 @@ public interface EditItemInterface {
     void dialogNotifyItemRemoved(int position);
     public void itemChanged();
     String getTranslation(int resource);
-
+    boolean isOrdered(ProductItem item );
 
 }

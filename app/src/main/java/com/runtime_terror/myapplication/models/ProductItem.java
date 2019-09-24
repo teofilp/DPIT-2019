@@ -9,12 +9,13 @@ public class ProductItem {
     double price;
     boolean prepared;
     boolean isFood;
+    boolean ordered;
 
     public ProductItem() {
 
     }
 
-    public ProductItem(String image, String title, double price, String reqs, int qty, boolean prepared, String description){
+    public ProductItem(String image, String title, double price, String reqs, int qty, boolean prepared, String description, boolean ordered){
         this.image = image;
         this.title = title;
         this.price = price;
@@ -22,9 +23,10 @@ public class ProductItem {
         this.qty = qty;
         this.description=description;
         this.prepared = prepared;
+        this.ordered= ordered;
     }
 
-    public ProductItem(String image, String title, double price, String reqs, int qty, boolean prepared, String description, boolean isFood){
+    public ProductItem(String image, String title, double price, String reqs, int qty, boolean prepared, String description, boolean isFood,boolean ordered){
         this.image = image;
         this.title = title;
         this.price = price;
@@ -33,6 +35,7 @@ public class ProductItem {
         this.description=description;
         this.prepared = prepared;
         this.isFood = isFood;
+        this.ordered = ordered;
     }
 
     public String getImage() {
@@ -67,6 +70,11 @@ public class ProductItem {
         return qty;
     }
 
+
+    public void setOrdered(boolean ordered){this.ordered = ordered;}
+
+    public boolean isOrdered(){return ordered;}
+
     public void setQty(int qty) {
         this.qty = qty;
     }
@@ -90,8 +98,13 @@ public class ProductItem {
     public boolean isFood() {
         return isFood;
     }
-
+    public static ProductItem copyProduct(ProductItem item) {
+        return new ProductItem(item.getImage(), item.getTitle(), item.getPrice(), item.getReqs(), item.getQty(), item.isPrepared(),
+                item.getDescription(), item.isOrdered());
+    }
     public void setIsFood(boolean food) {
         isFood = food;
     }
 }
+
+

@@ -91,7 +91,7 @@ public class StaffActivity extends AppCompatActivity {
     private void setupToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle("Staff Activity");
+        setTitle("Big Belly");
 
         ImageButton logoutButton = findViewById(R.id.logoutButton);
         logoutButton.setOnClickListener(new View.OnClickListener() {

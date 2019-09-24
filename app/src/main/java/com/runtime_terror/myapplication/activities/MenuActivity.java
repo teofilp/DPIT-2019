@@ -19,6 +19,7 @@ import android.util.Pair;
 
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -121,9 +122,11 @@ public class MenuActivity extends AppCompatActivity {
                                 if(cartList.size() > 0) {
                                     findViewById(R.id.cart_count).setVisibility(View.VISIBLE);
                                     ((TextView) findViewById(R.id.cart_count)).setText(Integer.toString(cartList.size()));
+
                                 }
                                 else {
                                     findViewById(R.id.cart_count).setVisibility(View.GONE);
+
                                 }
                             }
 
@@ -154,7 +157,7 @@ public class MenuActivity extends AppCompatActivity {
     private void setupToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle("Restaurant name");
+        setTitle("Big Belly");
 
 
         ImageButton helpButton = findViewById(R.id.imageButton);
@@ -169,15 +172,13 @@ public class MenuActivity extends AppCompatActivity {
 
     private void setupCartButton(){
 
-        FloatingActionButton cartButton = findViewById(R.id.cartButton);
+        RelativeLayout cartButton = findViewById(R.id.fab_wrapper);
 
         cartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String cartJSON = new Gson().toJson(cartList);
                 mIntent.putExtra("cart", cartJSON);
-
                 startActivity(mIntent);
             }
         });

@@ -123,7 +123,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
             total += productItem.getPrice() * productItem.getQty();
         }
         if (total == 0)
-            finish();
+//            finish();
         total = ((double) ((int) (total * 100)) / 100);
         ((TextView) findViewById(R.id.total)).setText("Total price: " + total + " Lei");
     }
@@ -138,6 +138,15 @@ public class OrderDetailsActivity extends AppCompatActivity {
         db.collection("RESTAURANTS").document(restaurantId).collection("ORDERS").add(order)
                 .addOnSuccessListener(documentReference -> Log.d("Order id", documentReference.getId()))
                 .addOnFailureListener(e -> Log.e("could not place order", e.toString()));
+
+        Button payButton = findViewById(R.id.payButton);
+        payButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Launcher.class);
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     public void placeOrder(View view) {
@@ -148,10 +157,13 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
         for (ProductItem item : productItemList) {
             item.setPrepared(false);
-            if (item.isFood())
-                foodList.add(item);
-            else drinksList.add(item);
+            if (item.isFood() && item.isOrdered()==false)
+                foodList.add(ProductItem.copyProduct(item));
+            else if(!item.isOrdered())drinksList.add(item);
+            item.setOrdered(true);
+
         }
+        adapter.notifyDataSetChanged();
         FirebaseFirestore db = new FirestoreSetup().getDb();
 
         placeOrder(db, restaurantId, foodList, drinksList);

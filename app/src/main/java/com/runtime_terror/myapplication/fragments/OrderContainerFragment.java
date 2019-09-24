@@ -132,20 +132,16 @@ public class OrderContainerFragment extends Fragment implements CompleteOrder {
     }
 
     private Order getOrderObject(QueryDocumentSnapshot document, Integer orderType) {
-        Order order;
-        if(orderType == BillOrder.BILL_ORDER_TYPE) {
-            order = document.toObject(BillOrder.class);
-        } else if(orderType == HelpOrder.HELP_ORDER_TYPE)
-            order = document.toObject(HelpOrder.class);
-        else if(orderType == FoodOrder.FOOD_ORDER_TYPE) {
-            order = document.toObject(FoodOrder.class);
-        } else if(orderType == DrinkOrder.DRINK_ORDER_TYPE) {
-                order = document.toObject(DrinkOrder.class);
-        } else
-            order = null;
-
-
-        return order;
+        if(orderType == BillOrder.BILL_ORDER_TYPE)
+            return document.toObject(BillOrder.class);
+        else if(orderType == HelpOrder.HELP_ORDER_TYPE)
+            return document.toObject(HelpOrder.class);
+        else if(orderType == FoodOrder.FOOD_ORDER_TYPE)
+            return document.toObject(FoodOrder.class);
+        else if(orderType == DrinkOrder.DRINK_ORDER_TYPE)
+            return document.toObject(DrinkOrder.class);
+        else
+            return null;
     }
 
     private OrderListAdapter getAdapter() {
@@ -168,7 +164,7 @@ public class OrderContainerFragment extends Fragment implements CompleteOrder {
             ProductOrder productOrder = new ProductOrder(tableNumber);
 
             for(int j=0; j<=max; j++){
-                productOrder.addFood(new ProductItem("someImage", "Some title1", 35, "Some reqs1", 3, true,"description"));
+                productOrder.addFood(new ProductItem("someImage", "Some title1", 35, "Some reqs1", 3, true,"description", false));
             }
             productOrders.add(productOrder);
         }
