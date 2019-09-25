@@ -32,6 +32,7 @@ import com.runtime_terror.myapplication.interfaces.CompleteOrder;
 import com.runtime_terror.myapplication.models.BillOrder;
 import com.runtime_terror.myapplication.models.DrinkOrder;
 import com.runtime_terror.myapplication.models.FoodOrder;
+import com.runtime_terror.myapplication.models.MyApplication;
 import com.runtime_terror.myapplication.models.ProductItem;
 import com.runtime_terror.myapplication.models.ProductOrder;
 import com.runtime_terror.myapplication.models.HelpOrder;
@@ -168,7 +169,7 @@ public class OrderContainerFragment extends Fragment implements CompleteOrder {
             }
             productOrders.add(productOrder);
         }
-
+        int tableNumber = ((MyApplication)getActivity().getApplication()).getClientTableNumber();
         adapter = new OrderListAdapter(getContext(), productOrders, this);
         return adapter;
     }

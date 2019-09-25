@@ -49,6 +49,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyVi
         this.parentActivity = act;
     }
 
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -72,6 +73,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyVi
                     ((MyApplication) parentActivity.getApplication()).setStaffActiveOrder(ordersList.get(holder.getAdapterPosition()));
                     intent.putExtra("purpose", ordersList.get(holder.getAdapterPosition()).getPurpose());
                     intent.putExtra("position", holder.getAdapterPosition());
+                    intent.putExtra("tableNumber", ordersList.get(holder.getAdapterPosition()).getTableNumber());
                     parent.startActivityForResult(intent, ORDER_ACTIVITY_REQUEST_CODE);
                 }
             });
