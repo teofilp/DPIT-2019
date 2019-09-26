@@ -7,19 +7,32 @@ import com.google.android.material.tabs.TabLayout;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.adapters.CustomPagerAdapter;
 import com.runtime_terror.myapplication.fragments.CategoriesMenuFragment;
+import com.runtime_terror.myapplication.interfaces.CartListener;
+import com.runtime_terror.myapplication.models.ProductItem;
+
+import java.util.ArrayList;
 
 
 public class ComplexCategoriesMenuFragment extends Fragment {
     View view;
     TabLayout tabLayout;
     ViewPager viewPager;
+
+    private final String TAG = "DebugCFrag";// for debug purposes only
 
     @Nullable
     @Override
@@ -30,12 +43,8 @@ public class ComplexCategoriesMenuFragment extends Fragment {
         viewPager = view.findViewById(R.id.pager);
 
         CustomPagerAdapter adapter = new CustomPagerAdapter(getChildFragmentManager());
-        adapter.addFragment(new CategoriesMenuFragment(), "");
-        adapter.addFragment(new CategoriesMenuFragment(), "");
-        adapter.addFragment(new CategoriesMenuFragment(), "");
-        adapter.addFragment(new CategoriesMenuFragment(), "");
-        adapter.addFragment(new CategoriesMenuFragment(), "");
-        adapter.addFragment(new CategoriesMenuFragment(), "");
+
+        SetAdapter(adapter);
 
         tabLayout.setupWithViewPager(viewPager);
         viewPager.setAdapter(adapter);
@@ -50,6 +59,21 @@ public class ComplexCategoriesMenuFragment extends Fragment {
         return view;
     }
 
+    private void SetAdapter(CustomPagerAdapter adapter) {
+        String docPath = getArguments().getString("path");
+        ArrayList<String> subcolList = getArguments().getStringArrayList("foodTypes");
 
+        for(String subCol: subcolList) {
+            ArrayList<String> foodTypes = new ArrayList<>();
+            Bundle fragData = new Bundle();
+            CategoriesMenuFragment frag = new CategoriesMenuFragment();
+
+            foodTypes.add(0, subCol);
+            fragData.putString("path", docPath);
+            fragData.putStringArrayList("foodTypes", foodTypes);
+
+            adapter.addFragment(frag, "");
+        }
+    }
 }
 

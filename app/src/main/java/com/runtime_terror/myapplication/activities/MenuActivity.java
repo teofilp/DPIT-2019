@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.runtime_terror.myapplication.fragments.ComplexCategoriesMenuFragment;
 import com.runtime_terror.myapplication.interfaces.CartListener;
 
 import com.google.firebase.firestore.CollectionReference;
@@ -140,9 +141,9 @@ public class MenuActivity extends AppCompatActivity {
                         adapter.addFragment(frag, foodCategory.getString("food_category"));
                     }
                     else {
-                        /*ComplexCategoriesMenuFragment Cfrag = new ComplexCategoriesMenuFragment();
+                        ComplexCategoriesMenuFragment Cfrag = new ComplexCategoriesMenuFragment();
                         Cfrag.setArguments(fragData);
-                        adapter.addFragment(Cfrag, foodCategory.getString("food_category"));*/
+                        adapter.addFragment(Cfrag, foodCategory.getString("food_category"));
                     }
                 }
                 Log.d(TAG, "All loaded.");

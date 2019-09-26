@@ -60,7 +60,7 @@ public class CategoriesMenuFragment extends Fragment {
         
     }
 
-    private MenuItemListAdapter getAdapter() {// TODO: Implement my thing (DB) here.
+    private MenuItemListAdapter getAdapter() {
 
         final List<ProductItem> orders = new ArrayList<>();
         final MenuItemListAdapter adapter = new MenuItemListAdapter(getContext(), orders, listener);
