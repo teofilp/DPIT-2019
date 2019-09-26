@@ -52,15 +52,16 @@ public class ComplexCategoriesMenuFragment extends Fragment {
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_coke_bottle);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_coffee_beans);
         tabLayout.getTabAt(2).setIcon(R.drawable.ic_cup_of_tea);
-        tabLayout.getTabAt(3).setIcon(R.drawable.ic_beer);
-        tabLayout.getTabAt(4).setIcon(R.drawable.ic_cocktail);
-        tabLayout.getTabAt(5).setIcon(R.drawable.ic_glass_with_wine);
+        //tabLayout.getTabAt(3).setIcon(R.drawable.ic_beer);
+        //tabLayout.getTabAt(4).setIcon(R.drawable.ic_cocktail);
+        //tabLayout.getTabAt(5).setIcon(R.drawable.ic_glass_with_wine);
 
         return view;
     }
 
     private void SetAdapter(CustomPagerAdapter adapter) {
         String docPath = getArguments().getString("path");
+        //Log.d(TAG, docPath);
         ArrayList<String> subcolList = getArguments().getStringArrayList("foodTypes");
 
         for(String subCol: subcolList) {
@@ -68,10 +69,11 @@ public class ComplexCategoriesMenuFragment extends Fragment {
             Bundle fragData = new Bundle();
             CategoriesMenuFragment frag = new CategoriesMenuFragment();
 
-            foodTypes.add(0, subCol);
+            foodTypes.add(subCol);
             fragData.putString("path", docPath);
             fragData.putStringArrayList("foodTypes", foodTypes);
 
+            frag.setArguments(fragData);
             adapter.addFragment(frag, "");
         }
     }
