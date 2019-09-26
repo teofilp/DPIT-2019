@@ -68,12 +68,12 @@ public class BarcodeFragment extends Fragment {
 
         if(barcode.valueAt(0).valueFormat != 7 || barcodeData.length() < 25 || !barcodeData.substring(0,3).equals("\\\\:") || barcodeData.charAt(23) != '/') {
             animateInvalidQR();
-
-            Log.d(TAG, "The QR code is invalid:");
-            Log.d(TAG, barcode.valueAt(0).valueFormat + "");
-            Log.d(TAG, barcodeData.length() + "");
-            Log.d(TAG, barcodeData.substring(1,4));
-            Log.d(TAG, barcodeData.charAt(23) + "");
+//
+//            Log.d(TAG, "The QR code is invalid:");
+//            Log.d(TAG, barcode.valueAt(0).valueFormat + "");
+//            Log.d(TAG, barcodeData.length() + "");
+//            Log.d(TAG, barcodeData.substring(1,4));
+//            Log.d(TAG, barcodeData.charAt(23) + "");
             // TODO: Display a dialog fragment for the user.
         }
         else {

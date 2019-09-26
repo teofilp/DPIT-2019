@@ -95,6 +95,7 @@ public class KitchenTableOrder extends AppCompatActivity {
 
     private List<ProductItem> getOrderList() {
         order = ((MyApplication)getApplication()).getStaffActiveOrder();
+        setTitle("Order for table: " + order.getTableNumber());
         if(order.getOrderType() == 1){
             return ((FoodOrder)order).getOrderList();
         } else if (order.getOrderType() == 2) {
@@ -116,7 +117,6 @@ public class KitchenTableOrder extends AppCompatActivity {
     private void setupToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle(Integer.toString(getIntent().getIntExtra("tablenumber", 0)));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }

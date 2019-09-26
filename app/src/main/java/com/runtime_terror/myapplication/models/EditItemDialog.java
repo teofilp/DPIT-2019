@@ -138,7 +138,7 @@ public class EditItemDialog extends Dialog {
                 }
 
                 if(dialogPurpose.equals("addToCart"))
-                    cartListener.addToCart(new Pair<>(productItemItem, Integer.parseInt(qtyDisplay.getText().toString())));
+                    cartListener.addToCart(new Pair<>(ProductItem.copyProduct(productItemItem), Integer.parseInt(qtyDisplay.getText().toString())));
 
                 editItemInterface.itemChanged();
                 dismiss();

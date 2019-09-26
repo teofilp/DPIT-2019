@@ -177,8 +177,6 @@ public class MenuActivity extends AppCompatActivity {
         cartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String cartJSON = new Gson().toJson(cartList);
-                mIntent.putExtra("cart", cartJSON);
                 startActivity(mIntent);
             }
         });

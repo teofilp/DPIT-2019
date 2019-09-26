@@ -72,11 +72,6 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
 
             } else if (purpose.equals("client")) {
                 prepared.setVisibility(View.GONE);
-                for(ProductItem item : dataset)
-                {
-                    if(item.isOrdered())
-                        options.setVisibility(View.GONE);
-                }
 
             }
 
@@ -199,6 +194,8 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
         myViewHolder.setPrice(dataset.get(position).getPrice(), dataset.get(position).getQty());
         myViewHolder.setPrepared(dataset.get(position).isPrepared());
 
+        setIsOrderedHolder(myViewHolder, dataset.get(position));
+
         myViewHolder.setVisibilities(purpose);
 
         if(purpose.equals("delivery")) {
@@ -228,6 +225,13 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.MyView
             }
         });
 
+    }
+
+    private void setIsOrderedHolder(FoodListAdapter.MyViewHolder holder, ProductItem productItem) {
+        if(productItem.isOrdered())
+            holder.options.setVisibility(View.GONE);
+        else
+            holder.options.setTag(View.VISIBLE);
     }
 
     @Override

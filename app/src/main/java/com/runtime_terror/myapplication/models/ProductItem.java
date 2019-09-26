@@ -105,6 +105,7 @@ public class ProductItem {
     public void setIsFood(boolean food) {
         isFood = food;
     }
+
 }
 
 

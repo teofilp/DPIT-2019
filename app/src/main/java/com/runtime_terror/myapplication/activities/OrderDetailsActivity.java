@@ -34,6 +34,7 @@ import com.runtime_terror.myapplication.models.ProductItem;
 import com.runtime_terror.myapplication.models.HelpDialog;
 
 import java.lang.reflect.Type;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,21 +63,31 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
     private List<ProductItem> getFoodData() {
 
-        String cartJson = getIntent().getStringExtra("cart");
+//        String cartJson = getIntent().getStringExtra("cart");
 
-        Type cartType = new TypeToken<List<Pair<ProductItem, Integer>>>() {}.getType();
-        List<Pair<ProductItem, Integer>> cartList = new Gson().fromJson(cartJson, cartType);
-
-        Log.d("cart length", cartList.size() + "");
-
-        List<ProductItem> productItemList = new ArrayList<>();
-        for (Pair<ProductItem, Integer> pair : cartList) {
+//        Type cartType = new TypeToken<List<Pair<ProductItem, Integer>>>() {}.getType();
+//        List<Pair<ProductItem, Integer>> cartList = new Gson().fromJson(cartJson, cartType);
+//
+//        Log.d("cart length", cartList.size() + "");
+//
+//        List<ProductItem> productItemList = new ArrayList<>();
+//        for (Pair<ProductItem, Integer> pair : cartList) {
+//            ProductItem productItem = pair.first;
+//            int qty = pair.second;
+//            productItem.setQty(qty);
+//
+//            productItemList.add(productItem);
+//        }
+        productItemList = new ArrayList<>();
+        List<Pair<ProductItem, Integer>> cartList = ((MyApplication)getApplication()).getCartList();
+        for(Pair<ProductItem, Integer> pair: cartList){
             ProductItem productItem = pair.first;
             int qty = pair.second;
             productItem.setQty(qty);
 
             productItemList.add(productItem);
         }
+
         return productItemList;
     }
 
@@ -126,10 +137,10 @@ public class OrderDetailsActivity extends AppCompatActivity {
         for (ProductItem productItem : productItemList) {
             total += productItem.getPrice() * productItem.getQty();
         }
-        if (total == 0)
+        if (total == 0){}
 //            finish();
-        total = ((double) ((int) (total * 100)) / 100);
-        ((TextView) findViewById(R.id.total)).setText(getString(R.string.total_price) + total + " Lei");
+        DecimalFormat df = new DecimalFormat("0.00");
+        ((TextView) findViewById(R.id.total)).setText(getString(R.string.total_price) + " " + df.format(total) + " Lei");
     }
 
     public void requestBill(View view) { ;
@@ -161,7 +172,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
         for (ProductItem item : productItemList) {
             item.setPrepared(false);
-            if (item.isFood() && item.isOrdered()==false)
+            if (item.isFood() && !item.isOrdered())
                 foodList.add(ProductItem.copyProduct(item));
             else if(!item.isOrdered())drinksList.add(item);
             item.setOrdered(true);
