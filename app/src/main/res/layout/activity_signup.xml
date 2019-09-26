@@ -31,7 +31,7 @@
                 android:textColorHint="@color/colorPrimary"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:hint="Name" />
+                android:hint="@string/signup_name_hint" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Address Label -->
@@ -46,7 +46,7 @@
                 android:textColorHint="@color/colorPrimary"
                 android:layout_height="wrap_content"
                 android:inputType="textPostalAddress"
-                android:hint="Address" />
+                android:hint="@string/signup_adress_hint" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -63,7 +63,7 @@
                 android:textColorHint="@color/colorPrimary"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:hint="Email" />
+                android:hint="@string/signup_email_hint" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -79,7 +79,7 @@
                 android:textColorHint="@color/colorPrimary"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:hint="Mobile Number" />
+                android:hint="@string/signup_phone_hint" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Password Label -->
@@ -94,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/colorPrimary"
                 android:inputType="textPassword"
-                android:hint="Password"/>
+                android:hint="@string/signup_password_hint"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Password Re-enter Label -->
@@ -109,7 +109,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:textColorHint="@color/colorPrimary"
-                android:hint="Re-enter Password"/>
+                android:hint="@string/signup_repassword_hint"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Signup Button -->
@@ -122,13 +122,13 @@
             android:textColor="@color/white"
             android:layout_marginBottom="24dp"
             android:padding="12dp"
-            android:text="Create Account"/>
+            android:text="@string/create_account_button"/>
 
         <TextView android:id="@+id/link_login"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:text="Already a member? Login"
+            android:text="@string/already_member_login_button"
             android:gravity="center"
             android:textSize="16dip"/>
 

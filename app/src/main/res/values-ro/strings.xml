@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DPIT</string>
+    <string name="app_name">Hungrezy</string>
     <string name="kitchenCompleteAll">Completează tot</string>
     <string name="orderTotalPrice">Total: </string>
     <string name="orderButton">COMANDĂ</string>
@@ -20,5 +20,17 @@
     <string name="shoppingCartTitle">Coș de cumpărături</string>
     <string name="noReqs">Nu există cerințe speciale</string>
     <string name="addToCartButton" >ADAUGĂ IN COȘ</string>
+    <string name="signup_name_hint">Nume</string>
+    <string name="signup_email_hint">Email</string>
+    <string name="signup_adress_hint">Adresă</string>
+    <string name="signup_phone_hint">Număr de telefon</string>
+    <string name="signup_password_hint">Parolă</string>
+    <string name="signup_repassword_hint">Reintroduceți Parola</string>
+    <string name="create_account_button">Creează Cont</string>
+    <string name="already_member_login_button">Aveți deja cont? Autentificați-vă</string>
+    <string name="scan_qr_code_hint">Scanați Codul QR</string>
+    <string name="login_button">AUTENTIFICARE</string>
+    <string name="no_account_button">Nu aveți cont? Creați cont</string>
+    <string name="total_price">Preț total: </string>
 
 </resources>

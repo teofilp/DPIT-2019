@@ -20,4 +20,16 @@
     <string name="shoppingCartTitle">Cart</string>
     <string name="noReqs">No special requirements</string>
     <string name="addToCartButton">ADD TO CART</string>
+    <string name="signup_name_hint">Name</string>
+    <string name="signup_email_hint">Email</string>
+    <string name="signup_adress_hint">Adress</string>
+    <string name="signup_phone_hint">Phone Number</string>
+    <string name="signup_password_hint">Password</string>
+    <string name="signup_repassword_hint">Re-enter Password</string>
+    <string name="create_account_button">Create Account</string>
+    <string name="already_member_login_button">Already a member? Login</string>
+    <string name="scan_qr_code_hint">Scan QR Code</string>
+    <string name="login_button">LOGIN</string>
+    <string name="no_account_button">No account yet? Create one</string>
+    <string name="total_price">Total price: </string>
 </resources>
