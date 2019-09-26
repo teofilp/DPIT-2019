@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
@@ -53,7 +54,25 @@ public class OrderDetailsActivity extends AppCompatActivity {
         computeOrderPrice(productItemList);
         setupAdapterAndData(productItemList);
         setupToolbar();
+        disableOrderButtonIfCartIsEmpty();
+        disableBillButtonIfOrderListIsEmpty();
+    }
 
+    private void disableBillButtonIfOrderListIsEmpty() {
+        if(getMyApplication().getOrderList().size() == 0){
+            findViewById(R.id.payButton).setEnabled(false);
+            findViewById(R.id.payButton).setBackgroundColor(getResources().getColor(R.color.aluminum));
+        } else {
+            findViewById(R.id.payButton).setEnabled(true);
+            findViewById(R.id.payButton).setBackgroundColor(getResources().getColor(R.color.colorAccent));
+        }
+    }
+
+    private void disableOrderButtonIfCartIsEmpty() {
+        if(getMyApplication().getCartList().size() == 0){
+            findViewById(R.id.orderButton).setEnabled(false);
+            findViewById(R.id.orderButton).setBackgroundColor(getResources().getColor(R.color.aluminum));
+        }
     }
 
     private void bindMainList() {
@@ -63,32 +82,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
     private List<ProductItem> getFoodData() {
 
-//        String cartJson = getIntent().getStringExtra("cart");
-
-//        Type cartType = new TypeToken<List<Pair<ProductItem, Integer>>>() {}.getType();
-//        List<Pair<ProductItem, Integer>> cartList = new Gson().fromJson(cartJson, cartType);
-//
-//        Log.d("cart length", cartList.size() + "");
-//
-//        List<ProductItem> productItemList = new ArrayList<>();
-//        for (Pair<ProductItem, Integer> pair : cartList) {
-//            ProductItem productItem = pair.first;
-//            int qty = pair.second;
-//            productItem.setQty(qty);
-//
-//            productItemList.add(productItem);
-//        }
-        productItemList = new ArrayList<>();
-        List<Pair<ProductItem, Integer>> cartList = ((MyApplication)getApplication()).getCartList();
-        for(Pair<ProductItem, Integer> pair: cartList){
-            ProductItem productItem = pair.first;
-            int qty = pair.second;
-            productItem.setQty(qty);
-
-            productItemList.add(productItem);
-        }
-
-        return productItemList;
+        return getMyApplication().getCartListMergedWithOrderedList();
     }
 
     private void setupAdapterAndData(List<ProductItem> productItemList) {
@@ -137,31 +131,31 @@ public class OrderDetailsActivity extends AppCompatActivity {
         for (ProductItem productItem : productItemList) {
             total += productItem.getPrice() * productItem.getQty();
         }
-        if (total == 0){}
-//            finish();
+        if (total == 0) {
+            Toast.makeText(this, "Your cart is empty!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
         DecimalFormat df = new DecimalFormat("0.00");
         ((TextView) findViewById(R.id.total)).setText(getString(R.string.total_price) + " " + df.format(total) + " Lei");
     }
 
-    public void requestBill(View view) { ;
+    public void requestBill(View view) {
+        
         final int tableNumber = getMyApplication().getClientTableNumber();
         final String restaurantId = getMyApplication().getClientRestaurantId();
-        BillOrder order = new BillOrder(tableNumber, productItemList);
+        BillOrder order = new BillOrder(tableNumber, getMyApplication().getOrderList());
+        getMyApplication().requestBill();
 
         FirebaseFirestore db = new FirestoreSetup().getDb();
 
         db.collection("RESTAURANTS").document(restaurantId).collection("ORDERS").add(order)
-                .addOnSuccessListener(documentReference -> Log.d("Order id", documentReference.getId()))
+                .addOnSuccessListener(documentReference ->
+                {
+                    Log.d("Order id", documentReference.getId());
+                    Toast.makeText(this, "Your bill request has been placed!", Toast.LENGTH_SHORT).show();
+                    finish();
+                })
                 .addOnFailureListener(e -> Log.e("could not place order", e.toString()));
-
-        Button payButton = findViewById(R.id.payButton);
-        payButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), Launcher.class);
-                v.getContext().startActivity(intent);
-            }
-        });
     }
 
     public void placeOrder(View view) {
@@ -172,38 +166,29 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
         for (ProductItem item : productItemList) {
             item.setPrepared(false);
-            if (item.isFood() && !item.isOrdered())
-                foodList.add(ProductItem.copyProduct(item));
-            else if(!item.isOrdered())drinksList.add(item);
-            item.setOrdered(true);
+            if(!item.isOrdered()){
+                if (item.isFood())
+                    foodList.add(ProductItem.copyProduct(item));
+                else drinksList.add(item);
+                item.setOrdered(true);
+            }
 
         }
         adapter.notifyDataSetChanged();
         FirebaseFirestore db = new FirestoreSetup().getDb();
 
         placeOrder(db, restaurantId, foodList, drinksList);
-//        if (foodList.size() > 0) {
-//            FoodOrder foodOrder = new FoodOrder(getMyApplication().getClientTableNumber(), foodList);
-//            Toast.makeText(this, foodOrder.getOrderList().size() + "", Toast.LENGTH_SHORT).show();
-//            db.collection("RESTAURANTS").document(restaurantId).collection("ORDERS").add(foodOrder)
-//                    .addOnSuccessListener(documentReference -> Log.d("Order id", documentReference.getId()))
-//                    .addOnFailureListener(e -> Log.e("could not place order", e.toString()));
-//        }
-//
-//        if (drinksList.size() > 0) {
-//            DrinkOrder drinkOrder = new DrinkOrder(getMyApplication().getClientTableNumber(), drinksList);
-//
-//            db.collection("RESTAURANTS").document(restaurantId).collection("ORDERS").add(drinkOrder)
-//                    .addOnSuccessListener(documentReference -> Log.d("Order id", documentReference.getId()))
-//                    .addOnFailureListener(e -> Log.e("could not place order", e.toString()));
-//        }
+        disableBillButtonIfOrderListIsEmpty();
+
     }
 
     private void placeOrder(FirebaseFirestore db, String restaurantId, List<ProductItem> foodList, List<ProductItem> drinksList) {
 
         FoodOrder foodOrder = new FoodOrder(getMyApplication().getClientTableNumber(), foodList);
         DrinkOrder drinkOrder = new DrinkOrder(getMyApplication().getClientTableNumber(), drinksList);
-        getMyApplication().placeOrder(this);
+        getMyApplication().placeOrder();
+        disableOrderButtonIfCartIsEmpty();
+
         if (foodList.size() > 0) {
             db.collection("RESTAURANTS").document(restaurantId).collection("ORDERS").add(foodOrder)
                     .addOnSuccessListener(documentReference -> {
@@ -211,6 +196,8 @@ public class OrderDetailsActivity extends AppCompatActivity {
                             db.collection("RESTAURANTS").document(restaurantId).collection("ORDERS")
                                     .add(drinkOrder)
                                     .addOnFailureListener(e -> Log.e("could not place order", e.toString()));
+                        Toast.makeText(this, "Your order has been placed!", Toast.LENGTH_SHORT).show();
+
                         finish();
                     })
                     .addOnFailureListener(e -> Log.e("could not place order", e.toString()));
@@ -222,6 +209,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
                             db.collection("RESTAURANTS").document(restaurantId).collection("ORDERS")
                                     .add(foodOrder)
                                     .addOnFailureListener(e -> Log.e("could not place order", e.toString()));
+                        Toast.makeText(this, "Your order has been placed!", Toast.LENGTH_SHORT).show();
                         finish();
                     })
                     .addOnFailureListener(e -> Log.e("could not place order", e.toString()));

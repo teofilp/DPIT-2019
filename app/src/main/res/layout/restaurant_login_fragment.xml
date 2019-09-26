@@ -31,6 +31,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
                 android:textColorHint="@color/colorPrimary"
+                android:text="mitzagrebla@yahoo.com"
                 android:hint="@string/signup_email_hint" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -46,6 +47,7 @@
                 android:textColorHint="@color/colorPrimary"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
+                android:text="123456"
                 android:hint="@string/signup_password_hint"/>
         </com.google.android.material.textfield.TextInputLayout>
 

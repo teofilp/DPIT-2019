@@ -26,7 +26,7 @@ public class ProductItem {
         this.ordered= ordered;
     }
 
-    public ProductItem(String image, String title, double price, String reqs, int qty, boolean prepared, String description, boolean isFood,boolean ordered){
+    public ProductItem(String image, String title, double price, String reqs, int qty, boolean prepared, String description, boolean isFood, boolean ordered){
         this.image = image;
         this.title = title;
         this.price = price;
@@ -98,9 +98,20 @@ public class ProductItem {
     public boolean isFood() {
         return isFood;
     }
-    public static ProductItem copyProduct(ProductItem item) {
-        return new ProductItem(item.getImage(), item.getTitle(), item.getPrice(), item.getReqs(), item.getQty(), item.isPrepared(),
-                item.getDescription(), item.isOrdered());
+    public static ProductItem copyProduct(ProductItem original) {
+        ProductItem item = new ProductItem();
+
+        item.setImage(original.getImage());
+        item.setQty(original.getQty());
+        item.setDescription(original.getDescription());
+        item.setReqs(original.getReqs());
+        item.setIsFood(original.isFood());
+        item.setPrice(original.getPrice());
+        item.setOrdered(original.isOrdered());
+        item.setPrepared(original.isPrepared());
+        item.setTitle(original.getTitle());
+
+        return item;
     }
     public void setIsFood(boolean food) {
         isFood = food;

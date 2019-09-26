@@ -17,8 +17,8 @@ import java.util.Date;
 import java.util.List;
 
 public class MyApplication extends Application {
-    private List<Pair<ProductItem, Integer>> cartList;
-    private List<Pair<ProductItem, Integer>> orderList;
+    private List<Pair<ProductItem, Integer>> cartList = new ArrayList<>();
+    private List<Pair<ProductItem, Integer>> orderList = new ArrayList<>();
     private TextView cartItems;
     private Order staffActiveOrder;
 
@@ -88,32 +88,66 @@ public class MyApplication extends Application {
         }
     }
 
-    public List getCartList(){
+    public List<Pair<ProductItem, Integer>> getCartList(){
         return cartList;
     }
 
-    public void placeOrder(Activity activity) {
-        orderList = new ArrayList<>();
+    public void placeOrder() {
         orderList.addAll(cartList);
-        saveOrderDetailsLocally(activity);
-        updateCartItemsView();
 
-//        emptyCart();
+        emptyCart();
     }
 
-    private void saveOrderDetailsLocally(Activity activity) {
-        SharedPreferences sharedPrefs = activity.getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPrefs.edit();
-        editor.putInt("tableNumber", getClientTableNumber());
-        editor.putString("restaurantId", getClientRestaurantId());
-        editor.putLong("time", (new Date()).getTime());
-        editor.putString("orderList", (new Gson()).toJson(orderList));
-        editor.apply();
-
+    public void requestBill() {
+        orderList.clear();
     }
 
     public void emptyCart() {
         cartList.clear();
         updateCartItemsView();
+    }
+
+
+    public List<ProductItem> getOrderList() {
+        List<ProductItem> finalOrderList = new ArrayList<>();
+
+        for(Pair<ProductItem, Integer> pair: orderList){
+            ProductItem item = pair.first;
+            int qty = pair.second;
+            item.setQty(qty);
+
+            finalOrderList.add(item);
+        }
+
+        return finalOrderList;
+    }
+
+    public List<ProductItem> getCartListMergedWithOrderedList(){
+
+        List<ProductItem> merged = new ArrayList<>();
+
+        for(Pair<ProductItem, Integer> pair: orderList){
+            ProductItem item = pair.first;
+
+            int qty = pair.second;
+            item.setQty(qty);
+
+            merged.add(item);
+        }
+
+        for(Pair<ProductItem, Integer> pair: cartList){
+            ProductItem item = pair.first;
+
+            int qty = pair.second;
+            item.setQty(qty);
+
+            merged.add(item);
+        }
+
+        return merged;
+
+    }
+    public void setOrderList(List<Pair<ProductItem, Integer>> orderList) {
+        this.orderList = orderList;
     }
 }

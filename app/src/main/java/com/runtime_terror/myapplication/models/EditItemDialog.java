@@ -139,7 +139,7 @@ public class EditItemDialog extends Dialog {
 
                 if(dialogPurpose.equals("addToCart"))
                     cartListener.addToCart(new Pair<>(ProductItem.copyProduct(productItemItem), Integer.parseInt(qtyDisplay.getText().toString())));
-
+                Toast.makeText(getContext(), productItemItem.isFood() + "", Toast.LENGTH_SHORT).show();
                 editItemInterface.itemChanged();
                 dismiss();
             }
