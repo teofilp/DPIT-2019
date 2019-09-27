@@ -25,6 +25,7 @@ import com.runtime_terror.myapplication.interfaces.CartListener;
 import com.runtime_terror.myapplication.models.ProductItem;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ComplexCategoriesMenuFragment extends Fragment {
@@ -49,14 +50,36 @@ public class ComplexCategoriesMenuFragment extends Fragment {
         tabLayout.setupWithViewPager(viewPager);
         viewPager.setAdapter(adapter);
 
-        tabLayout.getTabAt(0).setIcon(R.drawable.ic_coke_bottle);
-        tabLayout.getTabAt(1).setIcon(R.drawable.ic_coffee_beans);
-        tabLayout.getTabAt(2).setIcon(R.drawable.ic_cup_of_tea);
+        List<String> categories = getArguments().getStringArrayList("foodTypes");
+
+        for(int i=0; i<categories.size(); i++)
+            tabLayout.getTabAt(i).setIcon(getCategoryIcon(categories.get(i)));
+//        tabLayout.getTabAt(1).setIcon(R.drawable.ic_coffee_beans);
+//        tabLayout.getTabAt(2).setIcon(R.drawable.ic_cup_of_tea);
         //tabLayout.getTabAt(3).setIcon(R.drawable.ic_beer);
         //tabLayout.getTabAt(4).setIcon(R.drawable.ic_cocktail);
         //tabLayout.getTabAt(5).setIcon(R.drawable.ic_glass_with_wine);
 
         return view;
+    }
+
+    private int getCategoryIcon(String category) {
+        if(category.equals("Beer"))
+            return R.drawable.ic_beer;
+        else if(category.equals("Cocktails"))
+            return R.drawable.ic_cocktail;
+        else if(category.equals("Refreshments"))
+            return R.drawable.ic_coke_bottle;
+        else if(category.equals("Wine"))
+            return R.drawable.ic_glass_with_wine;
+        else if(category.equals("CHICKEN"))
+            return R.drawable.ic_chicken;
+        else if(category.equals("PORK"))
+            return R.drawable.ic_pork;
+        else if(category.equals("FISH"))
+            return R.drawable.ic_fish;
+
+        return R.drawable.ic_coke_bottle;
     }
 
     private void SetAdapter(CustomPagerAdapter adapter) {

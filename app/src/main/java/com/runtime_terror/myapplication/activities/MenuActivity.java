@@ -113,7 +113,7 @@ public class MenuActivity extends AppCompatActivity {
                     fragData.putString("path", foodCategory.getReference().getPath());
                     fragData.putStringArrayList("foodTypes", foodTypes);
 
-                    if(foodCategory.getBoolean("isComplex")==null) {
+                    if(foodCategory.getBoolean("isComplex") == null) {
                         CategoriesMenuFragment frag = new CategoriesMenuFragment();
 
                         frag.registerCartListener(new CartListener() {
