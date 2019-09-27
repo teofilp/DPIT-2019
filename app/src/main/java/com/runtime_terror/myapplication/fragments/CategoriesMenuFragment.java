@@ -60,7 +60,7 @@ public class CategoriesMenuFragment extends Fragment {
         
     }
 
-    private MenuItemListAdapter getAdapter() {// TODO: Implement my thing (DB) here.
+    private MenuItemListAdapter getAdapter() {
 
         final List<ProductItem> orders = new ArrayList<>();
         final MenuItemListAdapter adapter = new MenuItemListAdapter(getContext(), orders, listener);
@@ -70,8 +70,7 @@ public class CategoriesMenuFragment extends Fragment {
                 for (QueryDocumentSnapshot food : task.getResult()) {
                     Log.d(TAG, food.getString("name"));
 
-                    ProductItem productItemItem = new ProductItem(food.getString("imgLink"), food.getString("name"), (double) food.get("price"), "", 1, false, food.getString("desc"),
-                            food.getBoolean("isFood"),false);
+                    ProductItem productItemItem = new ProductItem(food.getString("imgLink"), food.getString("name"), food.getDouble("price"), "", 1, false, food.getString("desc"), food.getBoolean("isFood"),false);
                     orders.add(productItemItem);
                 }
                 adapter.notifyDataSetChanged();
