@@ -22,6 +22,7 @@ import com.runtime_terror.myapplication.R;
 import com.runtime_terror.myapplication.adapters.CustomPagerAdapter;
 import com.runtime_terror.myapplication.fragments.CategoriesMenuFragment;
 import com.runtime_terror.myapplication.interfaces.CartListener;
+import com.runtime_terror.myapplication.models.MyApplication;
 import com.runtime_terror.myapplication.models.ProductItem;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class ComplexCategoriesMenuFragment extends Fragment {
     View view;
     TabLayout tabLayout;
     ViewPager viewPager;
+    CartListener listener;
 
     private final String TAG = "DebugCFrag";// for debug purposes only
 
@@ -86,11 +88,12 @@ public class ComplexCategoriesMenuFragment extends Fragment {
         String docPath = getArguments().getString("path");
         //Log.d(TAG, docPath);
         ArrayList<String> subcolList = getArguments().getStringArrayList("foodTypes");
-
+        List<Pair<ProductItem, Integer>> cartList = getMyApplication().getCartList();
         for(String subCol: subcolList) {
             ArrayList<String> foodTypes = new ArrayList<>();
             Bundle fragData = new Bundle();
             CategoriesMenuFragment frag = new CategoriesMenuFragment();
+            frag.registerCartListener(listener);
 
             foodTypes.add(subCol);
             fragData.putString("path", docPath);
@@ -99,6 +102,14 @@ public class ComplexCategoriesMenuFragment extends Fragment {
             frag.setArguments(fragData);
             adapter.addFragment(frag, "");
         }
+    }
+
+    private MyApplication getMyApplication(){
+        return (MyApplication)getActivity().getApplication();
+    }
+
+    public void registerCartListener(CartListener listener){
+        this.listener = listener;
     }
 }
 

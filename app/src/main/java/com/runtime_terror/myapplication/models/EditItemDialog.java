@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.runtime_terror.myapplication.interfaces.CartListener;
 import com.runtime_terror.myapplication.interfaces.EditItemInterface;
@@ -139,7 +138,7 @@ public class EditItemDialog extends Dialog {
 
                 if(dialogPurpose.equals("addToCart"))
                     cartListener.addToCart(new Pair<>(ProductItem.copyProduct(productItemItem), Integer.parseInt(qtyDisplay.getText().toString())));
-                Toast.makeText(getContext(), productItemItem.isFood() + "", Toast.LENGTH_SHORT).show();
+
                 editItemInterface.itemChanged();
                 dismiss();
             }

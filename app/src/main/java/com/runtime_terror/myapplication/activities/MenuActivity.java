@@ -142,6 +142,28 @@ public class MenuActivity extends AppCompatActivity {
                     }
                     else {
                         ComplexCategoriesMenuFragment Cfrag = new ComplexCategoriesMenuFragment();
+                        Cfrag.registerCartListener(new CartListener() {
+                            @Override
+                            public void addToCart(Pair<ProductItem, Integer> food) {
+                                cartList.add(food);
+                                if(cartList.size() > 0) {
+                                    findViewById(R.id.cart_count).setVisibility(View.VISIBLE);
+                                    ((TextView) findViewById(R.id.cart_count)).setText(Integer.toString(cartList.size()));
+
+                                }
+                                else {
+                                    findViewById(R.id.cart_count).setVisibility(View.GONE);
+
+                                }
+                            }
+
+                            @Override
+                            public void removeFromCart(String productTitle) {
+                                Toast.makeText(mContext, productTitle, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+
                         Cfrag.setArguments(fragData);
                         adapter.addFragment(Cfrag, foodCategory.getString("food_category"));
                     }

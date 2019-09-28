@@ -29,6 +29,7 @@ public class CategoriesMenuFragment extends Fragment {
     CartListener listener;
 
     private FirebaseFirestore db;
+    final List<ProductItem> orders = new ArrayList<>();
     private CollectionReference typeRef;
     private String path;
     private final String TAG = "DebugFrag";// for debug purposes only
@@ -62,7 +63,6 @@ public class CategoriesMenuFragment extends Fragment {
 
     private MenuItemListAdapter getAdapter() {
 
-        final List<ProductItem> orders = new ArrayList<>();
         final MenuItemListAdapter adapter = new MenuItemListAdapter(getContext(), orders, listener);
         typeRef.get().addOnCompleteListener(task -> {
             Log.d(TAG, "Loading food items...");

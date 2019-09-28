@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
                 android:textColorHint="@color/colorPrimary"
-                android:text="mitzagrebla@yahoo.com"
+                android:text="bigbelly@yahoo.com"
                 android:hint="@string/signup_email_hint" />
         </com.google.android.material.textfield.TextInputLayout>
 

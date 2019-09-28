@@ -153,6 +153,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
                 {
                     Log.d("Order id", documentReference.getId());
                     Toast.makeText(this, "Your bill request has been placed!", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getApplicationContext(), Launcher.class));
                     finish();
                 })
                 .addOnFailureListener(e -> Log.e("could not place order", e.toString()));
